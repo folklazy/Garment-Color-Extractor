@@ -170,3 +170,4 @@ def extract_features(pixels_rgb: np.ndarray, n_clusters: int = 4) -> GarmentFeat
         secondary_cluster=sec,
         feature_vector_58d=feat_vec,
     )
+

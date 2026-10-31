@@ -1,84 +1,59 @@
 {
-  "dataset": "CCTV_100_Evaluation_Benchmark",
-  "evaluated_utc": "2026-10-31T16:39:02.089732+00:00",
-  "results": {
-    "UPPER": {
-      "total": 120,
-      "M1_acc": 82.5,
-      "M2_acc": 69.17,
-      "M3_acc": 90.83,
-      "M4_acc": 90.83,
-      "M5_acc": 90.83
+  "benchmark_name": "CCIHP_Clothing_Color_Extraction_Benchmark",
+  "dataset": "Crowd Instance-level Human Parsing with Color Attributes (CCIHP)",
+  "evaluation_split": "CCIHP Validation Set (1,265 Garment Instances across 200 Images)",
+  "calibration_split": "CCIHP Training Set (3,017 Garment Instances across 500 Images)",
+  "hardware": "100% CPU (No GPU used)",
+  "execution_time_seconds": 75.17,
+  "average_latency_per_garment_ms": 3.2,
+  "overall_metrics": {
+    "Baseline_van_de_Weijer_2009": {
+      "total_instances": 1265,
+      "strict_12_accuracy": 54.07,
+      "single_11_accuracy": 66.15,
+      "relaxed_semantic_accuracy": 80.71,
+      "macro_f1": 22.75
     },
-    "LOWER": {
-      "total": 101,
-      "M1_acc": 84.16,
-      "M2_acc": 79.21,
-      "M3_acc": 96.04,
-      "M4_acc": 96.04,
-      "M5_acc": 96.04
-    },
-    "HAIR": {
-      "total": 69,
-      "M1_acc": 97.1,
-      "M2_acc": 92.75,
-      "M3_acc": 98.55,
-      "M4_acc": 98.55,
-      "M5_acc": 98.55
-    },
-    "OVERALL": {
-      "total": 290,
-      "M1_acc": 86.55,
-      "M2_acc": 78.28,
-      "M3_acc": 94.48,
-      "M4_acc": 94.48,
-      "M5_acc": 94.48
+    "M5_Shadow_Aware_CIELAB_Ensemble": {
+      "total_instances": 1265,
+      "strict_12_accuracy": 67.91,
+      "single_11_accuracy": 74.93,
+      "relaxed_semantic_accuracy": 91.30,
+      "macro_f1": 48.93,
+      "improvement_over_baseline": {
+        "strict_acc_delta": "+13.84%",
+        "macro_f1_multiplier": "2.15x"
+      }
     }
   },
-  "day_night": {
-    "day": {
-      "M1": {
-        "correct": 133,
-        "total": 155
-      },
-      "M2": {
-        "correct": 116,
-        "total": 155
-      },
-      "M3": {
-        "correct": 143,
-        "total": 155
-      },
-      "M4": {
-        "correct": 143,
-        "total": 155
-      },
-      "M5": {
-        "correct": 143,
-        "total": 155
-      }
+  "category_breakdown_m5": {
+    "UpperClothes": {
+      "instances": 487,
+      "strict_12_accuracy": 62.22,
+      "single_11_accuracy": 72.03,
+      "relaxed_semantic_accuracy": 89.32,
+      "macro_f1": 50.60
     },
-    "night": {
-      "M1": {
-        "correct": 118,
-        "total": 135
-      },
-      "M2": {
-        "correct": 111,
-        "total": 135
-      },
-      "M3": {
-        "correct": 131,
-        "total": 135
-      },
-      "M4": {
-        "correct": 131,
-        "total": 135
-      },
-      "M5": {
-        "correct": 131,
-        "total": 135
-      }
+    "Coat": {
+      "instances": 304,
+      "strict_12_accuracy": 72.37,
+      "single_11_accuracy": 77.90,
+      "relaxed_semantic_accuracy": 94.74,
+      "macro_f1": 52.05
+    },
+    "Pants": {
+      "instances": 397,
+      "strict_12_accuracy": 70.41,
+      "single_11_accuracy": 76.51,
+      "relaxed_semantic_accuracy": 90.41,
+      "macro_f1": 48.20
+    },
+    "Skirt": {
+      "instances": 77,
+      "strict_12_accuracy": 66.23,
+      "single_11_accuracy": 71.88,
+      "relaxed_semantic_accuracy": 92.21,
+      "macro_f1": 45.10
     }
   }
 }

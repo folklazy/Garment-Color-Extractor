@@ -1,0 +1,4081 @@
+{
+  "study": "CCIHP_Clothing_Color_Extraction_Pilot",
+  "created_utc": "2026-10-29T08:56:31.178659+00:00",
+  "elapsed_seconds_cpu": 75.17,
+  "gpu_used": false,
+  "calibration_split": "CCIHP_Training_500_images",
+  "evaluation_split": "CCIHP_Validation_200_images (6 C4-P pilot + 194 stride-sampled)",
+  "training_calibration": {
+    "num_training_garments": 3017,
+    "single_color_counts": {
+      "Dark": 1215,
+      "Medium": 360,
+      "Light": 509,
+      "Brown": 115,
+      "Red": 71,
+      "Pink": 56,
+      "Yellow": 43,
+      "Orange": 22,
+      "Green": 65,
+      "Blue": 243,
+      "Purple": 30
+    },
+    "multicolor_count": 288,
+    "calibrated_navy_L_cutoff": 26.78,
+    "calibrated_tau_multi_A": 0.73,
+    "calibrated_tau_multi_B": 0.27,
+    "cluster_means_LABC": {
+      "Dark": [
+        15.69,
+        2.07,
+        -3.31,
+        6.98
+      ],
+      "Medium": [
+        49.29,
+        1.46,
+        0.72,
+        8.33
+      ],
+      "Light": [
+        78.41,
+        1.32,
+        -1.37,
+        7.65
+      ],
+      "Brown": [
+        38.34,
+        7.96,
+        10.4,
+        15.77
+      ],
+      "Red": [
+        32.58,
+        44.8,
+        23.14,
+        52.46
+      ],
+      "Pink": [
+        64.22,
+        22.98,
+        -1.28,
+        25.28
+      ],
+      "Yellow": [
+        64.01,
+        8.27,
+        40.07,
+        42.94
+      ],
+      "Orange": [
+        52.79,
+        29.75,
+        21.95,
+        47.18
+      ],
+      "Green": [
+        46.89,
+        -15.43,
+        13.79,
+        24.68
+      ],
+      "Blue": [
+        44.06,
+        2.09,
+        -22.59,
+        24.78
+      ],
+      "Purple": [
+        47.41,
+        18.8,
+        -13.55,
+        27.66
+      ]
+    }
+  },
+  "track1_oracle_gt_mask": {
+    "all_4_clothing_categories": {
+      "Method_A_BCN11_Baseline": {
+        "count": 1265,
+        "strict12_acc": 0.5407,
+        "macro_f1_12": 0.2275,
+        "single11_count": 1105,
+        "single11_acc": 0.6615,
+        "relaxed_acc": 0.8071,
+        "relaxed_breakdown": {
+          "adjacent_hue_shade": 35,
+          "multicolor_contains_gt": 211,
+          "mismatch": 244,
+          "achromatic_lightness_boundary": 33,
+          "exact": 684,
+          "multicolor_dominant_component": 58
+        },
+        "per_class": {
+          "Dark": {
+            "color_id": 1,
+            "support": 462,
+            "precision": 0.7534,
+            "recall": 0.9589,
+            "f1": 0.8438
+          },
+          "Medium": {
+            "color_id": 2,
+            "support": 135,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "Light": {
+            "color_id": 3,
+            "support": 250,
+            "precision": 0.8188,
+            "recall": 0.452,
+            "f1": 0.5825
+          },
+          "Brown": {
+            "color_id": 4,
+            "support": 51,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "Red": {
+            "color_id": 5,
+            "support": 50,
+            "precision": 0.6333,
+            "recall": 0.38,
+            "f1": 0.475
+          },
+          "Pink": {
+            "color_id": 6,
+            "support": 16,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "Yellow": {
+            "color_id": 7,
+            "support": 13,
+            "precision": 0.8,
+            "recall": 0.3077,
+            "f1": 0.4444
+          },
+          "Orange": {
+            "color_id": 8,
+            "support": 20,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "Green": {
+            "color_id": 9,
+            "support": 20,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "Blue": {
+            "color_id": 10,
+            "support": 76,
+            "precision": 0.75,
+            "recall": 0.0395,
+            "f1": 0.075
+          },
+          "Purple": {
+            "color_id": 11,
+            "support": 12,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "Multicolor": {
+            "color_id": 12,
+            "support": 160,
+            "precision": 0.204,
+            "recall": 0.6375,
+            "f1": 0.3091
+          }
+        }
+      },
+      "Method_B_CIELAB_Cluster_NoErode": {
+        "count": 1265,
+        "strict12_acc": 0.6458,
+        "macro_f1_12": 0.4572,
+        "single11_count": 1105,
+        "single11_acc": 0.7457,
+        "relaxed_acc": 0.9162,
+        "relaxed_breakdown": {
+          "adjacent_hue_shade": 34,
+          "multicolor_contains_gt": 135,
+          "mismatch": 106,
+          "achromatic_lightness_boundary": 76,
+          "exact": 817,
+          "top2_palette_component": 19,
+          "multicolor_dominant_component": 60,
+          "navy_dark_boundary": 18
+        },
+        "per_class": {
+          "Dark": {
+            "color_id": 1,
+            "support": 462,
+            "precision": 0.8104,
+            "recall": 0.9069,
+            "f1": 0.856
+          },
+          "Medium": {
+            "color_id": 2,
+            "support": 135,
+            "precision": 0.6515,
+            "recall": 0.3185,
+            "f1": 0.4279
+          },
+          "Light": {
+            "color_id": 3,
+            "support": 250,
+            "precision": 0.668,
+            "recall": 0.66,
+            "f1": 0.664
+          },
+          "Brown": {
+            "color_id": 4,
+            "support": 51,
+            "precision": 0.4643,
+            "recall": 0.2549,
+            "f1": 0.3291
+          },
+          "Red": {
+            "color_id": 5,
+            "support": 50,
+            "precision": 0.75,
+            "recall": 0.66,
+            "f1": 0.7021
+          },
+          "Pink": {
+            "color_id": 6,
+            "support": 16,
+            "precision": 0.4,
+            "recall": 0.25,
+            "f1": 0.3077
+          },
+          "Yellow": {
+            "color_id": 7,
+            "support": 13,
+            "precision": 0.3548,
+            "recall": 0.8462,
+            "f1": 0.5
+          },
+          "Orange": {
+            "color_id": 8,
+            "support": 20,
+            "precision": 1.0,
+            "recall": 0.1,
+            "f1": 0.1818
+          },
+          "Green": {
+            "color_id": 9,
+            "support": 20,
+            "precision": 0.4615,
+            "recall": 0.3,
+            "f1": 0.3636
+          },
+          "Blue": {
+            "color_id": 10,
+            "support": 76,
+            "precision": 0.6512,
+            "recall": 0.3684,
+            "f1": 0.4706
+          },
+          "Purple": {
+            "color_id": 11,
+            "support": 12,
+            "precision": 0.5,
+            "recall": 0.1667,
+            "f1": 0.25
+          },
+          "Multicolor": {
+            "color_id": 12,
+            "support": 160,
+            "precision": 0.35,
+            "recall": 0.5687,
+            "f1": 0.4333
+          }
+        }
+      },
+      "Method_B_CIELAB_Cluster_Erode2px": {
+        "count": 1265,
+        "strict12_acc": 0.6791,
+        "macro_f1_12": 0.4893,
+        "single11_count": 1105,
+        "single11_acc": 0.7493,
+        "relaxed_acc": 0.913,
+        "relaxed_breakdown": {
+          "mismatch": 110,
+          "adjacent_hue_shade": 39,
+          "multicolor_contains_gt": 81,
+          "achromatic_lightness_boundary": 73,
+          "exact": 859,
+          "top2_palette_component": 24,
+          "multicolor_dominant_component": 57,
+          "navy_dark_boundary": 22
+        },
+        "per_class": {
+          "Dark": {
+            "color_id": 1,
+            "support": 462,
+            "precision": 0.8236,
+            "recall": 0.9199,
+            "f1": 0.8691
+          },
+          "Medium": {
+            "color_id": 2,
+            "support": 135,
+            "precision": 0.6438,
+            "recall": 0.3481,
+            "f1": 0.4519
+          },
+          "Light": {
+            "color_id": 3,
+            "support": 250,
+            "precision": 0.6775,
+            "recall": 0.748,
+            "f1": 0.711
+          },
+          "Brown": {
+            "color_id": 4,
+            "support": 51,
+            "precision": 0.3871,
+            "recall": 0.2353,
+            "f1": 0.2927
+          },
+          "Red": {
+            "color_id": 5,
+            "support": 50,
+            "precision": 0.7593,
+            "recall": 0.82,
+            "f1": 0.7885
+          },
+          "Pink": {
+            "color_id": 6,
+            "support": 16,
+            "precision": 0.7,
+            "recall": 0.4375,
+            "f1": 0.5385
+          },
+          "Yellow": {
+            "color_id": 7,
+            "support": 13,
+            "precision": 0.2424,
+            "recall": 0.6154,
+            "f1": 0.3478
+          },
+          "Orange": {
+            "color_id": 8,
+            "support": 20,
+            "precision": 1.0,
+            "recall": 0.05,
+            "f1": 0.0952
+          },
+          "Green": {
+            "color_id": 9,
+            "support": 20,
+            "precision": 0.5385,
+            "recall": 0.35,
+            "f1": 0.4242
+          },
+          "Blue": {
+            "color_id": 10,
+            "support": 76,
+            "precision": 0.5965,
+            "recall": 0.4474,
+            "f1": 0.5113
+          },
+          "Purple": {
+            "color_id": 11,
+            "support": 12,
+            "precision": 0.6,
+            "recall": 0.25,
+            "f1": 0.3529
+          },
+          "Multicolor": {
+            "color_id": 12,
+            "support": 160,
+            "precision": 0.4439,
+            "recall": 0.5437,
+            "f1": 0.4888
+          }
+        }
+      }
+    },
+    "by_clothing_category": {
+      "5_UpperClothes": {
+        "Method_A": {
+          "count": 487,
+          "strict12_acc": 0.4579,
+          "macro_f1_12": 0.2455,
+          "single11_count": 404,
+          "single11_acc": 0.6386,
+          "relaxed_acc": 0.7947,
+          "relaxed_breakdown": {
+            "mismatch": 100,
+            "multicolor_contains_gt": 124,
+            "exact": 223,
+            "multicolor_dominant_component": 24,
+            "adjacent_hue_shade": 5,
+            "achromatic_lightness_boundary": 11
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 94,
+              "precision": 0.6774,
+              "recall": 0.8936,
+              "f1": 0.7706
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 55,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 163,
+              "precision": 0.8171,
+              "recall": 0.411,
+              "f1": 0.5469
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 12,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 22,
+              "precision": 0.8182,
+              "recall": 0.4091,
+              "f1": 0.5455
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 10,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 5,
+              "precision": 1.0,
+              "recall": 0.4,
+              "f1": 0.5714
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 5,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 11,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 21,
+              "precision": 1.0,
+              "recall": 0.0952,
+              "f1": 0.1739
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 6,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 83,
+              "precision": 0.2218,
+              "recall": 0.7108,
+              "f1": 0.3381
+            }
+          }
+        },
+        "Method_B_Erode2px": {
+          "count": 487,
+          "strict12_acc": 0.6222,
+          "macro_f1_12": 0.506,
+          "single11_count": 404,
+          "single11_acc": 0.7203,
+          "relaxed_acc": 0.8932,
+          "relaxed_breakdown": {
+            "multicolor_contains_gt": 39,
+            "exact": 303,
+            "mismatch": 52,
+            "top2_palette_component": 10,
+            "achromatic_lightness_boundary": 40,
+            "adjacent_hue_shade": 9,
+            "multicolor_dominant_component": 33,
+            "navy_dark_boundary": 1
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 94,
+              "precision": 0.75,
+              "recall": 0.8298,
+              "f1": 0.7879
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 55,
+              "precision": 0.4138,
+              "recall": 0.2182,
+              "f1": 0.2857
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 163,
+              "precision": 0.6906,
+              "recall": 0.7669,
+              "f1": 0.7267
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 12,
+              "precision": 0.2727,
+              "recall": 0.25,
+              "f1": 0.2609
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 22,
+              "precision": 0.7917,
+              "recall": 0.8636,
+              "f1": 0.8261
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 10,
+              "precision": 0.8,
+              "recall": 0.4,
+              "f1": 0.5333
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 5,
+              "precision": 0.3,
+              "recall": 0.6,
+              "f1": 0.4
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 5,
+              "precision": 1.0,
+              "recall": 0.2,
+              "f1": 0.3333
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 11,
+              "precision": 0.6667,
+              "recall": 0.3636,
+              "f1": 0.4706
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 21,
+              "precision": 0.55,
+              "recall": 0.5238,
+              "f1": 0.5366
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 6,
+              "precision": 0.6667,
+              "recall": 0.3333,
+              "f1": 0.4444
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 83,
+              "precision": 0.4409,
+              "recall": 0.494,
+              "f1": 0.4659
+            }
+          }
+        }
+      },
+      "7_Coat": {
+        "Method_A": {
+          "count": 304,
+          "strict12_acc": 0.6086,
+          "macro_f1_12": 0.2435,
+          "single11_count": 267,
+          "single11_acc": 0.6629,
+          "relaxed_acc": 0.8224,
+          "relaxed_breakdown": {
+            "adjacent_hue_shade": 17,
+            "multicolor_contains_gt": 29,
+            "mismatch": 54,
+            "exact": 185,
+            "multicolor_dominant_component": 10,
+            "achromatic_lightness_boundary": 9
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 129,
+              "precision": 0.7485,
+              "recall": 0.9922,
+              "f1": 0.8533
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 30,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 31,
+              "precision": 0.8261,
+              "recall": 0.6129,
+              "f1": 0.7037
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 22,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 20,
+              "precision": 0.75,
+              "recall": 0.45,
+              "f1": 0.5625
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 4,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 6,
+              "precision": 0.5,
+              "recall": 0.1667,
+              "f1": 0.25
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 5,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 5,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 13,
+              "precision": 1.0,
+              "recall": 0.0769,
+              "f1": 0.1429
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 37,
+              "precision": 0.2842,
+              "recall": 0.7297,
+              "f1": 0.4091
+            }
+          }
+        },
+        "Method_B_Erode2px": {
+          "count": 304,
+          "strict12_acc": 0.7237,
+          "macro_f1_12": 0.5205,
+          "single11_count": 267,
+          "single11_acc": 0.779,
+          "relaxed_acc": 0.9474,
+          "relaxed_breakdown": {
+            "mismatch": 16,
+            "multicolor_contains_gt": 19,
+            "exact": 220,
+            "achromatic_lightness_boundary": 13,
+            "top2_palette_component": 6,
+            "adjacent_hue_shade": 13,
+            "navy_dark_boundary": 4,
+            "multicolor_dominant_component": 13
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 129,
+              "precision": 0.8299,
+              "recall": 0.9457,
+              "f1": 0.8841
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 30,
+              "precision": 0.9333,
+              "recall": 0.4667,
+              "f1": 0.6222
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 31,
+              "precision": 0.5952,
+              "recall": 0.8065,
+              "f1": 0.6849
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 22,
+              "precision": 0.375,
+              "recall": 0.1364,
+              "f1": 0.2
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 20,
+              "precision": 0.8947,
+              "recall": 0.85,
+              "f1": 0.8718
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 4,
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 6,
+              "precision": 0.3333,
+              "recall": 0.5,
+              "f1": 0.4
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 5,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 5,
+              "precision": 1.0,
+              "recall": 0.4,
+              "f1": 0.5714
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 13,
+              "precision": 0.6364,
+              "recall": 0.5385,
+              "f1": 0.5833
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 37,
+              "precision": 0.5106,
+              "recall": 0.6486,
+              "f1": 0.5714
+            }
+          }
+        }
+      },
+      "9_Pants": {
+        "Method_A": {
+          "count": 399,
+          "strict12_acc": 0.5965,
+          "macro_f1_12": 0.2322,
+          "single11_count": 374,
+          "single11_acc": 0.6765,
+          "relaxed_acc": 0.807,
+          "relaxed_breakdown": {
+            "adjacent_hue_shade": 13,
+            "multicolor_contains_gt": 41,
+            "achromatic_lightness_boundary": 12,
+            "exact": 238,
+            "mismatch": 77,
+            "multicolor_dominant_component": 18
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 222,
+              "precision": 0.7955,
+              "recall": 0.964,
+              "f1": 0.8717
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 47,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 29,
+              "precision": 0.8333,
+              "recall": 0.5172,
+              "f1": 0.6383
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 16,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 5,
+              "precision": 0.1429,
+              "recall": 0.2,
+              "f1": 0.1667
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 1,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 7,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 4,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 40,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 25,
+              "precision": 0.068,
+              "recall": 0.28,
+              "f1": 0.1094
+            }
+          }
+        },
+        "Method_B_Erode2px": {
+          "count": 399,
+          "strict12_acc": 0.7243,
+          "macro_f1_12": 0.369,
+          "single11_count": 374,
+          "single11_acc": 0.7674,
+          "relaxed_acc": 0.9348,
+          "relaxed_breakdown": {
+            "adjacent_hue_shade": 15,
+            "mismatch": 26,
+            "multicolor_contains_gt": 18,
+            "achromatic_lightness_boundary": 19,
+            "exact": 289,
+            "top2_palette_component": 7,
+            "navy_dark_boundary": 16,
+            "multicolor_dominant_component": 9
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 222,
+              "precision": 0.8531,
+              "recall": 0.9414,
+              "f1": 0.8951
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 47,
+              "precision": 0.76,
+              "recall": 0.4043,
+              "f1": 0.5278
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 29,
+              "precision": 0.6176,
+              "recall": 0.7241,
+              "f1": 0.6667
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 16,
+              "precision": 0.6,
+              "recall": 0.375,
+              "f1": 0.4615
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 5,
+              "precision": 0.3333,
+              "recall": 0.6,
+              "f1": 0.4286
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 1,
+              "precision": 0.2,
+              "recall": 1.0,
+              "f1": 0.3333
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 7,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 4,
+              "precision": 0.2,
+              "recall": 0.25,
+              "f1": 0.2222
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 40,
+              "precision": 0.625,
+              "recall": 0.375,
+              "f1": 0.4688
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 25,
+              "precision": 0.3415,
+              "recall": 0.56,
+              "f1": 0.4242
+            }
+          }
+        }
+      },
+      "12_Skirt": {
+        "Method_A": {
+          "count": 75,
+          "strict12_acc": 0.5067,
+          "macro_f1_12": 0.1594,
+          "single11_count": 60,
+          "single11_acc": 0.7167,
+          "relaxed_acc": 0.8267,
+          "relaxed_breakdown": {
+            "multicolor_contains_gt": 17,
+            "exact": 38,
+            "mismatch": 13,
+            "multicolor_dominant_component": 6,
+            "achromatic_lightness_boundary": 1
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 17,
+              "precision": 0.7083,
+              "recall": 1.0,
+              "f1": 0.8293
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 27,
+              "precision": 0.8,
+              "recall": 0.4444,
+              "f1": 0.5714
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 15,
+              "precision": 0.25,
+              "recall": 0.6,
+              "f1": 0.3529
+            }
+          }
+        },
+        "Method_B_Erode2px": {
+          "count": 75,
+          "strict12_acc": 0.6267,
+          "macro_f1_12": 0.4393,
+          "single11_count": 60,
+          "single11_acc": 0.7,
+          "relaxed_acc": 0.7867,
+          "relaxed_breakdown": {
+            "exact": 47,
+            "mismatch": 16,
+            "multicolor_dominant_component": 2,
+            "multicolor_contains_gt": 5,
+            "adjacent_hue_shade": 2,
+            "navy_dark_boundary": 1,
+            "top2_palette_component": 1,
+            "achromatic_lightness_boundary": 1
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 17,
+              "precision": 0.8,
+              "recall": 0.9412,
+              "f1": 0.8649
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 3,
+              "precision": 0.5,
+              "recall": 0.6667,
+              "f1": 0.5714
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 27,
+              "precision": 0.8421,
+              "recall": 0.5926,
+              "f1": 0.6957
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 3,
+              "precision": 1.0,
+              "recall": 0.6667,
+              "f1": 0.8
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 1,
+              "precision": 0.1111,
+              "recall": 1.0,
+              "f1": 0.2
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 2,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 2,
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6667
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 15,
+              "precision": 0.5333,
+              "recall": 0.5333,
+              "f1": 0.5333
+            }
+          }
+        }
+      }
+    },
+    "by_c4p_person_target": {
+      "UPPER": {
+        "Method_A": {
+          "count": 573,
+          "strict12_acc": 0.4834,
+          "macro_f1_12": 0.239,
+          "single11_count": 502,
+          "single11_acc": 0.6175,
+          "relaxed_acc": 0.7836,
+          "relaxed_breakdown": {
+            "adjacent_hue_shade": 18,
+            "multicolor_contains_gt": 117,
+            "mismatch": 124,
+            "exact": 277,
+            "multicolor_dominant_component": 19,
+            "achromatic_lightness_boundary": 18
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 200,
+              "precision": 0.7285,
+              "recall": 0.805,
+              "f1": 0.7648
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 75,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 110,
+              "precision": 0.7188,
+              "recall": 0.4182,
+              "f1": 0.5287
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 29,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 34,
+              "precision": 0.75,
+              "recall": 0.3529,
+              "f1": 0.48
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 8,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 9,
+              "precision": 1.0,
+              "recall": 0.3333,
+              "f1": 0.5
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 6,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 9,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 18,
+              "precision": 1.0,
+              "recall": 0.1667,
+              "f1": 0.2857
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 4,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 71,
+              "precision": 0.1955,
+              "recall": 0.7324,
+              "f1": 0.3086
+            }
+          }
+        },
+        "Method_B_NoErode": {
+          "count": 573,
+          "strict12_acc": 0.5742,
+          "macro_f1_12": 0.4546,
+          "single11_count": 502,
+          "single11_acc": 0.6833,
+          "relaxed_acc": 0.8848,
+          "relaxed_breakdown": {
+            "adjacent_hue_shade": 14,
+            "multicolor_contains_gt": 79,
+            "mismatch": 66,
+            "exact": 329,
+            "achromatic_lightness_boundary": 39,
+            "top2_palette_component": 10,
+            "navy_dark_boundary": 7,
+            "multicolor_dominant_component": 29
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 200,
+              "precision": 0.7592,
+              "recall": 0.725,
+              "f1": 0.7417
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 75,
+              "precision": 0.6897,
+              "recall": 0.2667,
+              "f1": 0.3846
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 110,
+              "precision": 0.5649,
+              "recall": 0.6727,
+              "f1": 0.6141
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 29,
+              "precision": 0.5,
+              "recall": 0.2414,
+              "f1": 0.3256
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 34,
+              "precision": 0.8519,
+              "recall": 0.6765,
+              "f1": 0.7541
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 8,
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6667
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 9,
+              "precision": 0.4545,
+              "recall": 0.5556,
+              "f1": 0.5
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 6,
+              "precision": 1.0,
+              "recall": 0.1667,
+              "f1": 0.2857
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 9,
+              "precision": 0.375,
+              "recall": 0.3333,
+              "f1": 0.3529
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 18,
+              "precision": 0.4706,
+              "recall": 0.4444,
+              "f1": 0.4571
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 4,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 71,
+              "precision": 0.2826,
+              "recall": 0.5493,
+              "f1": 0.3732
+            }
+          }
+        },
+        "Method_B_Erode2px": {
+          "count": 573,
+          "strict12_acc": 0.6108,
+          "macro_f1_12": 0.4766,
+          "single11_count": 502,
+          "single11_acc": 0.6952,
+          "relaxed_acc": 0.8848,
+          "relaxed_breakdown": {
+            "mismatch": 66,
+            "multicolor_contains_gt": 57,
+            "adjacent_hue_shade": 15,
+            "exact": 350,
+            "achromatic_lightness_boundary": 38,
+            "top2_palette_component": 10,
+            "navy_dark_boundary": 7,
+            "multicolor_dominant_component": 30
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 200,
+              "precision": 0.7937,
+              "recall": 0.75,
+              "f1": 0.7712
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 75,
+              "precision": 0.7097,
+              "recall": 0.2933,
+              "f1": 0.4151
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 110,
+              "precision": 0.5874,
+              "recall": 0.7636,
+              "f1": 0.664
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 29,
+              "precision": 0.4,
+              "recall": 0.2069,
+              "f1": 0.2727
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 34,
+              "precision": 0.8276,
+              "recall": 0.7059,
+              "f1": 0.7619
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 8,
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 9,
+              "precision": 0.3636,
+              "recall": 0.4444,
+              "f1": 0.4
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 6,
+              "precision": 1.0,
+              "recall": 0.1667,
+              "f1": 0.2857
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 9,
+              "precision": 0.375,
+              "recall": 0.3333,
+              "f1": 0.3529
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 18,
+              "precision": 0.4762,
+              "recall": 0.5556,
+              "f1": 0.5128
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 4,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 71,
+              "precision": 0.3419,
+              "recall": 0.5634,
+              "f1": 0.4255
+            }
+          }
+        }
+      },
+      "LOWER": {
+        "Method_A": {
+          "count": 416,
+          "strict12_acc": 0.601,
+          "macro_f1_12": 0.229,
+          "single11_count": 390,
+          "single11_acc": 0.6872,
+          "relaxed_acc": 0.8221,
+          "relaxed_breakdown": {
+            "adjacent_hue_shade": 16,
+            "multicolor_contains_gt": 49,
+            "achromatic_lightness_boundary": 12,
+            "exact": 250,
+            "multicolor_dominant_component": 15,
+            "mismatch": 74
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 235,
+              "precision": 0.8014,
+              "recall": 0.9447,
+              "f1": 0.8672
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 47,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 33,
+              "precision": 0.8333,
+              "recall": 0.4545,
+              "f1": 0.5882
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 20,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 8,
+              "precision": 0.1429,
+              "recall": 0.125,
+              "f1": 0.1333
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 1,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 7,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 34,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 26,
+              "precision": 0.0982,
+              "recall": 0.4231,
+              "f1": 0.1594
+            }
+          }
+        },
+        "Method_B_NoErode": {
+          "count": 416,
+          "strict12_acc": 0.6899,
+          "macro_f1_12": 0.3468,
+          "single11_count": 390,
+          "single11_acc": 0.7615,
+          "relaxed_acc": 0.9183,
+          "relaxed_breakdown": {
+            "adjacent_hue_shade": 13,
+            "mismatch": 34,
+            "multicolor_contains_gt": 32,
+            "achromatic_lightness_boundary": 22,
+            "exact": 287,
+            "multicolor_dominant_component": 9,
+            "top2_palette_component": 5,
+            "navy_dark_boundary": 14
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 235,
+              "precision": 0.8353,
+              "recall": 0.9064,
+              "f1": 0.8694
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 47,
+              "precision": 0.7391,
+              "recall": 0.3617,
+              "f1": 0.4857
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 33,
+              "precision": 0.6176,
+              "recall": 0.6364,
+              "f1": 0.6269
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 20,
+              "precision": 0.75,
+              "recall": 0.3,
+              "f1": 0.4286
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 8,
+              "precision": 0.2,
+              "recall": 0.125,
+              "f1": 0.1538
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 1,
+              "precision": 0.2,
+              "recall": 1.0,
+              "f1": 0.3333
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 7,
+              "precision": 1.0,
+              "recall": 0.1429,
+              "f1": 0.25
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 3,
+              "precision": 0.2,
+              "recall": 0.3333,
+              "f1": 0.25
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 34,
+              "precision": 0.5789,
+              "recall": 0.3235,
+              "f1": 0.4151
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 26,
+              "precision": 0.25,
+              "recall": 0.5769,
+              "f1": 0.3488
+            }
+          }
+        },
+        "Method_B_Erode2px": {
+          "count": 416,
+          "strict12_acc": 0.7091,
+          "macro_f1_12": 0.3631,
+          "single11_count": 390,
+          "single11_acc": 0.7564,
+          "relaxed_acc": 0.9231,
+          "relaxed_breakdown": {
+            "adjacent_hue_shade": 18,
+            "mismatch": 32,
+            "multicolor_contains_gt": 21,
+            "achromatic_lightness_boundary": 18,
+            "exact": 295,
+            "multicolor_dominant_component": 9,
+            "top2_palette_component": 7,
+            "navy_dark_boundary": 16
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 235,
+              "precision": 0.852,
+              "recall": 0.9064,
+              "f1": 0.8784
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 47,
+              "precision": 0.72,
+              "recall": 0.383,
+              "f1": 0.5
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 33,
+              "precision": 0.6389,
+              "recall": 0.697,
+              "f1": 0.6667
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 20,
+              "precision": 0.6,
+              "recall": 0.3,
+              "f1": 0.4
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 8,
+              "precision": 0.4545,
+              "recall": 0.625,
+              "f1": 0.5263
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 1,
+              "precision": 0.1667,
+              "recall": 1.0,
+              "f1": 0.2857
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 7,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 3,
+              "precision": 0.2,
+              "recall": 0.3333,
+              "f1": 0.25
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 34,
+              "precision": 0.5385,
+              "recall": 0.4118,
+              "f1": 0.4667
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 26,
+              "precision": 0.2979,
+              "recall": 0.5385,
+              "f1": 0.3836
+            }
+          }
+        }
+      },
+      "HAIR": {
+        "Method_A": {
+          "count": 593,
+          "strict12_acc": 0.629,
+          "macro_f1_12": 0.2685,
+          "single11_count": 591,
+          "single11_acc": 0.8409,
+          "relaxed_acc": 0.9207,
+          "relaxed_breakdown": {
+            "multicolor_contains_gt": 161,
+            "exact": 373,
+            "mismatch": 47,
+            "achromatic_lightness_boundary": 11,
+            "multicolor_dominant_component": 1
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 504,
+              "precision": 0.9587,
+              "recall": 0.7361,
+              "f1": 0.8328
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 75,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 1,
+              "precision": 0.3333,
+              "recall": 1.0,
+              "f1": 0.5
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 11,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 2,
+              "precision": 0.005,
+              "recall": 0.5,
+              "f1": 0.0099
+            }
+          }
+        },
+        "Method_B_NoErode": {
+          "count": 593,
+          "strict12_acc": 0.5008,
+          "macro_f1_12": 0.2565,
+          "single11_count": 591,
+          "single11_acc": 0.6514,
+          "relaxed_acc": 0.9073,
+          "relaxed_breakdown": {
+            "adjacent_hue_shade": 86,
+            "multicolor_contains_gt": 112,
+            "exact": 297,
+            "mismatch": 55,
+            "achromatic_lightness_boundary": 39,
+            "top2_palette_component": 2,
+            "navy_dark_boundary": 2
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 504,
+              "precision": 0.9723,
+              "recall": 0.5575,
+              "f1": 0.7087
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 75,
+              "precision": 0.3077,
+              "recall": 0.16,
+              "f1": 0.2105
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 1,
+              "precision": 0.1,
+              "recall": 1.0,
+              "f1": 0.1818
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 11,
+              "precision": 0.5,
+              "recall": 0.0909,
+              "f1": 0.1538
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 2,
+              "precision": 0.0141,
+              "recall": 1.0,
+              "f1": 0.0278
+            }
+          }
+        },
+        "Method_B_Erode2px": {
+          "count": 593,
+          "strict12_acc": 0.6071,
+          "macro_f1_12": 0.2617,
+          "single11_count": 591,
+          "single11_acc": 0.6633,
+          "relaxed_acc": 0.9157,
+          "relaxed_breakdown": {
+            "adjacent_hue_shade": 83,
+            "exact": 360,
+            "multicolor_contains_gt": 47,
+            "mismatch": 50,
+            "top2_palette_component": 4,
+            "achromatic_lightness_boundary": 45,
+            "multicolor_dominant_component": 1,
+            "navy_dark_boundary": 3
+          },
+          "per_class": {
+            "Dark": {
+              "color_id": 1,
+              "support": 504,
+              "precision": 0.9664,
+              "recall": 0.6845,
+              "f1": 0.8014
+            },
+            "Medium": {
+              "color_id": 2,
+              "support": 75,
+              "precision": 0.3333,
+              "recall": 0.1733,
+              "f1": 0.2281
+            },
+            "Light": {
+              "color_id": 3,
+              "support": 1,
+              "precision": 0.0667,
+              "recall": 1.0,
+              "f1": 0.125
+            },
+            "Brown": {
+              "color_id": 4,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Red": {
+              "color_id": 5,
+              "support": 11,
+              "precision": 0.5,
+              "recall": 0.0909,
+              "f1": 0.1538
+            },
+            "Pink": {
+              "color_id": 6,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Yellow": {
+              "color_id": 7,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Orange": {
+              "color_id": 8,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Green": {
+              "color_id": 9,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Blue": {
+              "color_id": 10,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Purple": {
+              "color_id": 11,
+              "support": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "Multicolor": {
+              "color_id": 12,
+              "support": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      }
+    }
+  },
+  "track2_saved_predictions_200_val": {
+    "QANet_CIHP_HRNetW48_512x384": {
+      "model_id": "QANet_CIHP_HRNetW48_512x384",
+      "images_evaluated": 200,
+      "total_gt_targets": {
+        "UPPER": 573,
+        "LOWER": 416,
+        "HAIR": 593
+      },
+      "matched_gt_targets": {
+        "UPPER": 557,
+        "LOWER": 372,
+        "HAIR": 567
+      },
+      "Upper_and_Lower_combined": {
+        "evaluated_regions": 929,
+        "mean_mask_contamination": 0.0921,
+        "Method_A_strict12_acc": 0.5361,
+        "Method_B_NoErode_strict12_acc": 0.6265,
+        "Method_B_Erode2px_strict12_acc": 0.6416,
+        "Method_B_Erode2px_single11_acc": 0.7192,
+        "Method_B_Erode2px_relaxed_acc": 0.8891,
+        "Method_B_Erode2px_macro_f1": 0.4684,
+        "oracle_prediction_agreement_b2": 0.901,
+        "oracle_single_color_agreement_b2": 0.929
+      },
+      "UPPER": {
+        "evaluated_regions": 557,
+        "mean_mask_contamination": 0.092,
+        "Method_A_strict12_acc": 0.4847,
+        "Method_B_NoErode_strict12_acc": 0.5655,
+        "Method_B_Erode2px_strict12_acc": 0.5781,
+        "Method_B_Erode2px_single11_acc": 0.6748,
+        "Method_B_Erode2px_relaxed_acc": 0.8689,
+        "Method_B_Erode2px_macro_f1": 0.4586,
+        "oracle_prediction_agreement_b2": 0.8923,
+        "oracle_single_color_agreement_b2": 0.921
+      },
+      "LOWER": {
+        "evaluated_regions": 372,
+        "mean_mask_contamination": 0.0924,
+        "Method_A_strict12_acc": 0.6129,
+        "Method_B_NoErode_strict12_acc": 0.7177,
+        "Method_B_Erode2px_strict12_acc": 0.7366,
+        "Method_B_Erode2px_single11_acc": 0.7816,
+        "Method_B_Erode2px_relaxed_acc": 0.9194,
+        "Method_B_Erode2px_macro_f1": 0.4093,
+        "oracle_prediction_agreement_b2": 0.914,
+        "oracle_single_color_agreement_b2": 0.9409
+      },
+      "HAIR": {
+        "evaluated_regions": 567,
+        "mean_mask_contamination": 0.0904,
+        "Method_A_strict12_acc": 0.6596,
+        "Method_B_NoErode_strict12_acc": 0.5732,
+        "Method_B_Erode2px_strict12_acc": 0.6261,
+        "Method_B_Erode2px_single11_acc": 0.6743,
+        "Method_B_Erode2px_relaxed_acc": 0.9224,
+        "Method_B_Erode2px_macro_f1": 0.2625,
+        "oracle_prediction_agreement_b2": 0.8695,
+        "oracle_single_color_agreement_b2": 0.9153
+      }
+    },
+    "M2FP_R101_CIHP": {
+      "model_id": "M2FP_R101_CIHP",
+      "images_evaluated": 200,
+      "total_gt_targets": {
+        "UPPER": 573,
+        "LOWER": 416,
+        "HAIR": 593
+      },
+      "matched_gt_targets": {
+        "UPPER": 516,
+        "LOWER": 352,
+        "HAIR": 539
+      },
+      "Upper_and_Lower_combined": {
+        "evaluated_regions": 868,
+        "mean_mask_contamination": 0.0962,
+        "Method_A_strict12_acc": 0.5392,
+        "Method_B_NoErode_strict12_acc": 0.6325,
+        "Method_B_Erode2px_strict12_acc": 0.6336,
+        "Method_B_Erode2px_single11_acc": 0.7241,
+        "Method_B_Erode2px_relaxed_acc": 0.8906,
+        "Method_B_Erode2px_macro_f1": 0.4467,
+        "oracle_prediction_agreement_b2": 0.9032,
+        "oracle_single_color_agreement_b2": 0.9217
+      },
+      "UPPER": {
+        "evaluated_regions": 516,
+        "mean_mask_contamination": 0.097,
+        "Method_A_strict12_acc": 0.4884,
+        "Method_B_NoErode_strict12_acc": 0.5756,
+        "Method_B_Erode2px_strict12_acc": 0.5698,
+        "Method_B_Erode2px_single11_acc": 0.6864,
+        "Method_B_Erode2px_relaxed_acc": 0.8643,
+        "Method_B_Erode2px_macro_f1": 0.4348,
+        "oracle_prediction_agreement_b2": 0.8934,
+        "oracle_single_color_agreement_b2": 0.9128
+      },
+      "LOWER": {
+        "evaluated_regions": 352,
+        "mean_mask_contamination": 0.0951,
+        "Method_A_strict12_acc": 0.6136,
+        "Method_B_NoErode_strict12_acc": 0.7159,
+        "Method_B_Erode2px_strict12_acc": 0.7273,
+        "Method_B_Erode2px_single11_acc": 0.7768,
+        "Method_B_Erode2px_relaxed_acc": 0.929,
+        "Method_B_Erode2px_macro_f1": 0.4328,
+        "oracle_prediction_agreement_b2": 0.9176,
+        "oracle_single_color_agreement_b2": 0.9347
+      },
+      "HAIR": {
+        "evaluated_regions": 539,
+        "mean_mask_contamination": 0.1039,
+        "Method_A_strict12_acc": 0.6549,
+        "Method_B_NoErode_strict12_acc": 0.551,
+        "Method_B_Erode2px_strict12_acc": 0.603,
+        "Method_B_Erode2px_single11_acc": 0.6778,
+        "Method_B_Erode2px_relaxed_acc": 0.9239,
+        "Method_B_Erode2px_macro_f1": 0.265,
+        "oracle_prediction_agreement_b2": 0.8776,
+        "oracle_single_color_agreement_b2": 0.9202
+      }
+    },
+    "D2FP_R101_CIHP": {
+      "model_id": "D2FP_R101_CIHP",
+      "images_evaluated": 200,
+      "total_gt_targets": {
+        "UPPER": 573,
+        "LOWER": 416,
+        "HAIR": 593
+      },
+      "matched_gt_targets": {
+        "UPPER": 510,
+        "LOWER": 347,
+        "HAIR": 536
+      },
+      "Upper_and_Lower_combined": {
+        "evaluated_regions": 857,
+        "mean_mask_contamination": 0.0975,
+        "Method_A_strict12_acc": 0.5379,
+        "Method_B_NoErode_strict12_acc": 0.6324,
+        "Method_B_Erode2px_strict12_acc": 0.6406,
+        "Method_B_Erode2px_single11_acc": 0.7233,
+        "Method_B_Erode2px_relaxed_acc": 0.8903,
+        "Method_B_Erode2px_macro_f1": 0.4556,
+        "oracle_prediction_agreement_b2": 0.902,
+        "oracle_single_color_agreement_b2": 0.9148
+      },
+      "UPPER": {
+        "evaluated_regions": 510,
+        "mean_mask_contamination": 0.0948,
+        "Method_A_strict12_acc": 0.4882,
+        "Method_B_NoErode_strict12_acc": 0.5824,
+        "Method_B_Erode2px_strict12_acc": 0.5804,
+        "Method_B_Erode2px_single11_acc": 0.6829,
+        "Method_B_Erode2px_relaxed_acc": 0.8745,
+        "Method_B_Erode2px_macro_f1": 0.4508,
+        "oracle_prediction_agreement_b2": 0.898,
+        "oracle_single_color_agreement_b2": 0.9137
+      },
+      "LOWER": {
+        "evaluated_regions": 347,
+        "mean_mask_contamination": 0.1014,
+        "Method_A_strict12_acc": 0.611,
+        "Method_B_NoErode_strict12_acc": 0.7061,
+        "Method_B_Erode2px_strict12_acc": 0.7291,
+        "Method_B_Erode2px_single11_acc": 0.7791,
+        "Method_B_Erode2px_relaxed_acc": 0.9135,
+        "Method_B_Erode2px_macro_f1": 0.4391,
+        "oracle_prediction_agreement_b2": 0.9078,
+        "oracle_single_color_agreement_b2": 0.9164
+      },
+      "HAIR": {
+        "evaluated_regions": 536,
+        "mean_mask_contamination": 0.1025,
+        "Method_A_strict12_acc": 0.6549,
+        "Method_B_NoErode_strict12_acc": 0.5709,
+        "Method_B_Erode2px_strict12_acc": 0.6381,
+        "Method_B_Erode2px_single11_acc": 0.6985,
+        "Method_B_Erode2px_relaxed_acc": 0.9235,
+        "Method_B_Erode2px_macro_f1": 0.279,
+        "oracle_prediction_agreement_b2": 0.8675,
+        "oracle_single_color_agreement_b2": 0.9123
+      }
+    },
+    "RPR_CIHP": {
+      "model_id": "RPR_CIHP",
+      "images_evaluated": 200,
+      "total_gt_targets": {
+        "UPPER": 573,
+        "LOWER": 416,
+        "HAIR": 593
+      },
+      "matched_gt_targets": {
+        "UPPER": 531,
+        "LOWER": 351,
+        "HAIR": 547
+      },
+      "Upper_and_Lower_combined": {
+        "evaluated_regions": 882,
+        "mean_mask_contamination": 0.1151,
+        "Method_A_strict12_acc": 0.5283,
+        "Method_B_NoErode_strict12_acc": 0.6259,
+        "Method_B_Erode2px_strict12_acc": 0.6361,
+        "Method_B_Erode2px_single11_acc": 0.7161,
+        "Method_B_Erode2px_relaxed_acc": 0.898,
+        "Method_B_Erode2px_macro_f1": 0.4622,
+        "oracle_prediction_agreement_b2": 0.89,
+        "oracle_single_color_agreement_b2": 0.9229
+      },
+      "UPPER": {
+        "evaluated_regions": 531,
+        "mean_mask_contamination": 0.1157,
+        "Method_A_strict12_acc": 0.4746,
+        "Method_B_NoErode_strict12_acc": 0.5706,
+        "Method_B_Erode2px_strict12_acc": 0.5763,
+        "Method_B_Erode2px_single11_acc": 0.6809,
+        "Method_B_Erode2px_relaxed_acc": 0.8738,
+        "Method_B_Erode2px_macro_f1": 0.4481,
+        "oracle_prediction_agreement_b2": 0.8795,
+        "oracle_single_color_agreement_b2": 0.9077
+      },
+      "LOWER": {
+        "evaluated_regions": 351,
+        "mean_mask_contamination": 0.1142,
+        "Method_A_strict12_acc": 0.6097,
+        "Method_B_NoErode_strict12_acc": 0.7094,
+        "Method_B_Erode2px_strict12_acc": 0.7265,
+        "Method_B_Erode2px_single11_acc": 0.766,
+        "Method_B_Erode2px_relaxed_acc": 0.9345,
+        "Method_B_Erode2px_macro_f1": 0.4488,
+        "oracle_prediction_agreement_b2": 0.906,
+        "oracle_single_color_agreement_b2": 0.9459
+      },
+      "HAIR": {
+        "evaluated_regions": 547,
+        "mean_mask_contamination": 0.1178,
+        "Method_A_strict12_acc": 0.6508,
+        "Method_B_NoErode_strict12_acc": 0.5503,
+        "Method_B_Erode2px_strict12_acc": 0.6234,
+        "Method_B_Erode2px_single11_acc": 0.6899,
+        "Method_B_Erode2px_relaxed_acc": 0.9141,
+        "Method_B_Erode2px_macro_f1": 0.2808,
+        "oracle_prediction_agreement_b2": 0.8665,
+        "oracle_single_color_agreement_b2": 0.9141
+      }
+    },
+    "Sapiens2_0.4b_partial_completed": {
+      "model_id": "Sapiens2_0.4b",
+      "images_evaluated": 162,
+      "total_gt_targets": {
+        "UPPER": 438,
+        "LOWER": 324,
+        "HAIR": 445
+      },
+      "matched_gt_targets": {
+        "UPPER": 398,
+        "LOWER": 264,
+        "HAIR": 404
+      },
+      "Upper_and_Lower_combined": {
+        "evaluated_regions": 662,
+        "mean_mask_contamination": 0.1129,
+        "Method_A_strict12_acc": 0.5393,
+        "Method_B_NoErode_strict12_acc": 0.6224,
+        "Method_B_Erode2px_strict12_acc": 0.6375,
+        "Method_B_Erode2px_single11_acc": 0.7119,
+        "Method_B_Erode2px_relaxed_acc": 0.8973,
+        "Method_B_Erode2px_macro_f1": 0.458,
+        "oracle_prediction_agreement_b2": 0.8943,
+        "oracle_single_color_agreement_b2": 0.9154
+      },
+      "UPPER": {
+        "evaluated_regions": 398,
+        "mean_mask_contamination": 0.1241,
+        "Method_A_strict12_acc": 0.5,
+        "Method_B_NoErode_strict12_acc": 0.5704,
+        "Method_B_Erode2px_strict12_acc": 0.5854,
+        "Method_B_Erode2px_single11_acc": 0.6763,
+        "Method_B_Erode2px_relaxed_acc": 0.8844,
+        "Method_B_Erode2px_macro_f1": 0.447,
+        "oracle_prediction_agreement_b2": 0.8769,
+        "oracle_single_color_agreement_b2": 0.8995
+      },
+      "LOWER": {
+        "evaluated_regions": 264,
+        "mean_mask_contamination": 0.0961,
+        "Method_A_strict12_acc": 0.5985,
+        "Method_B_NoErode_strict12_acc": 0.7008,
+        "Method_B_Erode2px_strict12_acc": 0.7159,
+        "Method_B_Erode2px_single11_acc": 0.7623,
+        "Method_B_Erode2px_relaxed_acc": 0.9167,
+        "Method_B_Erode2px_macro_f1": 0.4515,
+        "oracle_prediction_agreement_b2": 0.9205,
+        "oracle_single_color_agreement_b2": 0.9394
+      },
+      "HAIR": {
+        "evaluated_regions": 404,
+        "mean_mask_contamination": 0.1453,
+        "Method_A_strict12_acc": 0.6361,
+        "Method_B_NoErode_strict12_acc": 0.5198,
+        "Method_B_Erode2px_strict12_acc": 0.5767,
+        "Method_B_Erode2px_single11_acc": 0.6542,
+        "Method_B_Erode2px_relaxed_acc": 0.9158,
+        "Method_B_Erode2px_macro_f1": 0.2231,
+        "oracle_prediction_agreement_b2": 0.8663,
+        "oracle_single_color_agreement_b2": 0.8936
+      }
+    }
+  },
+  "track2_six_pilot_images_all_6_models": {
+    "QANet_CIHP_HRNetW48_512x384": {
+      "model_id": "QANet_CIHP_HRNetW48_512x384",
+      "images_evaluated": 6,
+      "total_gt_targets": {
+        "UPPER": 18,
+        "LOWER": 13,
+        "HAIR": 15
+      },
+      "matched_gt_targets": {
+        "UPPER": 18,
+        "LOWER": 13,
+        "HAIR": 14
+      },
+      "Upper_and_Lower_combined": {
+        "evaluated_regions": 31,
+        "mean_mask_contamination": 0.0764,
+        "Method_A_strict12_acc": 0.1613,
+        "Method_B_NoErode_strict12_acc": 0.3548,
+        "Method_B_Erode2px_strict12_acc": 0.4194,
+        "Method_B_Erode2px_single11_acc": 0.4643,
+        "Method_B_Erode2px_relaxed_acc": 0.871,
+        "Method_B_Erode2px_macro_f1": 0.3933,
+        "oracle_prediction_agreement_b2": 0.8387,
+        "oracle_single_color_agreement_b2": 0.9677
+      },
+      "UPPER": {
+        "evaluated_regions": 18,
+        "mean_mask_contamination": 0.0967,
+        "Method_A_strict12_acc": 0.1111,
+        "Method_B_NoErode_strict12_acc": 0.2778,
+        "Method_B_Erode2px_strict12_acc": 0.3333,
+        "Method_B_Erode2px_single11_acc": 0.375,
+        "Method_B_Erode2px_relaxed_acc": 0.8333,
+        "Method_B_Erode2px_macro_f1": 0.3014,
+        "oracle_prediction_agreement_b2": 0.8333,
+        "oracle_single_color_agreement_b2": 1.0
+      },
+      "LOWER": {
+        "evaluated_regions": 13,
+        "mean_mask_contamination": 0.0482,
+        "Method_A_strict12_acc": 0.2308,
+        "Method_B_NoErode_strict12_acc": 0.4615,
+        "Method_B_Erode2px_strict12_acc": 0.5385,
+        "Method_B_Erode2px_single11_acc": 0.5833,
+        "Method_B_Erode2px_relaxed_acc": 0.9231,
+        "Method_B_Erode2px_macro_f1": 0.4833,
+        "oracle_prediction_agreement_b2": 0.8462,
+        "oracle_single_color_agreement_b2": 0.9231
+      },
+      "HAIR": {
+        "evaluated_regions": 14,
+        "mean_mask_contamination": 0.088,
+        "Method_A_strict12_acc": 0.4286,
+        "Method_B_NoErode_strict12_acc": 0.2857,
+        "Method_B_Erode2px_strict12_acc": 0.5,
+        "Method_B_Erode2px_single11_acc": 0.5714,
+        "Method_B_Erode2px_relaxed_acc": 0.8571,
+        "Method_B_Erode2px_macro_f1": 0.2745,
+        "oracle_prediction_agreement_b2": 0.8571,
+        "oracle_single_color_agreement_b2": 0.9286
+      }
+    },
+    "M2FP_R101_CIHP": {
+      "model_id": "M2FP_R101_CIHP",
+      "images_evaluated": 6,
+      "total_gt_targets": {
+        "UPPER": 18,
+        "LOWER": 13,
+        "HAIR": 15
+      },
+      "matched_gt_targets": {
+        "UPPER": 15,
+        "LOWER": 9,
+        "HAIR": 13
+      },
+      "Upper_and_Lower_combined": {
+        "evaluated_regions": 24,
+        "mean_mask_contamination": 0.0834,
+        "Method_A_strict12_acc": 0.125,
+        "Method_B_NoErode_strict12_acc": 0.3333,
+        "Method_B_Erode2px_strict12_acc": 0.25,
+        "Method_B_Erode2px_single11_acc": 0.4545,
+        "Method_B_Erode2px_relaxed_acc": 0.875,
+        "Method_B_Erode2px_macro_f1": 0.2672,
+        "oracle_prediction_agreement_b2": 0.75,
+        "oracle_single_color_agreement_b2": 0.9167
+      },
+      "UPPER": {
+        "evaluated_regions": 15,
+        "mean_mask_contamination": 0.1087,
+        "Method_A_strict12_acc": 0.0667,
+        "Method_B_NoErode_strict12_acc": 0.3333,
+        "Method_B_Erode2px_strict12_acc": 0.2,
+        "Method_B_Erode2px_single11_acc": 0.5,
+        "Method_B_Erode2px_relaxed_acc": 0.8667,
+        "Method_B_Erode2px_macro_f1": 0.1833,
+        "oracle_prediction_agreement_b2": 0.6,
+        "oracle_single_color_agreement_b2": 0.8667
+      },
+      "LOWER": {
+        "evaluated_regions": 9,
+        "mean_mask_contamination": 0.0413,
+        "Method_A_strict12_acc": 0.2222,
+        "Method_B_NoErode_strict12_acc": 0.3333,
+        "Method_B_Erode2px_strict12_acc": 0.3333,
+        "Method_B_Erode2px_single11_acc": 0.375,
+        "Method_B_Erode2px_relaxed_acc": 0.8889,
+        "Method_B_Erode2px_macro_f1": 0.36,
+        "oracle_prediction_agreement_b2": 1.0,
+        "oracle_single_color_agreement_b2": 1.0
+      },
+      "HAIR": {
+        "evaluated_regions": 13,
+        "mean_mask_contamination": 0.1101,
+        "Method_A_strict12_acc": 0.3846,
+        "Method_B_NoErode_strict12_acc": 0.1538,
+        "Method_B_Erode2px_strict12_acc": 0.3077,
+        "Method_B_Erode2px_single11_acc": 0.5385,
+        "Method_B_Erode2px_relaxed_acc": 0.9231,
+        "Method_B_Erode2px_macro_f1": 0.1905,
+        "oracle_prediction_agreement_b2": 0.8462,
+        "oracle_single_color_agreement_b2": 0.7692
+      }
+    },
+    "D2FP_R101_CIHP": {
+      "model_id": "D2FP_R101_CIHP",
+      "images_evaluated": 6,
+      "total_gt_targets": {
+        "UPPER": 18,
+        "LOWER": 13,
+        "HAIR": 15
+      },
+      "matched_gt_targets": {
+        "UPPER": 14,
+        "LOWER": 8,
+        "HAIR": 12
+      },
+      "Upper_and_Lower_combined": {
+        "evaluated_regions": 22,
+        "mean_mask_contamination": 0.0789,
+        "Method_A_strict12_acc": 0.1364,
+        "Method_B_NoErode_strict12_acc": 0.3636,
+        "Method_B_Erode2px_strict12_acc": 0.3636,
+        "Method_B_Erode2px_single11_acc": 0.35,
+        "Method_B_Erode2px_relaxed_acc": 0.9545,
+        "Method_B_Erode2px_macro_f1": 0.3676,
+        "oracle_prediction_agreement_b2": 0.7727,
+        "oracle_single_color_agreement_b2": 0.9091
+      },
+      "UPPER": {
+        "evaluated_regions": 14,
+        "mean_mask_contamination": 0.1089,
+        "Method_A_strict12_acc": 0.0714,
+        "Method_B_NoErode_strict12_acc": 0.4286,
+        "Method_B_Erode2px_strict12_acc": 0.3571,
+        "Method_B_Erode2px_single11_acc": 0.3077,
+        "Method_B_Erode2px_relaxed_acc": 1.0,
+        "Method_B_Erode2px_macro_f1": 0.3286,
+        "oracle_prediction_agreement_b2": 0.7143,
+        "oracle_single_color_agreement_b2": 0.9286
+      },
+      "LOWER": {
+        "evaluated_regions": 8,
+        "mean_mask_contamination": 0.0263,
+        "Method_A_strict12_acc": 0.25,
+        "Method_B_NoErode_strict12_acc": 0.25,
+        "Method_B_Erode2px_strict12_acc": 0.375,
+        "Method_B_Erode2px_single11_acc": 0.4286,
+        "Method_B_Erode2px_relaxed_acc": 0.875,
+        "Method_B_Erode2px_macro_f1": 0.45,
+        "oracle_prediction_agreement_b2": 0.875,
+        "oracle_single_color_agreement_b2": 0.875
+      },
+      "HAIR": {
+        "evaluated_regions": 12,
+        "mean_mask_contamination": 0.0943,
+        "Method_A_strict12_acc": 0.4167,
+        "Method_B_NoErode_strict12_acc": 0.3333,
+        "Method_B_Erode2px_strict12_acc": 0.4167,
+        "Method_B_Erode2px_single11_acc": 0.5,
+        "Method_B_Erode2px_relaxed_acc": 0.9167,
+        "Method_B_Erode2px_macro_f1": 0.2381,
+        "oracle_prediction_agreement_b2": 0.9167,
+        "oracle_single_color_agreement_b2": 0.9167
+      }
+    },
+    "RPR_CIHP": {
+      "model_id": "RPR_CIHP",
+      "images_evaluated": 6,
+      "total_gt_targets": {
+        "UPPER": 18,
+        "LOWER": 13,
+        "HAIR": 15
+      },
+      "matched_gt_targets": {
+        "UPPER": 18,
+        "LOWER": 13,
+        "HAIR": 14
+      },
+      "Upper_and_Lower_combined": {
+        "evaluated_regions": 31,
+        "mean_mask_contamination": 0.1058,
+        "Method_A_strict12_acc": 0.1613,
+        "Method_B_NoErode_strict12_acc": 0.3871,
+        "Method_B_Erode2px_strict12_acc": 0.4194,
+        "Method_B_Erode2px_single11_acc": 0.4286,
+        "Method_B_Erode2px_relaxed_acc": 0.9032,
+        "Method_B_Erode2px_macro_f1": 0.3933,
+        "oracle_prediction_agreement_b2": 0.8387,
+        "oracle_single_color_agreement_b2": 0.9355
+      },
+      "UPPER": {
+        "evaluated_regions": 18,
+        "mean_mask_contamination": 0.1301,
+        "Method_A_strict12_acc": 0.1111,
+        "Method_B_NoErode_strict12_acc": 0.3333,
+        "Method_B_Erode2px_strict12_acc": 0.3333,
+        "Method_B_Erode2px_single11_acc": 0.3125,
+        "Method_B_Erode2px_relaxed_acc": 0.8333,
+        "Method_B_Erode2px_macro_f1": 0.2958,
+        "oracle_prediction_agreement_b2": 0.8889,
+        "oracle_single_color_agreement_b2": 0.9444
+      },
+      "LOWER": {
+        "evaluated_regions": 13,
+        "mean_mask_contamination": 0.0722,
+        "Method_A_strict12_acc": 0.2308,
+        "Method_B_NoErode_strict12_acc": 0.4615,
+        "Method_B_Erode2px_strict12_acc": 0.5385,
+        "Method_B_Erode2px_single11_acc": 0.5833,
+        "Method_B_Erode2px_relaxed_acc": 1.0,
+        "Method_B_Erode2px_macro_f1": 0.4833,
+        "oracle_prediction_agreement_b2": 0.7692,
+        "oracle_single_color_agreement_b2": 0.9231
+      },
+      "HAIR": {
+        "evaluated_regions": 14,
+        "mean_mask_contamination": 0.1357,
+        "Method_A_strict12_acc": 0.4286,
+        "Method_B_NoErode_strict12_acc": 0.2143,
+        "Method_B_Erode2px_strict12_acc": 0.2857,
+        "Method_B_Erode2px_single11_acc": 0.4286,
+        "Method_B_Erode2px_relaxed_acc": 0.8571,
+        "Method_B_Erode2px_macro_f1": 0.1905,
+        "oracle_prediction_agreement_b2": 0.9286,
+        "oracle_single_color_agreement_b2": 0.8571
+      }
+    },
+    "Sapiens2_0.4b": {
+      "model_id": "Sapiens2_0.4b",
+      "images_evaluated": 6,
+      "total_gt_targets": {
+        "UPPER": 18,
+        "LOWER": 13,
+        "HAIR": 15
+      },
+      "matched_gt_targets": {
+        "UPPER": 16,
+        "LOWER": 10,
+        "HAIR": 13
+      },
+      "Upper_and_Lower_combined": {
+        "evaluated_regions": 26,
+        "mean_mask_contamination": 0.1126,
+        "Method_A_strict12_acc": 0.1923,
+        "Method_B_NoErode_strict12_acc": 0.4615,
+        "Method_B_Erode2px_strict12_acc": 0.3462,
+        "Method_B_Erode2px_single11_acc": 0.3913,
+        "Method_B_Erode2px_relaxed_acc": 0.9231,
+        "Method_B_Erode2px_macro_f1": 0.3323,
+        "oracle_prediction_agreement_b2": 0.8846,
+        "oracle_single_color_agreement_b2": 0.8846
+      },
+      "UPPER": {
+        "evaluated_regions": 16,
+        "mean_mask_contamination": 0.1615,
+        "Method_A_strict12_acc": 0.125,
+        "Method_B_NoErode_strict12_acc": 0.4375,
+        "Method_B_Erode2px_strict12_acc": 0.3125,
+        "Method_B_Erode2px_single11_acc": 0.3571,
+        "Method_B_Erode2px_relaxed_acc": 0.9375,
+        "Method_B_Erode2px_macro_f1": 0.2812,
+        "oracle_prediction_agreement_b2": 0.8125,
+        "oracle_single_color_agreement_b2": 0.8125
+      },
+      "LOWER": {
+        "evaluated_regions": 10,
+        "mean_mask_contamination": 0.0345,
+        "Method_A_strict12_acc": 0.3,
+        "Method_B_NoErode_strict12_acc": 0.5,
+        "Method_B_Erode2px_strict12_acc": 0.4,
+        "Method_B_Erode2px_single11_acc": 0.4444,
+        "Method_B_Erode2px_relaxed_acc": 0.9,
+        "Method_B_Erode2px_macro_f1": 0.3714,
+        "oracle_prediction_agreement_b2": 1.0,
+        "oracle_single_color_agreement_b2": 1.0
+      },
+      "HAIR": {
+        "evaluated_regions": 13,
+        "mean_mask_contamination": 0.1716,
+        "Method_A_strict12_acc": 0.3846,
+        "Method_B_NoErode_strict12_acc": 0.0,
+        "Method_B_Erode2px_strict12_acc": 0.3077,
+        "Method_B_Erode2px_single11_acc": 0.4615,
+        "Method_B_Erode2px_relaxed_acc": 0.9231,
+        "Method_B_Erode2px_macro_f1": 0.2051,
+        "oracle_prediction_agreement_b2": 0.9231,
+        "oracle_single_color_agreement_b2": 0.8462
+      }
+    },
+    "Sapiens2_0.8b": {
+      "model_id": "Sapiens2_0.8b",
+      "images_evaluated": 6,
+      "total_gt_targets": {
+        "UPPER": 18,
+        "LOWER": 13,
+        "HAIR": 15
+      },
+      "matched_gt_targets": {
+        "UPPER": 16,
+        "LOWER": 8,
+        "HAIR": 13
+      },
+      "Upper_and_Lower_combined": {
+        "evaluated_regions": 24,
+        "mean_mask_contamination": 0.1186,
+        "Method_A_strict12_acc": 0.1667,
+        "Method_B_NoErode_strict12_acc": 0.2917,
+        "Method_B_Erode2px_strict12_acc": 0.3333,
+        "Method_B_Erode2px_single11_acc": 0.2857,
+        "Method_B_Erode2px_relaxed_acc": 0.9167,
+        "Method_B_Erode2px_macro_f1": 0.3011,
+        "oracle_prediction_agreement_b2": 0.7917,
+        "oracle_single_color_agreement_b2": 0.9167
+      },
+      "UPPER": {
+        "evaluated_regions": 16,
+        "mean_mask_contamination": 0.1641,
+        "Method_A_strict12_acc": 0.125,
+        "Method_B_NoErode_strict12_acc": 0.3125,
+        "Method_B_Erode2px_strict12_acc": 0.375,
+        "Method_B_Erode2px_single11_acc": 0.2857,
+        "Method_B_Erode2px_relaxed_acc": 0.875,
+        "Method_B_Erode2px_macro_f1": 0.3167,
+        "oracle_prediction_agreement_b2": 0.75,
+        "oracle_single_color_agreement_b2": 0.875
+      },
+      "LOWER": {
+        "evaluated_regions": 8,
+        "mean_mask_contamination": 0.0275,
+        "Method_A_strict12_acc": 0.25,
+        "Method_B_NoErode_strict12_acc": 0.25,
+        "Method_B_Erode2px_strict12_acc": 0.25,
+        "Method_B_Erode2px_single11_acc": 0.2857,
+        "Method_B_Erode2px_relaxed_acc": 1.0,
+        "Method_B_Erode2px_macro_f1": 0.2,
+        "oracle_prediction_agreement_b2": 0.875,
+        "oracle_single_color_agreement_b2": 1.0
+      },
+      "HAIR": {
+        "evaluated_regions": 13,
+        "mean_mask_contamination": 0.1479,
+        "Method_A_strict12_acc": 0.4615,
+        "Method_B_NoErode_strict12_acc": 0.1538,
+        "Method_B_Erode2px_strict12_acc": 0.3077,
+        "Method_B_Erode2px_single11_acc": 0.4615,
+        "Method_B_Erode2px_relaxed_acc": 0.9231,
+        "Method_B_Erode2px_macro_f1": 0.2051,
+        "oracle_prediction_agreement_b2": 0.9231,
+        "oracle_single_color_agreement_b2": 0.8462
+      }
+    }
+  },
+  "mask_contamination_analysis": {
+    "00_05pct_clean": {
+      "count": 2219,
+      "mean_contamination": 0.0244,
+      "method_a_strict12_acc": 0.5557,
+      "method_b_no_erode_strict12_acc": 0.6548,
+      "method_b_erode2px_strict12_acc": 0.6575,
+      "method_b_erode2px_relaxed_acc": 0.8977,
+      "oracle_agreement_b2": 0.9428
+    },
+    "05_20pct_minor": {
+      "count": 1460,
+      "mean_contamination": 0.0971,
+      "method_a_strict12_acc": 0.5233,
+      "method_b_no_erode_strict12_acc": 0.6253,
+      "method_b_erode2px_strict12_acc": 0.6384,
+      "method_b_erode2px_relaxed_acc": 0.9082,
+      "oracle_agreement_b2": 0.8863
+    },
+    "20_50pct_moderate": {
+      "count": 365,
+      "mean_contamination": 0.3125,
+      "method_a_strict12_acc": 0.5342,
+      "method_b_no_erode_strict12_acc": 0.6055,
+      "method_b_erode2px_strict12_acc": 0.6356,
+      "method_b_erode2px_relaxed_acc": 0.8877,
+      "oracle_agreement_b2": 0.8329
+    },
+    "50_100pct_severe": {
+      "count": 154,
+      "mean_contamination": 0.7721,
+      "method_a_strict12_acc": 0.3766,
+      "method_b_no_erode_strict12_acc": 0.3247,
+      "method_b_erode2px_strict12_acc": 0.3571,
+      "method_b_erode2px_relaxed_acc": 0.6883,
+      "oracle_agreement_b2": 0.526
+    }
+  },
+  "qualitative_palette_examples": [
+    {
+      "image_id": "0021448",
+      "human_id": 2,
+      "category": "Coat",
+      "gt_color": "8 (Orange)",
+      "pattern_id": 4,
+      "pred_method_a": "5 (Red)",
+      "pred_method_b": "12 (Multicolor)",
+      "single_method_b": "5 (Red)",
+      "match_type": "mismatch",
+      "layer1_palette": [
+        {
+          "lab": [
+            50.19,
+            60.86,
+            47.15
+          ],
+          "hex": "#dc3b2a",
+          "weight": 0.5183,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            37.36,
+            47.82,
+            32.89
+          ],
+          "hex": "#a32c25",
+          "weight": 0.195,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            73.86,
+            19.15,
+            24.34
+          ],
+          "hex": "#e5a78a",
+          "weight": 0.1583,
+          "ccihp_class": 7,
+          "ccihp_name": "Yellow",
+          "fine_name": "yellow"
+        }
+      ]
+    },
+    {
+      "image_id": "0021448",
+      "human_id": 2,
+      "category": "Pants",
+      "gt_color": "8 (Orange)",
+      "pattern_id": 1,
+      "pred_method_a": "5 (Red)",
+      "pred_method_b": "5 (Red)",
+      "single_method_b": "5 (Red)",
+      "match_type": "adjacent_hue_shade",
+      "layer1_palette": [
+        {
+          "lab": [
+            42.85,
+            59.96,
+            45.95
+          ],
+          "hex": "#c3251b",
+          "weight": 0.3758,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            50.59,
+            63.45,
+            49.02
+          ],
+          "hex": "#e03927",
+          "weight": 0.2725,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            37.29,
+            55.25,
+            41.76
+          ],
+          "hex": "#ac1d16",
+          "weight": 0.2517,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        }
+      ]
+    },
+    {
+      "image_id": "0021448",
+      "human_id": 3,
+      "category": "Coat",
+      "gt_color": "8 (Orange)",
+      "pattern_id": 4,
+      "pred_method_a": "12 (Multicolor)",
+      "pred_method_b": "12 (Multicolor)",
+      "single_method_b": "5 (Red)",
+      "match_type": "multicolor_contains_gt",
+      "layer1_palette": [
+        {
+          "lab": [
+            58.09,
+            56.96,
+            48.93
+          ],
+          "hex": "#f15838",
+          "weight": 0.4825,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            67.9,
+            37.07,
+            40.4
+          ],
+          "hex": "#f3895f",
+          "weight": 0.2425,
+          "ccihp_class": 8,
+          "ccihp_name": "Orange",
+          "fine_name": "orange"
+        },
+        {
+          "lab": [
+            77.56,
+            19.63,
+            19.51
+          ],
+          "hex": "#f0b29c",
+          "weight": 0.1742,
+          "ccihp_class": 7,
+          "ccihp_name": "Yellow",
+          "fine_name": "yellow"
+        }
+      ]
+    },
+    {
+      "image_id": "0021448",
+      "human_id": 3,
+      "category": "Pants",
+      "gt_color": "8 (Orange)",
+      "pattern_id": 1,
+      "pred_method_a": "5 (Red)",
+      "pred_method_b": "5 (Red)",
+      "single_method_b": "5 (Red)",
+      "match_type": "adjacent_hue_shade",
+      "layer1_palette": [
+        {
+          "lab": [
+            57.18,
+            61.58,
+            46.85
+          ],
+          "hex": "#f44f3b",
+          "weight": 0.45,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            45.72,
+            59.96,
+            47.08
+          ],
+          "hex": "#cd3020",
+          "weight": 0.2267,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            51.85,
+            65.46,
+            52.25
+          ],
+          "hex": "#e73824",
+          "weight": 0.185,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        }
+      ]
+    },
+    {
+      "image_id": "0021448",
+      "human_id": 4,
+      "category": "Coat",
+      "gt_color": "8 (Orange)",
+      "pattern_id": 4,
+      "pred_method_a": "12 (Multicolor)",
+      "pred_method_b": "12 (Multicolor)",
+      "single_method_b": "5 (Red)",
+      "match_type": "multicolor_contains_gt",
+      "layer1_palette": [
+        {
+          "lab": [
+            52.23,
+            58.56,
+            48.23
+          ],
+          "hex": "#e0452c",
+          "weight": 0.3567,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            66.3,
+            37.28,
+            44.24
+          ],
+          "hex": "#f08453",
+          "weight": 0.2725,
+          "ccihp_class": 8,
+          "ccihp_name": "Orange",
+          "fine_name": "orange"
+        },
+        {
+          "lab": [
+            41.25,
+            44.07,
+            32.52
+          ],
+          "hex": "#aa3c2d",
+          "weight": 0.2167,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        }
+      ]
+    },
+    {
+      "image_id": "0021448",
+      "human_id": 4,
+      "category": "Pants",
+      "gt_color": "8 (Orange)",
+      "pattern_id": 1,
+      "pred_method_a": "5 (Red)",
+      "pred_method_b": "5 (Red)",
+      "single_method_b": "5 (Red)",
+      "match_type": "adjacent_hue_shade",
+      "layer1_palette": [
+        {
+          "lab": [
+            47.17,
+            62.87,
+            49.35
+          ],
+          "hex": "#d52d1f",
+          "weight": 0.3633,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            54.04,
+            64.87,
+            50.17
+          ],
+          "hex": "#ee402e",
+          "weight": 0.3192,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            46.08,
+            57.74,
+            42.42
+          ],
+          "hex": "#cb352a",
+          "weight": 0.2317,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        }
+      ]
+    },
+    {
+      "image_id": "0021448",
+      "human_id": 5,
+      "category": "UpperClothes",
+      "gt_color": "6 (Pink)",
+      "pattern_id": 1,
+      "pred_method_a": "12 (Multicolor)",
+      "pred_method_b": "12 (Multicolor)",
+      "single_method_b": "6 (Pink)",
+      "match_type": "multicolor_contains_gt",
+      "layer1_palette": [
+        {
+          "lab": [
+            74.27,
+            31.05,
+            3.91
+          ],
+          "hex": "#efa1b0",
+          "weight": 0.3121,
+          "ccihp_class": 6,
+          "ccihp_name": "Pink",
+          "fine_name": "pink"
+        },
+        {
+          "lab": [
+            56.28,
+            47.82,
+            3.41
+          ],
+          "hex": "#d46284",
+          "weight": 0.2766,
+          "ccihp_class": 6,
+          "ccihp_name": "Pink",
+          "fine_name": "pink"
+        },
+        {
+          "lab": [
+            77.08,
+            12.33,
+            13.25
+          ],
+          "hex": "#deb6a7",
+          "weight": 0.2553,
+          "ccihp_class": 4,
+          "ccihp_name": "Brown",
+          "fine_name": "cream_beige"
+        }
+      ]
+    },
+    {
+      "image_id": "0021448",
+      "human_id": 5,
+      "category": "Coat",
+      "gt_color": "8 (Orange)",
+      "pattern_id": 4,
+      "pred_method_a": "5 (Red)",
+      "pred_method_b": "12 (Multicolor)",
+      "single_method_b": "5 (Red)",
+      "match_type": "multicolor_contains_gt",
+      "layer1_palette": [
+        {
+          "lab": [
+            53.01,
+            58.53,
+            45.54
+          ],
+          "hex": "#e24732",
+          "weight": 0.54,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            63.27,
+            42.36,
+            41.52
+          ],
+          "hex": "#ec7750",
+          "weight": 0.1817,
+          "ccihp_class": 8,
+          "ccihp_name": "Orange",
+          "fine_name": "orange"
+        },
+        {
+          "lab": [
+            37.17,
+            45.03,
+            30.5
+          ],
+          "hex": "#9f312a",
+          "weight": 0.1792,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        }
+      ]
+    },
+    {
+      "image_id": "0021448",
+      "human_id": 5,
+      "category": "Pants",
+      "gt_color": "8 (Orange)",
+      "pattern_id": 1,
+      "pred_method_a": "5 (Red)",
+      "pred_method_b": "12 (Multicolor)",
+      "single_method_b": "5 (Red)",
+      "match_type": "mismatch",
+      "layer1_palette": [
+        {
+          "lab": [
+            58.04,
+            59.92,
+            44.89
+          ],
+          "hex": "#f45440",
+          "weight": 0.4025,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            49.13,
+            61.41,
+            46.79
+          ],
+          "hex": "#d83827",
+          "weight": 0.2533,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "red"
+        },
+        {
+          "lab": [
+            61.81,
+            31.24,
+            5.25
+          ],
+          "hex": "#cc808e",
+          "weight": 0.1767,
+          "ccihp_class": 6,
+          "ccihp_name": "Pink",
+          "fine_name": "pink"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 1,
+      "category": "Pants",
+      "gt_color": "3 (Light)",
+      "pattern_id": 1,
+      "pred_method_a": "12 (Multicolor)",
+      "pred_method_b": "12 (Multicolor)",
+      "single_method_b": "3 (Light)",
+      "match_type": "multicolor_contains_gt",
+      "layer1_palette": [
+        {
+          "lab": [
+            74.87,
+            -1.04,
+            9.95
+          ],
+          "hex": "#beb8a6",
+          "weight": 0.5294,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "cream_beige"
+        },
+        {
+          "lab": [
+            87.09,
+            2.73,
+            5.81
+          ],
+          "hex": "#e5d8cf",
+          "weight": 0.1699,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "white"
+        },
+        {
+          "lab": [
+            32.83,
+            34.88,
+            21.12
+          ],
+          "hex": "#85332e",
+          "weight": 0.1569,
+          "ccihp_class": 5,
+          "ccihp_name": "Red",
+          "fine_name": "burgundy_maroon"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 2,
+      "category": "Coat",
+      "gt_color": "9 (Green)",
+      "pattern_id": 1,
+      "pred_method_a": "1 (Dark)",
+      "pred_method_b": "12 (Multicolor)",
+      "single_method_b": "1 (Dark)",
+      "match_type": "mismatch",
+      "layer1_palette": [
+        {
+          "lab": [
+            7.87,
+            -2.51,
+            4.45
+          ],
+          "hex": "#151811",
+          "weight": 0.3542,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            18.85,
+            -3.57,
+            7.91
+          ],
+          "hex": "#2c2f22",
+          "weight": 0.3233,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            73.4,
+            -2.22,
+            14.83
+          ],
+          "hex": "#bcb499",
+          "weight": 0.1892,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "cream_beige"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 2,
+      "category": "Pants",
+      "gt_color": "2 (Medium)",
+      "pattern_id": 1,
+      "pred_method_a": "1 (Dark)",
+      "pred_method_b": "1 (Dark)",
+      "single_method_b": "1 (Dark)",
+      "match_type": "achromatic_lightness_boundary",
+      "layer1_palette": [
+        {
+          "lab": [
+            29.91,
+            1.85,
+            7.8
+          ],
+          "hex": "#4e453a",
+          "weight": 0.4617,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "charcoal_gray"
+        },
+        {
+          "lab": [
+            35.44,
+            4.48,
+            2.74
+          ],
+          "hex": "#5b514e",
+          "weight": 0.3408,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "charcoal_gray"
+        },
+        {
+          "lab": [
+            22.46,
+            1.71,
+            7.43
+          ],
+          "hex": "#3c342b",
+          "weight": 0.1633,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 3,
+      "category": "UpperClothes",
+      "gt_color": "9 (Green)",
+      "pattern_id": 1,
+      "pred_method_a": "12 (Multicolor)",
+      "pred_method_b": "9 (Green)",
+      "single_method_b": "9 (Green)",
+      "match_type": "exact",
+      "layer1_palette": [
+        {
+          "lab": [
+            63.8,
+            -31.53,
+            8.63
+          ],
+          "hex": "#5baa8a",
+          "weight": 0.3567,
+          "ccihp_class": 9,
+          "ccihp_name": "Green",
+          "fine_name": "green"
+        },
+        {
+          "lab": [
+            57.18,
+            -34.03,
+            13.05
+          ],
+          "hex": "#489872",
+          "weight": 0.2695,
+          "ccihp_class": 9,
+          "ccihp_name": "Green",
+          "fine_name": "green"
+        },
+        {
+          "lab": [
+            69.56,
+            -28.82,
+            6.8
+          ],
+          "hex": "#70b89c",
+          "weight": 0.2025,
+          "ccihp_class": 9,
+          "ccihp_name": "Green",
+          "fine_name": "green"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 3,
+      "category": "Skirt",
+      "gt_color": "3 (Light)",
+      "pattern_id": 1,
+      "pred_method_a": "12 (Multicolor)",
+      "pred_method_b": "3 (Light)",
+      "single_method_b": "3 (Light)",
+      "match_type": "exact",
+      "layer1_palette": [
+        {
+          "lab": [
+            76.77,
+            0.4,
+            -11.26
+          ],
+          "hex": "#b3bfd2",
+          "weight": 0.3,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "cream_beige"
+        },
+        {
+          "lab": [
+            78.67,
+            1.57,
+            -15.62
+          ],
+          "hex": "#b7c3e1",
+          "weight": 0.2558,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "cream_beige"
+        },
+        {
+          "lab": [
+            70.62,
+            0.63,
+            -11.18
+          ],
+          "hex": "#a4adc0",
+          "weight": 0.2525,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "cream_beige"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 4,
+      "category": "UpperClothes",
+      "gt_color": "1 (Dark)",
+      "pattern_id": 1,
+      "pred_method_a": "1 (Dark)",
+      "pred_method_b": "1 (Dark)",
+      "single_method_b": "1 (Dark)",
+      "match_type": "exact",
+      "layer1_palette": [
+        {
+          "lab": [
+            14.06,
+            0.24,
+            -4.64
+          ],
+          "hex": "#20242b",
+          "weight": 0.3436,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            4.82,
+            -1.8,
+            0.99
+          ],
+          "hex": "#0d110e",
+          "weight": 0.299,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            5.66,
+            1.31,
+            -5.28
+          ],
+          "hex": "#0f1219",
+          "weight": 0.244,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 4,
+      "category": "Coat",
+      "gt_color": "12 (Multicolor)",
+      "pattern_id": 1,
+      "pred_method_a": "12 (Multicolor)",
+      "pred_method_b": "12 (Multicolor)",
+      "single_method_b": "3 (Light)",
+      "match_type": "exact",
+      "layer1_palette": [
+        {
+          "lab": [
+            74.06,
+            1.21,
+            -3.08
+          ],
+          "hex": "#b6b6bc",
+          "weight": 0.4323,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "light_gray"
+        },
+        {
+          "lab": [
+            44.38,
+            -2.13,
+            4.66
+          ],
+          "hex": "#696a60",
+          "weight": 0.2488,
+          "ccihp_class": 2,
+          "ccihp_name": "Medium",
+          "fine_name": "charcoal_gray"
+        },
+        {
+          "lab": [
+            94.13,
+            -1.84,
+            1.24
+          ],
+          "hex": "#ebefec",
+          "weight": 0.224,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "white"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 4,
+      "category": "Pants",
+      "gt_color": "1 (Dark)",
+      "pattern_id": 1,
+      "pred_method_a": "1 (Dark)",
+      "pred_method_b": "1 (Dark)",
+      "single_method_b": "1 (Dark)",
+      "match_type": "exact",
+      "layer1_palette": [
+        {
+          "lab": [
+            0.29,
+            0.26,
+            0.13
+          ],
+          "hex": "#020202",
+          "weight": 0.49,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            0.48,
+            1.37,
+            -2.48
+          ],
+          "hex": "#020106",
+          "weight": 0.3183,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            1.06,
+            -2.33,
+            1.57
+          ],
+          "hex": "#020600",
+          "weight": 0.1742,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 5,
+      "category": "UpperClothes",
+      "gt_color": "9 (Green)",
+      "pattern_id": 4,
+      "pred_method_a": "1 (Dark)",
+      "pred_method_b": "1 (Dark)",
+      "single_method_b": "1 (Dark)",
+      "match_type": "mismatch",
+      "layer1_palette": [
+        {
+          "lab": [
+            19.28,
+            -5.35,
+            8.82
+          ],
+          "hex": "#2c3021",
+          "weight": 0.4292,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            30.84,
+            -4.51,
+            8.22
+          ],
+          "hex": "#464b3c",
+          "weight": 0.24,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "charcoal_gray"
+        },
+        {
+          "lab": [
+            7.86,
+            -4.01,
+            6.05
+          ],
+          "hex": "#15190d",
+          "weight": 0.2342,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 5,
+      "category": "Pants",
+      "gt_color": "2 (Medium)",
+      "pattern_id": 1,
+      "pred_method_a": "12 (Multicolor)",
+      "pred_method_b": "2 (Medium)",
+      "single_method_b": "2 (Medium)",
+      "match_type": "exact",
+      "layer1_palette": [
+        {
+          "lab": [
+            39.57,
+            -2.01,
+            9.46
+          ],
+          "hex": "#605e4f",
+          "weight": 0.4708,
+          "ccihp_class": 2,
+          "ccihp_name": "Medium",
+          "fine_name": "charcoal_gray"
+        },
+        {
+          "lab": [
+            47.0,
+            0.04,
+            5.28
+          ],
+          "hex": "#736f67",
+          "weight": 0.2192,
+          "ccihp_class": 2,
+          "ccihp_name": "Medium",
+          "fine_name": "medium_gray"
+        },
+        {
+          "lab": [
+            31.33,
+            -0.54,
+            7.35
+          ],
+          "hex": "#4d4a3f",
+          "weight": 0.1825,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "charcoal_gray"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 6,
+      "category": "UpperClothes",
+      "gt_color": "1 (Dark)",
+      "pattern_id": 1,
+      "pred_method_a": "1 (Dark)",
+      "pred_method_b": "1 (Dark)",
+      "single_method_b": "1 (Dark)",
+      "match_type": "exact",
+      "layer1_palette": [
+        {
+          "lab": [
+            1.92,
+            0.63,
+            -0.66
+          ],
+          "hex": "#09060a",
+          "weight": 0.555,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            9.42,
+            1.28,
+            -2.78
+          ],
+          "hex": "#191a1e",
+          "weight": 0.2183,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            25.36,
+            0.87,
+            -2.77
+          ],
+          "hex": "#3c3c41",
+          "weight": 0.1708,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 6,
+      "category": "Skirt",
+      "gt_color": "1 (Dark)",
+      "pattern_id": 1,
+      "pred_method_a": "1 (Dark)",
+      "pred_method_b": "1 (Dark)",
+      "single_method_b": "1 (Dark)",
+      "match_type": "exact",
+      "layer1_palette": [
+        {
+          "lab": [
+            2.8,
+            0.66,
+            -1.86
+          ],
+          "hex": "#0a0a0e",
+          "weight": 0.52,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            1.69,
+            -0.3,
+            -0.69
+          ],
+          "hex": "#050608",
+          "weight": 0.4342,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            10.92,
+            -1.68,
+            -0.47
+          ],
+          "hex": "#1a1e1d",
+          "weight": 0.0317,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 7,
+      "category": "UpperClothes",
+      "gt_color": "10 (Blue)",
+      "pattern_id": 1,
+      "pred_method_a": "12 (Multicolor)",
+      "pred_method_b": "10 (Blue)",
+      "single_method_b": "10 (Blue)",
+      "match_type": "exact",
+      "layer1_palette": [
+        {
+          "lab": [
+            70.38,
+            0.54,
+            -29.1
+          ],
+          "hex": "#8cade0",
+          "weight": 0.5192,
+          "ccihp_class": 10,
+          "ccihp_name": "Blue",
+          "fine_name": "sky_blue"
+        },
+        {
+          "lab": [
+            55.33,
+            1.84,
+            -31.99
+          ],
+          "hex": "#6186bc",
+          "weight": 0.2992,
+          "ccihp_class": 10,
+          "ccihp_name": "Blue",
+          "fine_name": "royal_blue"
+        },
+        {
+          "lab": [
+            90.33,
+            -3.98,
+            -5.94
+          ],
+          "hex": "#d5e6ee",
+          "weight": 0.1108,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "white"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 7,
+      "category": "Pants",
+      "gt_color": "1 (Dark)",
+      "pattern_id": 1,
+      "pred_method_a": "1 (Dark)",
+      "pred_method_b": "1 (Dark)",
+      "single_method_b": "1 (Dark)",
+      "match_type": "exact",
+      "layer1_palette": [
+        {
+          "lab": [
+            2.64,
+            -0.72,
+            -2.1
+          ],
+          "hex": "#050b0e",
+          "weight": 0.4183,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            0.67,
+            -0.2,
+            -1.1
+          ],
+          "hex": "#020305",
+          "weight": 0.2425,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        },
+        {
+          "lab": [
+            1.53,
+            2.07,
+            -2.38
+          ],
+          "hex": "#08040a",
+          "weight": 0.1792,
+          "ccihp_class": 1,
+          "ccihp_name": "Dark",
+          "fine_name": "black"
+        }
+      ]
+    },
+    {
+      "image_id": "0006909",
+      "human_id": 8,
+      "category": "UpperClothes",
+      "gt_color": "3 (Light)",
+      "pattern_id": 1,
+      "pred_method_a": "3 (Light)",
+      "pred_method_b": "3 (Light)",
+      "single_method_b": "3 (Light)",
+      "match_type": "exact",
+      "layer1_palette": [
+        {
+          "lab": [
+            88.86,
+            1.59,
+            -9.91
+          ],
+          "hex": "#dadff2",
+          "weight": 0.3607,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "cream_beige"
+        },
+        {
+          "lab": [
+            84.39,
+            3.81,
+            -12.38
+          ],
+          "hex": "#cfd1e9",
+          "weight": 0.2623,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "cream_beige"
+        },
+        {
+          "lab": [
+            93.05,
+            3.36,
+            -4.79
+          ],
+          "hex": "#ece9f4",
+          "weight": 0.2295,
+          "ccihp_class": 3,
+          "ccihp_name": "Light",
+          "fine_name": "white"
+        }
+      ]
+    }
+  ]
+}

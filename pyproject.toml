@@ -28,3 +28,4 @@ dev = [
 
 [project.scripts]
 garment-color = "garment_color.cli:main"
+

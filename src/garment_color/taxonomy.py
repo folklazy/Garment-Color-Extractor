@@ -170,3 +170,4 @@ def get_color_by_name(name: str) -> Optional[ColorInfo]:
     """Retrieve color info by case-insensitive name."""
     cid = NAME_TO_ID.get(name.strip().lower())
     return COLOR_REGISTRY[cid] if cid is not None else None
+

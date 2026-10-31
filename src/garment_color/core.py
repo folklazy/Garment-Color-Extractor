@@ -148,3 +148,4 @@ class GarmentColorExtractor:
             latency_ms=latency_ms,
             reasoning=cls_result.reasoning,
         )
+

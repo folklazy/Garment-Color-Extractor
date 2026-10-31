@@ -109,3 +109,4 @@ def extract_color(req: ExtractColorRequest) -> ExtractColorResponse:
         latency_ms=pred.latency_ms,
         reasoning=pred.reasoning,
     )
+

@@ -27,3 +27,4 @@ class ExtractColorResponse(BaseModel):
     total_pixels: int = Field(..., description="Number of garment pixels analyzed")
     latency_ms: float = Field(..., description="Inference latency in milliseconds")
     reasoning: str = Field(..., description="Decision logic explanation")
+

@@ -96,3 +96,4 @@ def decompose_shadows(pixels_lab: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
         valid = np.ones(len(pixels_lab), dtype=bool)
 
     return pixels_lab[valid], valid
+

@@ -90,3 +90,4 @@ def delta_e_weighted(lab: np.ndarray, prototypes: np.ndarray, w_l: float = 0.65)
         diff = lab_arr[:, None, :] - proto_arr[None, :, :]
         dist2 = w_l * (diff[:, :, 0] ** 2) + (diff[:, :, 1] ** 2) + (diff[:, :, 2] ** 2)
         return np.sqrt(dist2)
+
