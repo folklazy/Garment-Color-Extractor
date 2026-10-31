@@ -13,6 +13,18 @@ Evaluated on the academic **CCIHP (Crowd Instance-level Human Parsing with Color
 
 ---
 
+## 🚀 Key Features
+
+* **⚡ Ultra-Fast CPU Execution (< 3.2 ms):** Highly vectorized NumPy, OpenCV, and Scikit-Learn pipeline. Requires **0 MB of GPU VRAM**, freeing 100% of GPU resources for heavy detectors or parsers.
+* **🌓 Shadow & Glare Resilience:** Uses perceptual **CIELAB color space** (`L*`, `a*`, `b*`) with luminance discounting (`w_L = 0.65`) to decouple harsh cast shadows and specular glare from genuine fabric pigmentation.
+* **🛡️ Boundary Bleed Protection:** Incorporates dynamic morphological mask erosion (2–5 px) to eliminate background tiles, asphalt, and skin reflections along mask edges.
+* **👔 Calibrated Navy vs. Black Separation:** Solves the classic computer vision problem of dark blue garments collapsing into black under low light using a calibrated luminance cutoff (`L* = 26.78`) with chroma gating.
+* **🎨 12-Color CCIHP Taxonomy:** Maps directly to standard human parsing datasets with bilingual English and Thai color labels.
+* **🏁 Dual-Color Pattern Detection:** Automatically identifies striped, plaid, and multi-colored clothing using secondary cluster weight (`τ_multi ≥ 27%`) and perceptual `ΔE` contrast.
+* **🔌 Versatile Integration:** Includes Python SDK, CLI terminal tool, visual swatch card generator, and a turnkey FastAPI REST microservice.
+
+---
+
 ## 🔬 Framework Architecture (Paper-Style Overview)
 
 The proposed **M5 Engine** operates as an interpretable four-stage perceptual pipeline, decoupling illumination artifacts from intrinsic fabric pigmentation through physical color space decomposition and calibrated statistical clustering:
@@ -53,20 +65,24 @@ flowchart LR
 
 ### How It Works (Four-Stage Physical Intuition)
 
-1. **Stage 1: Boundary Denoising ($\mathbf{M} \to \mathbf{M}_{\text{core}}$):**
+1. **Stage 1: Boundary Denoising (`Mask M → Core Fabric M_core`):**
    * *Problem:* Segmentation masks from neural networks often bleed 2–4 pixels into the background (skin, wall, tile).
-   * *Solution:* Dynamic morphological erosion using an elliptical structuring element ($\mathbf{K} \in \{3\times3, 5\times5\}$) extracts the core fabric region, eliminating edge contamination.
-2. **Stage 2: Perceptual Color Decoupling ($\text{sRGB} \to \text{CIELAB}$):**
+   * *Solution:* Dynamic morphological erosion using an elliptical structuring element (kernel `3×3` or `5×5`) extracts the core fabric region, eliminating edge contamination.
+2. **Stage 2: Perceptual Color Decoupling (`sRGB → CIELAB`):**
    * *Problem:* In RGB/HSV, brightness is coupled with hue; shadows cause light clothes to look dark or grey.
-   * *Solution:* Transformation into **CIE $L^*a^*b^*$ space** decouples lightness ($L^* \in [0, 100]$) from chroma ($a^*, b^*$). Harsh shadows ($L^* < 12$) and specular glares ($L^* > 98$) are isolated without corrupting fabric chroma.
-3. **Stage 3: Multi-Centroid Cluster Representation (58D Feature Vector):**
+   * *Solution:* Transformation into **CIE L\*a\*b\* color space** decouples lightness (`L*` ∈ [0, 100]) from chroma (`a*`, `b*`). Harsh shadows (`L*` < 12) and specular glares (`L*` > 98) are isolated without corrupting fabric chroma.
+3. **Stage 3: Multi-Centroid Cluster Representation (`58D Feature Vector`):**
    * *Problem:* Clothing often contains folds, shadows, textures, or secondary pattern stripes.
-   * *Solution:* Fast **MiniBatch $K$-Means ($K=4$)** in CIELAB extracts primary and secondary cluster centroids $(\mathbf{c}_1, \mathbf{c}_2)$ and area weights $(w_1, w_2)$. Together with multi-channel quantiles and variances, a compact **58-dimensional perceptual feature vector** is formed.
-4. **Stage 4: Calibrated Decision Head ($\mathbf{f}_{58} \to \hat{y} \in \{1, \dots, 12\}$):**
-   * **Achromatic Gate:** Evaluates metric chroma $C^* = \sqrt{a^{*2} + b^{*2}}$. If $C^* < 11.5$, routes to Light (White), Medium (Grey), or Dark (Black).
-   * **Calibrated Navy Gate:** Addresses dark blue vs. black ambiguity with a calibrated luminance threshold ($L^* = 26.78, b^* < -8.0$).
-   * **Weighted $\Delta E$ Prototype Matching:** Uses luminance-discounted perceptual distance ($\Delta E_{\text{weighted}} = \sqrt{0.65 \Delta L^{*2} + \Delta a^{*2} + \Delta b^{*2}}$) against empirical CCIHP cluster centers.
-   * **Multicolor Gate:** Triggers `12 Multicolor` if secondary cluster weight $w_2 \ge 27\%$ and $\Delta E(\mathbf{c}_1, \mathbf{c}_2) \ge 22.0$.
+   * *Solution:* Fast **MiniBatch K-Means (`K = 4`)** in CIELAB extracts primary and secondary cluster centroids (`c1`, `c2`) and area weights (`w1`, `w2`). Together with multi-channel quantiles and variances, a compact **58-dimensional perceptual feature vector** is formed.
+4. **Stage 4: Calibrated Decision Head (`58D Vector → Color Class 1..12`):**
+   * **Achromatic Gate:** Evaluates metric chroma `C* = √(a*² + b*²)`. If `C*` < 11.5, routes to Light (White), Medium (Grey), or Dark (Black).
+   * **Calibrated Navy Gate:** Addresses dark blue vs. black ambiguity with a calibrated luminance threshold (`L*` = 26.78, `b*` < -8.0).
+   * **Weighted ΔE Prototype Matching:** Uses luminance-discounted perceptual distance:
+     ```text
+     ΔE_weighted = √( 0.65 · (ΔL*)² + (Δa*)² + (Δb*)² )
+     ```
+     against empirical CCIHP cluster centers.
+   * **Multicolor Gate:** Triggers `12 Multicolor` if secondary cluster weight `w2` ≥ 27% and `ΔE(c1, c2)` ≥ 22.0.
 
 ---
 
