@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "no_GPU_training_rerun": true,
+  "exact_validation_regions": 614,
+  "saved_exported_CPU_vs_GPU_prediction_labels": "IDENTICAL",
+  "saved_exported_CPU_vs_GPU_softmax": "allclose(atol1e-6,rtol1e-5), not claimed bitwise",
+  "metric_arithmetic": "PASS",
+  "source_and_artifact_bindings": "PASS",
+  "baseline_actual_SDK_examples": 3,
+  "validation_used_for_fit_or_selection": false,
+  "membership_image_counts": {
+    "train": 300,
+    "calibration": 50,
+    "validation": 100
+  },
+  "GPU_forward_accounting": {
+    "training_batches": 520,
+    "calibration_batches": 40,
+    "validation_batches": 1
+  },
+  "counter_correction": "STATE.GPU_model_calls was an unpopulated orchestration field; not a measured zero-forward count. Actual T4 epochs/losses/export/VRAM and forward accounting are recorded here.",
+  "GPU_training": {
+    "name": "Tesla T4",
+    "allocated_peak_MiB": 65.06103515625,
+    "reserved_peak_MiB": 66.0,
+    "precision": "FP32/no AMP/TF32",
+    "torch": "2.14.0+cu130",
+    "runtime_CUDA": "13.0"
+  },
+  "CCTV": {
+    "images": 12,
+    "regions": 19,
+    "day_images": 6,
+    "night_images": 6,
+    "saved_model": "M2FP_R101_CIHP",
+    "new_parsing_calls": 0,
+    "low_chroma_region_count": 14,
+    "accuracy": null,
+    "reason": "Mixed/unknown color-label provenance and observability; not independent accuracy evidence",
+    "gallery": "outputs/t4-pilot-20261101/private_cctv_gallery/index.html"
+  },
+  "limitations": [
+    "Exploratory small oracle-mask color task, not segmentation end-to-end or deployment acceptance",
+    "CCIHP upper/lower garment definitions can contain dress parts; not the non-Dress common parser task",
+    "Validation never used for training/scaler/checkpoint/threshold tuning; calibration selects epoch",
+    "No CCTV accuracy claim or probability calibration; no latency ranking"
+  ],
+  "disjoint_exact_RGB_hashes": true,
+  "unique_person_category_region_records": true,
+  "selected_epoch_is_minimum_calibration_loss": true,
+  "no_new_parser_inference": true,
+  "postprocessor_source_sha256": "a100ba4033bfe381b388913946b257cc68697ac942eae1e31232317b13fbdeca",
+  "prior_cpu_acceptance": "22 base cases reused from preceding unchanged core; 4 new pilot/artifact/metric cases passed before launch",
+  "CCTV_gallery_visual_inspection": {
+    "private_saved_crops_inspected": 8,
+    "private_crops_total": 19,
+    "claim": "Cropped regions are actual saved-parser geometry; visible appearance only, not independently verified color GT. No inference or label repair."
+  }
+}

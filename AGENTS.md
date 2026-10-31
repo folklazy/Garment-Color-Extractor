@@ -8,3 +8,7 @@ Start with README.md → reports/COLOR_REVIEW_TH.md → benchmark/EVIDENCE_INDEX
 - Inspect existing environments first; do not install into or alter the working YOLO/parser environments. Shared CPU imports and bounded tests are acceptable; no new model downloads/training/GPU benchmark is authorized by these instructions.
 - Test source/API/input/palette/serialization changes with independent expected cases. Do not alter expected labels to maximize agreement with auto-generated color targets. Grayscale/IR hue observability and label provenance must remain explicit.
 - Preserve unrelated/uncommitted changes, inspect staged scope, and use ordinary branch/PR review. Never force-push or rewrite benchmark history. A review commit is not a benchmark launch commit.
+
+## Latest explicit user scope — T4 pilot redesign
+
+User explicitly authorizes designing and running a bounded new color pilot, including a small learned classifier on the available T4. This supersedes the earlier no-training/GPU sentence only for configs/T4_COLOR_PILOT_PROTOCOL.json: 300 train +50 calibration +100 validation images, no downloads or new parsing inference; saved-mask CCTV qualitative check12images only, no CCTV color accuracy claim. Freeze memberships/source before scores; preserve historical artifacts. No additional full benchmark or hyperparameter search is implied.

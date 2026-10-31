@@ -1,0 +1,2350 @@
+{
+  "run_id": "t4-pilot-20261101",
+  "protocol_id": "OBSERVED_GARMENT_COLOR_T4_PILOT_V1",
+  "protocol_sha256": "da15012fe31807f070ab26f1a43438d1a39bf0220fb155097a951fade14e3450",
+  "frozen_run_sha256": "6e6a0506013da12908a80a3802bdebe463aeea38109c8c5698c6fd7839b68c3e",
+  "source_hashes": {
+    "scripts/run_t4_pilot.py": "c82ba164f3ee460910ab65068d13d4e2dfa3ee9c96921adf96d71f5fa93c2a78",
+    "configs/T4_COLOR_PILOT_PROTOCOL.json": "da15012fe31807f070ab26f1a43438d1a39bf0220fb155097a951fade14e3450",
+    "src/garment_color/core.py": "6a712b3f7502991149e103a2036e57d616a086116b70e7aedf154f9e19450e78",
+    "src/garment_color/visualizer.py": "540f9f5c4a22bad3b0b0ccd17bf3d6296d7de192e90a2b89203fcb3447ee3181",
+    "src/garment_color/__init__.py": "ea462e06ac7edf2c71f3263a4886bbc3030d4e509629aea64e31909eea6b10ba",
+    "src/garment_color/taxonomy.py": "56bdc3108349f427b91c989b0b58405adbb8c2e443dceb9654a930e7dfd635b3",
+    "src/garment_color/learned.py": "a322b1022f6de18554a7d1a2a637d7949ff555e69c63261ba3ffa9e6f4de6975",
+    "src/garment_color/classifier.py": "cd260576ddfff2fceaab58ef3e36f8679e5e483877a7956aa1e2aad46c2f517f",
+    "src/garment_color/color_spaces.py": "5310bcbaf8ccabe61b7ffe8ef7d649af329ecb9db6c382fa1dd9f57ec6b65dac",
+    "src/garment_color/preprocessor.py": "913711b55bdb871ae869bb821685158af9795686c2faf037ed5a1e3a8d614926",
+    "src/garment_color/cli.py": "ee8481e636bd2d268fe9d856a1743e1e6595542243351bbbdffbbda6b3c51842",
+    "src/garment_color/features.py": "356155e9b91d1ed42d13958ee53d469e8d17b1c796a256e38239f407f794d55a"
+  },
+  "memberships": {
+    "train": [
+      {
+        "image_id": "0022969",
+        "split": "Training",
+        "RGB_sha256": "ce5b1bfd4ad250b4f56af99e914765b03fab91be364fbf408fe92ec7c41d11a6"
+      },
+      {
+        "image_id": "0007790",
+        "split": "Training",
+        "RGB_sha256": "ca7daa9383d3dc88466a1de55e5dafe46b85605d93856a3cccda4a671d4f5cca"
+      },
+      {
+        "image_id": "0002824",
+        "split": "Training",
+        "RGB_sha256": "7be463644065ed68c9c6133df01e2bf38c98319c8278a444dbdd618fa9cbfa11"
+      },
+      {
+        "image_id": "0020326",
+        "split": "Training",
+        "RGB_sha256": "983f1c480b25ad2d1ca19f42c84f3d59e3a0df03b041cd86d1bd612c3da766da"
+      },
+      {
+        "image_id": "0009309",
+        "split": "Training",
+        "RGB_sha256": "cc0cd3da7a298b8ff91093ed2e52d26a6ef46a85b54d929b3257d9ac63d0fe07"
+      },
+      {
+        "image_id": "0022023",
+        "split": "Training",
+        "RGB_sha256": "43291611a11339eaf931b421bcc4cffa393b17b772653299135f9c1ecae67a93"
+      },
+      {
+        "image_id": "0022765",
+        "split": "Training",
+        "RGB_sha256": "767a0fd87d0e51a7a800e4e3cc5ac6e67ef2b17959775c1a2ee6b63422e76495"
+      },
+      {
+        "image_id": "0023625",
+        "split": "Training",
+        "RGB_sha256": "113ccb931b0b0b75d520bf39d24793ab893a0f297860c03e0807386cac29adf5"
+      },
+      {
+        "image_id": "0030066",
+        "split": "Training",
+        "RGB_sha256": "06a3960d5d53911164c8bc5dd2a3e1f24cbaa283720a4f03aa48dde30220711e"
+      },
+      {
+        "image_id": "0027991",
+        "split": "Training",
+        "RGB_sha256": "c69ade1c01a5d798316c57c9ec56fcf1b4d1671bc8c3e934c03a6e825b968e4d"
+      },
+      {
+        "image_id": "0016656",
+        "split": "Training",
+        "RGB_sha256": "86a536c9b95dbdcfb12a4bc21e9fb665601926f8f82e8845d1871614860909de"
+      },
+      {
+        "image_id": "0005509",
+        "split": "Training",
+        "RGB_sha256": "2bace5e26708adbbbbca122fa64ea2ac72679d3496e015f54bbd8df9d6df9e6e"
+      },
+      {
+        "image_id": "0025701",
+        "split": "Training",
+        "RGB_sha256": "bc9a52a7432938da1bbcd8492d9170b6f3c02b5c3c8c9287ee4c08db41bc9c50"
+      },
+      {
+        "image_id": "0028999",
+        "split": "Training",
+        "RGB_sha256": "26af7f26c5eac0c6fbee8832f8d376184b907a18abfb2dc1e7c40f96d33a6fb0"
+      },
+      {
+        "image_id": "0010945",
+        "split": "Training",
+        "RGB_sha256": "2d5899111f19b76f100829e14a156d1f4ec82c9fc5112a507f34e73aab12e6aa"
+      },
+      {
+        "image_id": "0020064",
+        "split": "Training",
+        "RGB_sha256": "e546fb103421722e4b9b7eaa90351c17a1575fa5456b7414301ed8e78e8503df"
+      },
+      {
+        "image_id": "0020722",
+        "split": "Training",
+        "RGB_sha256": "9b3950940059a905e82f011d061294fbcf67047428d1799a9a9ca0a9ced93b21"
+      },
+      {
+        "image_id": "0008053",
+        "split": "Training",
+        "RGB_sha256": "c289819cd1f01df4ad9bd4a9a1f4da671e1bb687e76b1adc724ce6825e371fca"
+      },
+      {
+        "image_id": "0018312",
+        "split": "Training",
+        "RGB_sha256": "0621cc2920656891b54d34167db878888508b28bb073a8db28ebf4d5b616ff3c"
+      },
+      {
+        "image_id": "0012322",
+        "split": "Training",
+        "RGB_sha256": "729a916a1585e00e3fa77faf3b53088cc719f5dde0b68c359ac4c271787490bf"
+      },
+      {
+        "image_id": "0017851",
+        "split": "Training",
+        "RGB_sha256": "9de08f8b14fd038a9fec78b6e7169cb5a68eda6ad04d1d346514e545df1ac5cf"
+      },
+      {
+        "image_id": "0006500",
+        "split": "Training",
+        "RGB_sha256": "ea5e5faaea94a1f76af4f4e9e32d87772a20d5905e053883e16dbb4f8ee0e501"
+      },
+      {
+        "image_id": "0022593",
+        "split": "Training",
+        "RGB_sha256": "a36e0d65b650ee22b920b7c0f6c0aa0793569122ac6b298662565dadebcc6120"
+      },
+      {
+        "image_id": "0030801",
+        "split": "Training",
+        "RGB_sha256": "b9ad723880febf0ce76c791ba114a188c5ec03bdf722603799b3871778d4d98b"
+      },
+      {
+        "image_id": "0012470",
+        "split": "Training",
+        "RGB_sha256": "ffe1c13391eb605675a7a57a39c2642c1a7a61e4bd0441c15ea4103ea10e6ff8"
+      },
+      {
+        "image_id": "0018740",
+        "split": "Training",
+        "RGB_sha256": "e8dc91ba8428fe9c0f153cc24a01afd99b2f841c3f052395b299773073d5af70"
+      },
+      {
+        "image_id": "0026070",
+        "split": "Training",
+        "RGB_sha256": "eebb7e6cbad17cf764f99541afdfe4d818eccef31e3660267876d986c9a1231f"
+      },
+      {
+        "image_id": "0002622",
+        "split": "Training",
+        "RGB_sha256": "5b7368d0685cb53e1670ee89e31c8b5f039b012efb6e32321ffa55daa5709161"
+      },
+      {
+        "image_id": "0031153",
+        "split": "Training",
+        "RGB_sha256": "06ba464a05f8b3fcfd71a27967d46b6e9fba5b7204a0e079e3786275f886eca2"
+      },
+      {
+        "image_id": "0011705",
+        "split": "Training",
+        "RGB_sha256": "8fb2b8fe1f5253f1e22271c562a74e09a6e506890ec0cd0466eba0230961c052"
+      },
+      {
+        "image_id": "0000318",
+        "split": "Training",
+        "RGB_sha256": "07b6979d0fe21da465fb471460b2021f014011ff351667066e7d1b9ddcd30e44"
+      },
+      {
+        "image_id": "0020010",
+        "split": "Training",
+        "RGB_sha256": "c0d54859d85f6f0f924c24c23d28d2f3810384819c434e9535d0c5e78f6fefb0"
+      },
+      {
+        "image_id": "0019074",
+        "split": "Training",
+        "RGB_sha256": "71d8f2694b6e4b47505fb0aab5348008dcfc12f919502d42de75d555bb7e7d5f"
+      },
+      {
+        "image_id": "0025148",
+        "split": "Training",
+        "RGB_sha256": "5a2ec8cea7f8c6e77a389f6cd0698dab425d5e4d2eaf891d2b44f30e0d27b2e3"
+      },
+      {
+        "image_id": "0026373",
+        "split": "Training",
+        "RGB_sha256": "28bad1c134f6b9ab4f4c1ef9b9ace74083bbaba97723de32a73cf9b6b3b3c1a1"
+      },
+      {
+        "image_id": "0012610",
+        "split": "Training",
+        "RGB_sha256": "964bf3680c022933aed00bfe162297df6986f435c0d14684c83e66f435a3379a"
+      },
+      {
+        "image_id": "0010581",
+        "split": "Training",
+        "RGB_sha256": "684e1f99303fd2a07c4c047a818e965ee51fd69e984b09a4a278a351bf784a05"
+      },
+      {
+        "image_id": "0022328",
+        "split": "Training",
+        "RGB_sha256": "44d5c7053a62b0060fd73912fc6ca9bd55f0812cc55238c21cdddb6afb85a84b"
+      },
+      {
+        "image_id": "0033639",
+        "split": "Training",
+        "RGB_sha256": "a3cd23fcf79678a9b1d67ebda32f695530bf0782010984dff9df8ca8918f0e37"
+      },
+      {
+        "image_id": "0035170",
+        "split": "Training",
+        "RGB_sha256": "fb97666ac06506103d63d633f56f1170ab99c99824351385ef724d31810ac75f"
+      },
+      {
+        "image_id": "0020992",
+        "split": "Training",
+        "RGB_sha256": "04ea57c3cda6bf091774d9dbe4a7b895220b2938d829f2c9f0c5e5f8515809a0"
+      },
+      {
+        "image_id": "0022200",
+        "split": "Training",
+        "RGB_sha256": "165909ea4ff293ef993f4d98ef907b6ba7799d823dd573f4525682af1269091d"
+      },
+      {
+        "image_id": "0002016",
+        "split": "Training",
+        "RGB_sha256": "430412b9410578f78040bdd880b81d65654a02096b09fd16532deb73cb24df36"
+      },
+      {
+        "image_id": "0024599",
+        "split": "Training",
+        "RGB_sha256": "1441a8684e8f758131806feda463244bd7b327886e92c0a46abb5e7f9074e1be"
+      },
+      {
+        "image_id": "0001466",
+        "split": "Training",
+        "RGB_sha256": "00e60141c7a7bef98d773d34ea37e736f2d938dff9fd6f78d26a04fa738b628a"
+      },
+      {
+        "image_id": "0028927",
+        "split": "Training",
+        "RGB_sha256": "a5cd5698b554619bd7105674c61f4c0c09e5c85133430d3b4c44f57cf1c84062"
+      },
+      {
+        "image_id": "0010835",
+        "split": "Training",
+        "RGB_sha256": "8fd37d2418aaef4fc4bcb3f91816ba7aaf88ffa743ba5e87a8f28f3795ec580a"
+      },
+      {
+        "image_id": "0003046",
+        "split": "Training",
+        "RGB_sha256": "a92ee9f255dcc0e09ba88ae2242a75f32a6c294c53e00e0fc4ab6b4c70a9ead7"
+      },
+      {
+        "image_id": "0021603",
+        "split": "Training",
+        "RGB_sha256": "72777f6aff206c17c6cd0457ef20da3d0d0d7ff95c4a108bdbc3ecfdd3ce5776"
+      },
+      {
+        "image_id": "0004628",
+        "split": "Training",
+        "RGB_sha256": "40ce337ecd693b0bdd69cbcb3798717a8c8cfd926e4214ff5e2ec5ff0ed2ec62"
+      },
+      {
+        "image_id": "0023739",
+        "split": "Training",
+        "RGB_sha256": "0446c7a0e16bb612d8c607d41a5bdb43538ef91e058ec4ee74217858410ad827"
+      },
+      {
+        "image_id": "0010863",
+        "split": "Training",
+        "RGB_sha256": "19c028b4a7bd89fb92d8fc28de5344a36a19f4dad6acd8ee1ed7bcd76e1a914d"
+      },
+      {
+        "image_id": "0029631",
+        "split": "Training",
+        "RGB_sha256": "2da0165db5107b9307d27ac27c46738e85d0d541e1e6b9521e5e2d47d8d0796b"
+      },
+      {
+        "image_id": "0021750",
+        "split": "Training",
+        "RGB_sha256": "3a783f09ec14e9388ed71364e20d0c9b55ccea6ed9d7ea7907b2fb6467806de3"
+      },
+      {
+        "image_id": "0032263",
+        "split": "Training",
+        "RGB_sha256": "cc2c683e5e74de5ec8b28c2930b0a8ec048ced17746b1a1ee2896e2b6419feb5"
+      },
+      {
+        "image_id": "0006754",
+        "split": "Training",
+        "RGB_sha256": "260d9b2336c80fc9acf0e05901c77ef7a8cbf56a33bd5b3ac3895755ef96e228"
+      },
+      {
+        "image_id": "0024505",
+        "split": "Training",
+        "RGB_sha256": "5d3de90fa3b1acce3a0334497c4539759c11d1efa1572808485ea200a28ac4f7"
+      },
+      {
+        "image_id": "0006669",
+        "split": "Training",
+        "RGB_sha256": "d9e31dad0c0480a24f6161b976376371b4a15b975b027b4cb3b83a1b12d88402"
+      },
+      {
+        "image_id": "0035320",
+        "split": "Training",
+        "RGB_sha256": "cf7a35a927307de589c8f5dabc4da3e2812ab1466cb1d8342ab67f921c2de9f4"
+      },
+      {
+        "image_id": "0025027",
+        "split": "Training",
+        "RGB_sha256": "64503eccfbc4147cd914102b4e77c55e2acc29fd0c4e71b15b9bf5baf6d70a27"
+      },
+      {
+        "image_id": "0006159",
+        "split": "Training",
+        "RGB_sha256": "5e87cdc458fb5997b6112b1a453070e373ff4cdb28d292b601891fe98ffdff22"
+      },
+      {
+        "image_id": "0027939",
+        "split": "Training",
+        "RGB_sha256": "e6088b72839959952d86ef2e4f08e6c9c6483ccbf3645afcfe08720690355fbf"
+      },
+      {
+        "image_id": "0026369",
+        "split": "Training",
+        "RGB_sha256": "25451b604666d3c7ca6fe99eb2fc8d147d3d1090eb347b7e3200e85666aa43e1"
+      },
+      {
+        "image_id": "0026929",
+        "split": "Training",
+        "RGB_sha256": "51d9581fca346bbb51285dc0ff480d5dba637e649198f76050dbe8cdca9a64d4"
+      },
+      {
+        "image_id": "0013389",
+        "split": "Training",
+        "RGB_sha256": "5c65eb482b8019d377dc225db8621861bd79ea9f9f4203663760058a08303c57"
+      },
+      {
+        "image_id": "0027963",
+        "split": "Training",
+        "RGB_sha256": "e0e7c9de0ebf8fa82a0fedd69ad40b3e36ed79b8cde64aede86f7b71c1d1be39"
+      },
+      {
+        "image_id": "0009765",
+        "split": "Training",
+        "RGB_sha256": "67425cebfb04dd734c87e2a8977aec4d6b36db3d2e74d4aee7431d87c912b4d6"
+      },
+      {
+        "image_id": "0022974",
+        "split": "Training",
+        "RGB_sha256": "954b5c9a48158b1678400654dad189f6e88b5f264a31d57d4f2d914cb9c9bad7"
+      },
+      {
+        "image_id": "0029944",
+        "split": "Training",
+        "RGB_sha256": "548c7d28963488b86b7b3756a638d5b9e901d638aa7981e1e2be33363508fa30"
+      },
+      {
+        "image_id": "0030347",
+        "split": "Training",
+        "RGB_sha256": "b3f96b17f01eb78ce276ec71b6c074765aeb85dba5224e75114295c7f0d87739"
+      },
+      {
+        "image_id": "0013532",
+        "split": "Training",
+        "RGB_sha256": "d65a6a9776fcde39ce9335036d780b80309fd6c15eec6f5eca9d300ee5fc0ccb"
+      },
+      {
+        "image_id": "0007670",
+        "split": "Training",
+        "RGB_sha256": "4aa297b014a04cfa6bd705564717dc71eb41194abc1b77509204788771b0af3d"
+      },
+      {
+        "image_id": "0024752",
+        "split": "Training",
+        "RGB_sha256": "27a71feae2e4d61990c377f7b6e93ff29a86216666220dcf21b875e22e26a4e2"
+      },
+      {
+        "image_id": "0034839",
+        "split": "Training",
+        "RGB_sha256": "b0afe516e6a2521d54ec8ee1f3617b3b86f0c85ef680ceb7c8917d509eed25ca"
+      },
+      {
+        "image_id": "0013770",
+        "split": "Training",
+        "RGB_sha256": "ce2f90df676fc1367fb4b95675de23ca26d86997c3d9bf1d30a6ea8ba80e0dfd"
+      },
+      {
+        "image_id": "0021147",
+        "split": "Training",
+        "RGB_sha256": "6859ea1bd4284583d9e894340f05cb352d79fa874f81fe5c9ad75cce872a7823"
+      },
+      {
+        "image_id": "0023026",
+        "split": "Training",
+        "RGB_sha256": "859906fbcbb3b882b1cd6f184c65fb66d2cb90aabd99c13a9b7e23874ec9780b"
+      },
+      {
+        "image_id": "0002579",
+        "split": "Training",
+        "RGB_sha256": "0b4a9563529f65b8819317d6dbb0d82880c49ade01a881834d7a2949ac771c22"
+      },
+      {
+        "image_id": "0024351",
+        "split": "Training",
+        "RGB_sha256": "d035075ff4ce69e2314d3132ba55bfaee630f17f1d923f1f4078e879d0342eb1"
+      },
+      {
+        "image_id": "0027363",
+        "split": "Training",
+        "RGB_sha256": "1f83aba20a234398f51a65715d57deb99768d194f3d0ec31f7b27cba4892e55c"
+      },
+      {
+        "image_id": "0004622",
+        "split": "Training",
+        "RGB_sha256": "e0324bbe6291cecf49e2c74f96d9be47a1745a9a6b782ebf245734f70f012ff0"
+      },
+      {
+        "image_id": "0022148",
+        "split": "Training",
+        "RGB_sha256": "2b9a3d96cedfe45fdcf56cacc577ac73745fd35c2eaba7863bca23a6adcf70a0"
+      },
+      {
+        "image_id": "0028583",
+        "split": "Training",
+        "RGB_sha256": "f8aa1adbdfdaa6d55de782945e91ba6dd2db5d8bdd96832eb012b33648161a54"
+      },
+      {
+        "image_id": "0020983",
+        "split": "Training",
+        "RGB_sha256": "9247508db64215239f67eb44b281e2404768752ad5e11aa8a8d43e78c0f69ed6"
+      },
+      {
+        "image_id": "0025412",
+        "split": "Training",
+        "RGB_sha256": "08f55949962166e794b2120c6487d06eaf0f0ed67f91a493487f835574d2bb0e"
+      },
+      {
+        "image_id": "0007177",
+        "split": "Training",
+        "RGB_sha256": "85314de8e07e651a66f5b972cee59bc87c8e0c04bfb714ac8ab0150721e84131"
+      },
+      {
+        "image_id": "0022101",
+        "split": "Training",
+        "RGB_sha256": "48d61d94f8fcd1b4a643a8fc62758abd070f6d82ee60ed339b49317525af36d8"
+      },
+      {
+        "image_id": "0027439",
+        "split": "Training",
+        "RGB_sha256": "40d2c6434dbb27565ee455b55f4d3e2d536b96121f1ae1189fdabb600153655a"
+      },
+      {
+        "image_id": "0034073",
+        "split": "Training",
+        "RGB_sha256": "3210875199677230eb891aa36cbdd0fbc9a3761656bd60a4327054db8e836217"
+      },
+      {
+        "image_id": "0010833",
+        "split": "Training",
+        "RGB_sha256": "3112ae1c941e6b24a784c4c72f7dde45a3574026ebf00f469bff3cb9fe96d23d"
+      },
+      {
+        "image_id": "0017871",
+        "split": "Training",
+        "RGB_sha256": "7edc492078935e5e7672051762899747a8b85937a5d0d5ceff59dd3b9305dad7"
+      },
+      {
+        "image_id": "0005073",
+        "split": "Training",
+        "RGB_sha256": "0610e5d2e35c000f33a0da07f322acfadd253745cc97f66074cd1d255a3b7322"
+      },
+      {
+        "image_id": "0020711",
+        "split": "Training",
+        "RGB_sha256": "5771e3eedb79e3da223bb07f21dd5c606d4abcb5005564051436dce68f47b094"
+      },
+      {
+        "image_id": "0016911",
+        "split": "Training",
+        "RGB_sha256": "1f495df1d6caca68f24a435f3f0c72f251aacf8d5421935e5dce58b25c551ddf"
+      },
+      {
+        "image_id": "0016215",
+        "split": "Training",
+        "RGB_sha256": "820d996b312fa49cf38e268853c48da0be7fa531da0c4a23eb5e616dfb2a1550"
+      },
+      {
+        "image_id": "0025857",
+        "split": "Training",
+        "RGB_sha256": "7fd822275a624401d470781b681bb8ab3c222950b2da1c801e9a80db922bc450"
+      },
+      {
+        "image_id": "0006372",
+        "split": "Training",
+        "RGB_sha256": "e33dc7f05b3e4c9dbbeab13bd68857a8af0c36439d04061d30929c01f50c1a82"
+      },
+      {
+        "image_id": "0016531",
+        "split": "Training",
+        "RGB_sha256": "6c90fe336bfe75c99e4b4d7c53835879c86f53a9991ebe9dc57cb01484a31351"
+      },
+      {
+        "image_id": "0018909",
+        "split": "Training",
+        "RGB_sha256": "5f83cbfa3882c414f87223f3488abcd708148ac32b149ed9077728bdb5dbca83"
+      },
+      {
+        "image_id": "0029464",
+        "split": "Training",
+        "RGB_sha256": "a4e61fa768a5f21a12809f3383dfc4bb76b282789e4c58b478f1c4890bcd7f64"
+      },
+      {
+        "image_id": "0007942",
+        "split": "Training",
+        "RGB_sha256": "b215c6ea580b22205c74d18ae5a5da9ec5722d069e051345cef0b2c929c58fdc"
+      },
+      {
+        "image_id": "0019992",
+        "split": "Training",
+        "RGB_sha256": "99a737819b223c7ad6861edf7915395e3ea99cfffd10f1c929eaddcf06d0c9ab"
+      },
+      {
+        "image_id": "0016907",
+        "split": "Training",
+        "RGB_sha256": "7ebfde6d358334efee713523d3be588f91d6ec4e76d233865436e646a285692f"
+      },
+      {
+        "image_id": "0001699",
+        "split": "Training",
+        "RGB_sha256": "9496b9d86a20177fc42a10027161644671efccb88d8eb1e81c7bace943dd82f3"
+      },
+      {
+        "image_id": "0005545",
+        "split": "Training",
+        "RGB_sha256": "e76ea320ace86642cd3c165304bbf97a1889b5c209be8f6b39c90f92dc7aa424"
+      },
+      {
+        "image_id": "0017721",
+        "split": "Training",
+        "RGB_sha256": "c57023b099e0f7a56520a2049ee09351a6fa47c9388380380f6a018bfdc57dec"
+      },
+      {
+        "image_id": "0032261",
+        "split": "Training",
+        "RGB_sha256": "3d5ad7a84573241994489a0d2e6996dbb115bfc322c208f4f23acf4d99b8f14a"
+      },
+      {
+        "image_id": "0024808",
+        "split": "Training",
+        "RGB_sha256": "9a9a8baee1ba22611b1ee3e9b626f112552b0142a0ceeb536f22b04c9960a19e"
+      },
+      {
+        "image_id": "0001318",
+        "split": "Training",
+        "RGB_sha256": "edb9fa707c7c44a3a1d4d7a08372b0b142cd7bffa9b7b24f77d0c5910e121064"
+      },
+      {
+        "image_id": "0026784",
+        "split": "Training",
+        "RGB_sha256": "abebaa4960a80966c3f7f1186cf31978baf253da844c2666b3038023f8bd671c"
+      },
+      {
+        "image_id": "0022664",
+        "split": "Training",
+        "RGB_sha256": "6eef2bf096341173bdaffb95515e551e802470b9772ac890c0ade2fd062349aa"
+      },
+      {
+        "image_id": "0003164",
+        "split": "Training",
+        "RGB_sha256": "311462bccff84ec854c3f303bd5739c9e1870980d4fb9bea904ceb573f88e7bf"
+      },
+      {
+        "image_id": "0008340",
+        "split": "Training",
+        "RGB_sha256": "f43484d2d0f158d1f6e8a56541a8c2ed31c4b24328f08fec544a935d7c1d70c8"
+      },
+      {
+        "image_id": "0007734",
+        "split": "Training",
+        "RGB_sha256": "04fa071f383a0b094f55f0c906724e1ce462dbd9a9541312c237eb34acea179c"
+      },
+      {
+        "image_id": "0010868",
+        "split": "Training",
+        "RGB_sha256": "7710cf22485cff06903601ceebf5f37acd013857dc5afad1406276344b601666"
+      },
+      {
+        "image_id": "0007001",
+        "split": "Training",
+        "RGB_sha256": "25c8ff52555f8dab4e3c31a14f2a8f4aad984ddeb4fd69db21ccb5433f6c1be5"
+      },
+      {
+        "image_id": "0024571",
+        "split": "Training",
+        "RGB_sha256": "5f633f40c00fce4e5b1b7dda756cfee58a03235f2616da89b552311916acb250"
+      },
+      {
+        "image_id": "0019197",
+        "split": "Training",
+        "RGB_sha256": "f32a59518fb567717f540aabd29f3196bd6fd713dfef495ae8b81079ceaacc09"
+      },
+      {
+        "image_id": "0025094",
+        "split": "Training",
+        "RGB_sha256": "35faa0d241e34c5d325e793566883327d7e3b811f8ad0a8cd9e8a0497a2b3233"
+      },
+      {
+        "image_id": "0033477",
+        "split": "Training",
+        "RGB_sha256": "1e23de9c9f5bf4fb3d177742d502e39557658c935a02b13b594802ee0f678b84"
+      },
+      {
+        "image_id": "0019134",
+        "split": "Training",
+        "RGB_sha256": "153a36ec31a76c4e5a56b6a1e0a4751f690d3896b9174e986d19efe20ed82735"
+      },
+      {
+        "image_id": "0005290",
+        "split": "Training",
+        "RGB_sha256": "3dd908574c79202ef5cac8ffa760384fb5021459e4680ca19aa712cd1291bce2"
+      },
+      {
+        "image_id": "0002617",
+        "split": "Training",
+        "RGB_sha256": "4af3d1fdb45f3469132e6d2e3f95afba89bea38bddebccd730497e587f8ac17a"
+      },
+      {
+        "image_id": "0019810",
+        "split": "Training",
+        "RGB_sha256": "b7e7888be741a720db31a9f884ed3dec8ae85b2666c3961d87d3ca18cba69636"
+      },
+      {
+        "image_id": "0015638",
+        "split": "Training",
+        "RGB_sha256": "d0eb8738087d54b22ef1a9144b337e4b83e198c9f356388c6ec64ca546cbd5c2"
+      },
+      {
+        "image_id": "0027095",
+        "split": "Training",
+        "RGB_sha256": "596d0f2b1ce1be33787cbfd7f4fdd519e249cd82a9cb13d4f957389dc36bec65"
+      },
+      {
+        "image_id": "0009461",
+        "split": "Training",
+        "RGB_sha256": "8eabc065f77d2ffab0cf7e270531d9d4d4414dcf2da4834f09ad756299997ccc"
+      },
+      {
+        "image_id": "0022687",
+        "split": "Training",
+        "RGB_sha256": "25a26681d1067d8ee5c6ce99485f13334e3ead11613b5ac9d9e36670f6e6f133"
+      },
+      {
+        "image_id": "0012355",
+        "split": "Training",
+        "RGB_sha256": "0994272d240b070eab6538122da0d4680059e7160008ea94e1d426f763fbc169"
+      },
+      {
+        "image_id": "0017991",
+        "split": "Training",
+        "RGB_sha256": "b33232afa71feca90c617ff7474e5f7b7d67007990ecedbdfb6b4d08368f1056"
+      },
+      {
+        "image_id": "0033352",
+        "split": "Training",
+        "RGB_sha256": "047d26c6a2c71b1679372e31f2f71c8af417d8e40742e3f7dad9c45d9c16aecb"
+      },
+      {
+        "image_id": "0019186",
+        "split": "Training",
+        "RGB_sha256": "0a119d9ff4ff20615fe42372be7668e6d040d971c6b1891acc4d748c21b11564"
+      },
+      {
+        "image_id": "0011788",
+        "split": "Training",
+        "RGB_sha256": "7e9125bfe60b38888316505b9d69f837e9ba96dc6bdf353d2aecd243e0cbb484"
+      },
+      {
+        "image_id": "0004745",
+        "split": "Training",
+        "RGB_sha256": "20d68ac9ab20f31e0fbf028b206ffb42306744d9953fcb65ba0f6b2849222cfd"
+      },
+      {
+        "image_id": "0020849",
+        "split": "Training",
+        "RGB_sha256": "2083efa3c5ad12aceedaf31b60a9bf6be52c3560b61908d9224b806e2d49e083"
+      },
+      {
+        "image_id": "0004198",
+        "split": "Training",
+        "RGB_sha256": "acaf2e0d1e61d9cb391c4ebebd1783ec3429f531f7576f65b341f6f7849d513a"
+      },
+      {
+        "image_id": "0007295",
+        "split": "Training",
+        "RGB_sha256": "251759acacc139d23eac27aafa91e1c69811c329de69addd4cd761d31f6db214"
+      },
+      {
+        "image_id": "0007941",
+        "split": "Training",
+        "RGB_sha256": "f7d8ec55817758259c6778c2783954c0fd2f2cfafd2a9d634b0b20575000a2c4"
+      },
+      {
+        "image_id": "0031095",
+        "split": "Training",
+        "RGB_sha256": "a10f786011afb0a5a6cc26fbd17656741f707a736e0b248b08d979e2a6f3e782"
+      },
+      {
+        "image_id": "0005037",
+        "split": "Training",
+        "RGB_sha256": "f377b723aba7987e8e8a76983829d7248d66e4f5fc80274abf54ac02958806d2"
+      },
+      {
+        "image_id": "0012856",
+        "split": "Training",
+        "RGB_sha256": "7368d88cb7ae8b13cf748569ec1a8475b53e1139191d9ab1ff9d76d471b9bc91"
+      },
+      {
+        "image_id": "0000103",
+        "split": "Training",
+        "RGB_sha256": "d8206a8a1e64790ccaf430a687dd39732d711eb8f092ca15e34ae78cb4bc9524"
+      },
+      {
+        "image_id": "0002525",
+        "split": "Training",
+        "RGB_sha256": "e88acff42bec645a3d676f1668d4b75a4365f3535d1fee7d402332eeeb4f4099"
+      },
+      {
+        "image_id": "0002270",
+        "split": "Training",
+        "RGB_sha256": "cc8688c32c67649cc36d89dbc69e711f720b2d632ddf8fcc26f7a3bbb4d9e363"
+      },
+      {
+        "image_id": "0032464",
+        "split": "Training",
+        "RGB_sha256": "2c56119b83a6b72e09141f6c0cf584747203740a664ad412de58007dc336ffe4"
+      },
+      {
+        "image_id": "0015119",
+        "split": "Training",
+        "RGB_sha256": "84c90240029fd1783915d8b020e54b149e5ab8b4efb12dfb11725a538b09b407"
+      },
+      {
+        "image_id": "0025111",
+        "split": "Training",
+        "RGB_sha256": "5ec7251dc7dbe2a9cb5bf6aea1eec6fa06905f1fef642cf720b251e0dd51b9d9"
+      },
+      {
+        "image_id": "0011112",
+        "split": "Training",
+        "RGB_sha256": "00d9b19879149afe90916e34f6153041c53daddccdea4930c575966ca5e97fd5"
+      },
+      {
+        "image_id": "0016329",
+        "split": "Training",
+        "RGB_sha256": "23fe6a85ab3e71f48b5ecf26a15d4d0233dd3dbd5f08e959d3c03e60249c6ab4"
+      },
+      {
+        "image_id": "0002219",
+        "split": "Training",
+        "RGB_sha256": "d2c28325f5ef806eeaa25acf884f5d2e89cf80329f4c6968fb3e4a7b2beed9cc"
+      },
+      {
+        "image_id": "0011336",
+        "split": "Training",
+        "RGB_sha256": "47fe0a300e123da9a21864affc69423085e28574b9309c1c7debeca71c69f4eb"
+      },
+      {
+        "image_id": "0035516",
+        "split": "Training",
+        "RGB_sha256": "d8d5ec6a2efa8e1a254d46e7f0c49d9f12393c9758895b3a8e8c2687c8268666"
+      },
+      {
+        "image_id": "0017931",
+        "split": "Training",
+        "RGB_sha256": "47a25f0b0298fde847f9101e5c894ae86b92925303fc3a3556e0502fe31b74d6"
+      },
+      {
+        "image_id": "0024966",
+        "split": "Training",
+        "RGB_sha256": "a4e260b05d99fd81f4b661cf70a5f7223d2775c7b133b9bdbc57c6944208245b"
+      },
+      {
+        "image_id": "0012718",
+        "split": "Training",
+        "RGB_sha256": "8eb0ec6e5ea46fb46e1e121fe4091b1ceeb2a9a7c1d536317fa89c880bbc810f"
+      },
+      {
+        "image_id": "0014621",
+        "split": "Training",
+        "RGB_sha256": "cd78f986fb19e74b5ce24a8e5473552853a6ac68ba69929fb4f0f172cf6f9d1b"
+      },
+      {
+        "image_id": "0029625",
+        "split": "Training",
+        "RGB_sha256": "765207b4db387282de07fb6712d6e354e9bd3a5cf6d612eb5368795d89cff729"
+      },
+      {
+        "image_id": "0008508",
+        "split": "Training",
+        "RGB_sha256": "228f632b9172edd384e16fcf690d729185b100585c5096fcf86405e6073b23da"
+      },
+      {
+        "image_id": "0013327",
+        "split": "Training",
+        "RGB_sha256": "504a4c8b1ee8c5fa3479ca3bab4408d067d326297a806db56c91d7e3305e3e40"
+      },
+      {
+        "image_id": "0001547",
+        "split": "Training",
+        "RGB_sha256": "530061c5c7adc93a255abb63c805f37b78c96e1def8722add7487c8eb0d41a2a"
+      },
+      {
+        "image_id": "0035265",
+        "split": "Training",
+        "RGB_sha256": "d3b0b99cf91d3a9810fd267fa6ca1baaceeb7bc7ed5e8f04eac6b9010df8459d"
+      },
+      {
+        "image_id": "0006936",
+        "split": "Training",
+        "RGB_sha256": "9bf944877ee54b9528af3fb43ae289a05293d88ef05948809d1179d85d733615"
+      },
+      {
+        "image_id": "0023418",
+        "split": "Training",
+        "RGB_sha256": "9889bb34bd52dab5dbc72053b586a01a243362f9e57e73a1166fad6fee6c42d7"
+      },
+      {
+        "image_id": "0029282",
+        "split": "Training",
+        "RGB_sha256": "274210a44641a9c15c0dca9ea8af6d707be858d972619dd45dc17db68886feed"
+      },
+      {
+        "image_id": "0009404",
+        "split": "Training",
+        "RGB_sha256": "2e4bcad3d1a37329f5d284b5c2268ab60324de91023cc63ea4b07761e6aecf24"
+      },
+      {
+        "image_id": "0005841",
+        "split": "Training",
+        "RGB_sha256": "f8bfa1deee450a58c7912573a0ee1067572afb34661675fbb4f89a633c721e79"
+      },
+      {
+        "image_id": "0009406",
+        "split": "Training",
+        "RGB_sha256": "94be778cc1f29a01f620cf1ed4258cc861e3fcd323a08eef5252182587b9b05d"
+      },
+      {
+        "image_id": "0026667",
+        "split": "Training",
+        "RGB_sha256": "84e72239743147110aa39e0221ee9d828d223896ccad88a9b28669326188c777"
+      },
+      {
+        "image_id": "0025981",
+        "split": "Training",
+        "RGB_sha256": "7b9196b104edb5c8fc8afa9b049d3b56e0cddda983d3b6b3318189ddb2b51258"
+      },
+      {
+        "image_id": "0004151",
+        "split": "Training",
+        "RGB_sha256": "800da49181d0723406c6bd32a894cb5455234ad7de1a2b1aa50c069bf834e728"
+      },
+      {
+        "image_id": "0031042",
+        "split": "Training",
+        "RGB_sha256": "7c37f7b4c3063dbd7b57f4875058bc5205680fa37eb7c585b88a54d83654598f"
+      },
+      {
+        "image_id": "0001371",
+        "split": "Training",
+        "RGB_sha256": "54d3333665c3774d52701ca68fe9fc2f7a09ab55f3e97a83fe8655aad7a63fde"
+      },
+      {
+        "image_id": "0034459",
+        "split": "Training",
+        "RGB_sha256": "a2b6eb573660f4fad44857c0c8744e856390c8be1682ded838ceba2c24d78bf7"
+      },
+      {
+        "image_id": "0011182",
+        "split": "Training",
+        "RGB_sha256": "d7411038ba003e4f53bda01c187e830da5994f1f6e901d8ccf5cafe9d06d5597"
+      },
+      {
+        "image_id": "0009836",
+        "split": "Training",
+        "RGB_sha256": "b9512196c158c1c8513b07ad85694da984783cf4092d74c6b79d1bed16f40810"
+      },
+      {
+        "image_id": "0005320",
+        "split": "Training",
+        "RGB_sha256": "221e9ec8680b17e50ec6621e8ac82ea458ad0c73f203e4e290b147db1d430e94"
+      },
+      {
+        "image_id": "0026666",
+        "split": "Training",
+        "RGB_sha256": "4242d9403722f9c5420ced1d8617f595425de577bb6991e462dab379ea98c26e"
+      },
+      {
+        "image_id": "0017740",
+        "split": "Training",
+        "RGB_sha256": "cf67533ac5368babff4852d8b22d625857bd7b89513946b73d1f2f9c0f1c8a57"
+      },
+      {
+        "image_id": "0005834",
+        "split": "Training",
+        "RGB_sha256": "de204a8eae6a0b30fbda4ec6e48920f62d3d63a4b4146b1d0aa4b34749844dfe"
+      },
+      {
+        "image_id": "0034726",
+        "split": "Training",
+        "RGB_sha256": "5fa7b2f55d7db23e5e4512689c217309059a0ba6ddcb3c6a7ba5ca3dd8fd4ba2"
+      },
+      {
+        "image_id": "0000444",
+        "split": "Training",
+        "RGB_sha256": "2aa5fdbf68035eb2f963153abac23b7975cfbd8403eea7c756581261ed7fac1e"
+      },
+      {
+        "image_id": "0008997",
+        "split": "Training",
+        "RGB_sha256": "c6365ac64d7173a910e031ed327e6502b8ad2ac68a5dd6811c4e085653f1a0a5"
+      },
+      {
+        "image_id": "0011825",
+        "split": "Training",
+        "RGB_sha256": "aea104291e32d19c227eadbc636e5176f82d73a03edaf5ec602e841b10a1a115"
+      },
+      {
+        "image_id": "0012464",
+        "split": "Training",
+        "RGB_sha256": "ba05edad0df9f662aa2cda09e78cd0a849619158d6bee0a10a4b8f0d5755885a"
+      },
+      {
+        "image_id": "0002308",
+        "split": "Training",
+        "RGB_sha256": "4999aca37b53ea683dc1267548fda762ab85c8cd1132617cd080d09b878498c8"
+      },
+      {
+        "image_id": "0000083",
+        "split": "Training",
+        "RGB_sha256": "9203d6b5e9279af5e4e3a52297f4ef5ca5442379f1dcd15a95e932ab831e15df"
+      },
+      {
+        "image_id": "0029360",
+        "split": "Training",
+        "RGB_sha256": "51dcec53f2c0630d90219e25e009a92f0540a638d340ee41cce83ea80f2c8499"
+      },
+      {
+        "image_id": "0015097",
+        "split": "Training",
+        "RGB_sha256": "b955adbf5d27b7d7455ffa435163a2449d46e9f0428f43b677e207b862730e86"
+      },
+      {
+        "image_id": "0014603",
+        "split": "Training",
+        "RGB_sha256": "37ec09a985a51ab866bc401209662068ca2d5a037d58e1bc9413cdb6f1b9fcd5"
+      },
+      {
+        "image_id": "0001634",
+        "split": "Training",
+        "RGB_sha256": "c84bcf787764db35a3b07205b5d26f2f7789026370c5a6dee53edc79254b3c48"
+      },
+      {
+        "image_id": "0005389",
+        "split": "Training",
+        "RGB_sha256": "151d6d3e6f31c5ed40d0456c361b38e3b5e705fcd72b2e2b32dff8bb3c922ff1"
+      },
+      {
+        "image_id": "0029821",
+        "split": "Training",
+        "RGB_sha256": "f4405aac84ec5fde05dfe6e912f966c91e63ebc9d792ed4c3e3c65ab0214be40"
+      },
+      {
+        "image_id": "0003532",
+        "split": "Training",
+        "RGB_sha256": "4dc5399c0895ebdf7dfaadf7feb259ae1e6c2d3351ea44528225912a94983083"
+      },
+      {
+        "image_id": "0024220",
+        "split": "Training",
+        "RGB_sha256": "dbf1ca91dced02d079387d3e186fd979a40abd9e68940f0f208c5f59009ad51b"
+      },
+      {
+        "image_id": "0021197",
+        "split": "Training",
+        "RGB_sha256": "d2580d16450c7eb65127186be60ec4cb99abe842ff402215937c5f21c326cc5d"
+      },
+      {
+        "image_id": "0020073",
+        "split": "Training",
+        "RGB_sha256": "b88e635f48cf44c293c05bf7c4d8839bcbd52959113e9565fe1da34415483994"
+      },
+      {
+        "image_id": "0017508",
+        "split": "Training",
+        "RGB_sha256": "c2f163246e5a47a3831ffe03e06955f0f9517c60b6186efbe1a58f2a74a2962d"
+      },
+      {
+        "image_id": "0012160",
+        "split": "Training",
+        "RGB_sha256": "1b1216a8f57b5e3ad3644f937d7a3a79338a9cc1570e506cc1329954fddf4fe7"
+      },
+      {
+        "image_id": "0032873",
+        "split": "Training",
+        "RGB_sha256": "9ec63165711ec3bfe17ebcf7d712fc453d752484eed8f1fec90d06de769aa9b3"
+      },
+      {
+        "image_id": "0028774",
+        "split": "Training",
+        "RGB_sha256": "db7f7a59919bb5b13a97458ec40c93772f7f5946b1f53cf841b50733b927cdb3"
+      },
+      {
+        "image_id": "0032528",
+        "split": "Training",
+        "RGB_sha256": "77a2e68a2ff17f09cad7b28ffc99605905e47e56621083782f9a91fcbf839093"
+      },
+      {
+        "image_id": "0036190",
+        "split": "Training",
+        "RGB_sha256": "2258ae7885a16cb35e0f56a0b86fc3a5a81dccfdea09bca647c661fb7ad2f546"
+      },
+      {
+        "image_id": "0012200",
+        "split": "Training",
+        "RGB_sha256": "a24866a2f0253036f2fae141981f1c047271b01ce3f8af92a42eb58915ece33e"
+      },
+      {
+        "image_id": "0008264",
+        "split": "Training",
+        "RGB_sha256": "ad0484681355f68fe332ab01c8e9a4f20c2efb8e3d1c25a62df611b26bb204a1"
+      },
+      {
+        "image_id": "0021864",
+        "split": "Training",
+        "RGB_sha256": "b9503cbe526639d1aac91b12a6bd4915c66f916c9c7a7a8c8c918da3c3dd50d5"
+      },
+      {
+        "image_id": "0015992",
+        "split": "Training",
+        "RGB_sha256": "02f125c3fdf6ffb6b2d56306a50765eabf91ae395b34fcdd028d524ad80e500e"
+      },
+      {
+        "image_id": "0026854",
+        "split": "Training",
+        "RGB_sha256": "33beb3573418a40271943431673e26fa83105626c0121f3bc82602b81ad34528"
+      },
+      {
+        "image_id": "0023557",
+        "split": "Training",
+        "RGB_sha256": "2b5f0c1f402e86bf8e4cc015234f527e194e2bec7d329b1fdc6d0f9783ba2c4e"
+      },
+      {
+        "image_id": "0019339",
+        "split": "Training",
+        "RGB_sha256": "c3a30a243b724cba372a566928e9eb0727b468d03461fe8bda629c147c4a17e3"
+      },
+      {
+        "image_id": "0007671",
+        "split": "Training",
+        "RGB_sha256": "a50bbda0ac00825f277328a6e906e9e3b293ced6e2e6b28a674e634cd893d150"
+      },
+      {
+        "image_id": "0020031",
+        "split": "Training",
+        "RGB_sha256": "e27aba0078ad567363ceaf7d105374552b17c082dd24328d8db8161a85419614"
+      },
+      {
+        "image_id": "0016033",
+        "split": "Training",
+        "RGB_sha256": "3c0cb6dc67941e08402ba0402e0d425bb535485d3e0eef5f34ae2b7b6e0a10d7"
+      },
+      {
+        "image_id": "0019937",
+        "split": "Training",
+        "RGB_sha256": "5eefd2553c9c5fd950216f5c05fccf8f9e6bc799220cc8111bd65ea8d7b0c27e"
+      },
+      {
+        "image_id": "0024327",
+        "split": "Training",
+        "RGB_sha256": "0af85dad850180696699371bdeb5a2fa2816fb28f4f68d1cdd3b9ab0e4ecc94e"
+      },
+      {
+        "image_id": "0002166",
+        "split": "Training",
+        "RGB_sha256": "57bdeceb1066d2640a5dff4d7a10ba6e19299662cd53727868af9b7347b02987"
+      },
+      {
+        "image_id": "0032698",
+        "split": "Training",
+        "RGB_sha256": "c0bb4f3abb100d693bfd20b13890ce98a4839468ba178d0e60684db99cfe31db"
+      },
+      {
+        "image_id": "0001435",
+        "split": "Training",
+        "RGB_sha256": "c3edc26386d7930c58c4138840f6e57dee7f4a6c597dc7fc2eb396e021a2122c"
+      },
+      {
+        "image_id": "0028249",
+        "split": "Training",
+        "RGB_sha256": "3ae59973dd84d56b1157ef3a6d1798f575272987e232b0684aecec83d23b07d7"
+      },
+      {
+        "image_id": "0020424",
+        "split": "Training",
+        "RGB_sha256": "bc6d61ec6c482eec5d8dfb7c1f72b58ad76c12404dcd2c8096711a06b7a5b5cb"
+      },
+      {
+        "image_id": "0018839",
+        "split": "Training",
+        "RGB_sha256": "119a07cb2fab98469e92acafb9390c146372580b7ff25a802ca970ca46a34dcd"
+      },
+      {
+        "image_id": "0026071",
+        "split": "Training",
+        "RGB_sha256": "98f3c150b3a65417ca492d28dc0b103d2ba16256031572e6809bff946eb09e6b"
+      },
+      {
+        "image_id": "0005304",
+        "split": "Training",
+        "RGB_sha256": "50c621ec013e58220091cbb1b2aa4e62e682bdb0bdeec295a4ddf9e95ae71a89"
+      },
+      {
+        "image_id": "0013489",
+        "split": "Training",
+        "RGB_sha256": "34fc3e78d49701a52f0a7e320d954b8cd90e3019e376465cfdc8c06ce082274e"
+      },
+      {
+        "image_id": "0005144",
+        "split": "Training",
+        "RGB_sha256": "821ed6a1bde2a7d2a6e99419f66cd669110bb318d72861614984722ac41112c5"
+      },
+      {
+        "image_id": "0032840",
+        "split": "Training",
+        "RGB_sha256": "1b8a31804df7a65044294a0d540b60681288fc9876c67fa14710cbeb5297bdc3"
+      },
+      {
+        "image_id": "0027141",
+        "split": "Training",
+        "RGB_sha256": "64e9f6869c592ab2ab009ae177d71b7c7a97d59af79014b324179a7060db12bb"
+      },
+      {
+        "image_id": "0017443",
+        "split": "Training",
+        "RGB_sha256": "42ea832c2ec45ad9d82b9a1f2510547e91a22e155d8cea54a62a7367a74eaf8e"
+      },
+      {
+        "image_id": "0016118",
+        "split": "Training",
+        "RGB_sha256": "6259fbb8df21ce1ad7e2557a42bc50880a4d871d1cb918cf9a486fb42389c251"
+      },
+      {
+        "image_id": "0006651",
+        "split": "Training",
+        "RGB_sha256": "27648bcdbf06c036f93fd0eb0948b69eedd4cca71c4b237bc704c5d7c15d127f"
+      },
+      {
+        "image_id": "0010540",
+        "split": "Training",
+        "RGB_sha256": "8fd3d3447c605e49250d0edb419d42c96c6bb95dc2c1039d4ff48f2fdd5f36e8"
+      },
+      {
+        "image_id": "0020789",
+        "split": "Training",
+        "RGB_sha256": "9b2949ddc14ed2aa30471bccd7df9f67dc007d3f45527043e09054f1eceb6618"
+      },
+      {
+        "image_id": "0021743",
+        "split": "Training",
+        "RGB_sha256": "21af9f90641d6c2591e63d4a788b4bcca2c921759fd4e51d687c3a3feb797d06"
+      },
+      {
+        "image_id": "0021505",
+        "split": "Training",
+        "RGB_sha256": "6f9a76c3d814b47b8b36fad0c62c0832d0cc8740e1667f890be144af66612568"
+      },
+      {
+        "image_id": "0021537",
+        "split": "Training",
+        "RGB_sha256": "080ecdbf3d814cb27b4896f04fe85acb4c576f228f665c715a5461db1b40980c"
+      },
+      {
+        "image_id": "0010918",
+        "split": "Training",
+        "RGB_sha256": "53c153d6bc497ea1b5d38883ce01c7efc3b8efc11b2c6ee3277601d9d67c75c4"
+      },
+      {
+        "image_id": "0009056",
+        "split": "Training",
+        "RGB_sha256": "42f2e53e1e0d791683c37e472f975a626273092e6fe52d06cf2b521b93bb1b9b"
+      },
+      {
+        "image_id": "0001444",
+        "split": "Training",
+        "RGB_sha256": "5ef12c205c3a32ac6e8c45bec53c569dc41f6c0ebd6c3add72719c58c8f101ed"
+      },
+      {
+        "image_id": "0022041",
+        "split": "Training",
+        "RGB_sha256": "61a9fe4bd03135f5b6809ce806d4aaf5a091527853a1db6106dad23457f266c2"
+      },
+      {
+        "image_id": "0017977",
+        "split": "Training",
+        "RGB_sha256": "fa53ce975cbe36fbcd00927f6853181c514ec031e68608561366d3459316e895"
+      },
+      {
+        "image_id": "0010018",
+        "split": "Training",
+        "RGB_sha256": "e6b5410ab61e1a99c644c2163e01296f12f50aa9686f5e3157aba210265b06cd"
+      },
+      {
+        "image_id": "0019027",
+        "split": "Training",
+        "RGB_sha256": "25f6b8e7991cf2efcfc7424b63d12530bad9ef8551822fcc714202894296072f"
+      },
+      {
+        "image_id": "0017720",
+        "split": "Training",
+        "RGB_sha256": "8f7dc2a0d9cd4c0164e3ff574ef693778dd61f7507b5a30874046b4dd495f464"
+      },
+      {
+        "image_id": "0033623",
+        "split": "Training",
+        "RGB_sha256": "95541296551786cb5c09699ef95103b454407dbd4b75e75a72c25583a1b94f90"
+      },
+      {
+        "image_id": "0008083",
+        "split": "Training",
+        "RGB_sha256": "fb394e9aaf226d77e57f8f9dff91a3caeb45053ba44ceb12aaccd66fe0e0b3c0"
+      },
+      {
+        "image_id": "0030309",
+        "split": "Training",
+        "RGB_sha256": "8cd16297ea4c8ee39e43c2ddd3a148800cad0fead4b5d403f8cbe72607c57df4"
+      },
+      {
+        "image_id": "0020874",
+        "split": "Training",
+        "RGB_sha256": "4cc05b77f2a15a7ce4b273c125857c13b40acf743fec7c61054fea81b78eecfc"
+      },
+      {
+        "image_id": "0035991",
+        "split": "Training",
+        "RGB_sha256": "29afc5b1c0e12a69f21baf6eaeea2a2e0751189a2717c69a0c93a336b63c6232"
+      },
+      {
+        "image_id": "0002683",
+        "split": "Training",
+        "RGB_sha256": "129ea0b6337808e3b50e0f14a277520fd82523973d649f037b96a3edbd695170"
+      },
+      {
+        "image_id": "0010830",
+        "split": "Training",
+        "RGB_sha256": "d58473c53be490caed18ea6b92ed9c7c960ac4b5da6c1b51871a888200cfb0ca"
+      },
+      {
+        "image_id": "0025579",
+        "split": "Training",
+        "RGB_sha256": "9cd35990d6a1082fb112499471ba8f0ac4c3463d29c5c5ac271ba5b04764e4a7"
+      },
+      {
+        "image_id": "0021779",
+        "split": "Training",
+        "RGB_sha256": "cd03604fcaff3a942e325e3fac288c4157092d0bbed9a37bf4aac3586d115953"
+      },
+      {
+        "image_id": "0011173",
+        "split": "Training",
+        "RGB_sha256": "c4577903fd63a5a5713d3c263ec307be186198957faa252c9f7ef45319498546"
+      },
+      {
+        "image_id": "0005655",
+        "split": "Training",
+        "RGB_sha256": "f6ac2d8577379ade6060daed00eb156d9a5c5015ee17ceddbab8e68667a0c2e7"
+      },
+      {
+        "image_id": "0023266",
+        "split": "Training",
+        "RGB_sha256": "a8ba594d925bfa68fe780f3b6a7cb3348e0b6980ddda611c9652193985f3bdc6"
+      },
+      {
+        "image_id": "0023740",
+        "split": "Training",
+        "RGB_sha256": "0158ade04f2a55e5d6b9cfc5eb055c91bfbe2c219581bf90476bc47e713e2fbc"
+      },
+      {
+        "image_id": "0025050",
+        "split": "Training",
+        "RGB_sha256": "fc1cdc0ff6a3cec6d5ffa5dbfef77ab8f2c73545f23b08d271a84324aec71e9e"
+      },
+      {
+        "image_id": "0021938",
+        "split": "Training",
+        "RGB_sha256": "1d192d11cea2adb4d5b3523fc459fcc7827aa60335ea86df679858734e2b1dfc"
+      },
+      {
+        "image_id": "0005212",
+        "split": "Training",
+        "RGB_sha256": "4490a0eddd4dc49fc3c84c45af8f1db05389bd4a5ec6b16129d997dfe36ebca6"
+      },
+      {
+        "image_id": "0032784",
+        "split": "Training",
+        "RGB_sha256": "6477ceb0f3a304ce4bfe2e0a84ef73d4bdd3704179ff52631cfa2eb83ab64d5b"
+      },
+      {
+        "image_id": "0032575",
+        "split": "Training",
+        "RGB_sha256": "d59ab5a49a666ec1943e6e915e2ee1af971d95dc77c7b5f3c191c948ab777db9"
+      },
+      {
+        "image_id": "0010534",
+        "split": "Training",
+        "RGB_sha256": "0607f20d7858c4adc5946404fb28962d30ca8270fe67147edbf6b4f2a1336979"
+      },
+      {
+        "image_id": "0029158",
+        "split": "Training",
+        "RGB_sha256": "575a389e0ef024ba60f98aac99c36e42cf2fda7b0329f56c04cf174c44e9b65e"
+      },
+      {
+        "image_id": "0013157",
+        "split": "Training",
+        "RGB_sha256": "2e61a1dfd066b5dc381949723def92c130477012cc29db9d358e6ed6da436a5d"
+      },
+      {
+        "image_id": "0023166",
+        "split": "Training",
+        "RGB_sha256": "7ac66335cb2c8aa44b57b035ce41f092de0191da0ddcd1f02ddf8062daa38e6c"
+      },
+      {
+        "image_id": "0012837",
+        "split": "Training",
+        "RGB_sha256": "9e3b26e63dcf63675e83d74f3c88c1ac985a1c161aede605a6ceb2308e8b328e"
+      },
+      {
+        "image_id": "0000482",
+        "split": "Training",
+        "RGB_sha256": "a38b5714915963fbb0a975ee1d08e37f0df810498d7f4c876c95c517a888abbf"
+      },
+      {
+        "image_id": "0036066",
+        "split": "Training",
+        "RGB_sha256": "9cfbced2ba7fe2c973a95292914b1583d588ae153b6e695b98da86c29a5a04d1"
+      },
+      {
+        "image_id": "0026058",
+        "split": "Training",
+        "RGB_sha256": "db2ef9e21f45d570cece007e7a062c333fe02c779a93fd9732faf48b2e660fcb"
+      },
+      {
+        "image_id": "0028494",
+        "split": "Training",
+        "RGB_sha256": "baef087daa5fd8cb4082814d29ef672a022e80f48c27d95fb7a70b0f62488ddc"
+      },
+      {
+        "image_id": "0030367",
+        "split": "Training",
+        "RGB_sha256": "a4c97c871f1881d5949265b41ef1a411f81f568331be6a17b8e8d7930304199c"
+      },
+      {
+        "image_id": "0011389",
+        "split": "Training",
+        "RGB_sha256": "e5d3536c16599ee2d1d8026d2497c8ccb1ac539323996467eef66b19ec86199d"
+      },
+      {
+        "image_id": "0028775",
+        "split": "Training",
+        "RGB_sha256": "ffca9201536153cb01e5295ff9bb987b141345f5fef4b9edbbd232bb5e1513e6"
+      },
+      {
+        "image_id": "0033913",
+        "split": "Training",
+        "RGB_sha256": "0c0d074029156f4ae475562ca10b43d7a2d035e8810f26623967eaeea0358088"
+      },
+      {
+        "image_id": "0018013",
+        "split": "Training",
+        "RGB_sha256": "96754e1b19027a39ac3eeabb83e33073afb4e3d52f180460b9833ea82d20a6cd"
+      },
+      {
+        "image_id": "0007895",
+        "split": "Training",
+        "RGB_sha256": "7851a49ae946161965aaba229788d6703f75caeed068aa792e9e2eddde26fecb"
+      },
+      {
+        "image_id": "0035184",
+        "split": "Training",
+        "RGB_sha256": "4a4e8d8b8ad680f8fdc143fbdf9192cd7f7bd8ad4b059fa9acbf79602f2cfa76"
+      },
+      {
+        "image_id": "0011645",
+        "split": "Training",
+        "RGB_sha256": "ab1c76a91ab02441be5fd38133451d160621b070805cb6052f6924fc8a1d2d6d"
+      },
+      {
+        "image_id": "0017412",
+        "split": "Training",
+        "RGB_sha256": "728823e6833b92786baa528f73371ffefa4b52526b796c228c100db3a0d9b791"
+      },
+      {
+        "image_id": "0014185",
+        "split": "Training",
+        "RGB_sha256": "00bd6bc22a19e4c0c3fd78a0e7221289ec5e2a0ca6b87e7d9d525b0dd22b755a"
+      },
+      {
+        "image_id": "0027164",
+        "split": "Training",
+        "RGB_sha256": "52450746d50a79be32c0a5d2ef6eada836cfd9f31b89f508d5020a76a032c74b"
+      },
+      {
+        "image_id": "0000834",
+        "split": "Training",
+        "RGB_sha256": "f61448c6f03f5172df306cfd3e12ad513dd231b7bff2b24e57c6deff7f9154a7"
+      },
+      {
+        "image_id": "0020061",
+        "split": "Training",
+        "RGB_sha256": "64d90a0dce8eac72c908ad41bb637474a0188cc0df2d81fbaaddb3de4a641db0"
+      },
+      {
+        "image_id": "0021141",
+        "split": "Training",
+        "RGB_sha256": "033c0e53f25a3327407b9cd6bb1cebe1cc1d860b94cd5dbbed0ac77405b0c7c9"
+      },
+      {
+        "image_id": "0022755",
+        "split": "Training",
+        "RGB_sha256": "6d6f3132217a507a843624bc01633d5e8544465d74735a35f28fe24dac2409e6"
+      },
+      {
+        "image_id": "0011405",
+        "split": "Training",
+        "RGB_sha256": "0325237a4e8f756138be3920d69ecbee791c6909d79585666c72b100cfd93ca7"
+      },
+      {
+        "image_id": "0013111",
+        "split": "Training",
+        "RGB_sha256": "0217575d43f5c14661f69f6bef31938277bd44bfc50b1ed993f73e5617bdfa91"
+      },
+      {
+        "image_id": "0010359",
+        "split": "Training",
+        "RGB_sha256": "4995aa96807f72ee267fb23f7463eb97fcb90c1d60b1cf7514655d72a565c37b"
+      },
+      {
+        "image_id": "0012686",
+        "split": "Training",
+        "RGB_sha256": "7bd736ffd7f5c462769579054f4779222146188df681cb95158e3547b4e808d2"
+      },
+      {
+        "image_id": "0030443",
+        "split": "Training",
+        "RGB_sha256": "0bff6fd050082e9238cb84ad57e8a7e019546278a1b9ab06e74bb1affa41aa16"
+      },
+      {
+        "image_id": "0035209",
+        "split": "Training",
+        "RGB_sha256": "e0908ee0b2cf90c2db3eacfb06d5900586eeeba53de7fbe1ea27fb9705909e78"
+      },
+      {
+        "image_id": "0029169",
+        "split": "Training",
+        "RGB_sha256": "be5836eb4a62f36251f709be2fa72bb43db748ca95e796201615b17406bdca64"
+      },
+      {
+        "image_id": "0006009",
+        "split": "Training",
+        "RGB_sha256": "ada0a87d24ff233ce92e6367220d346e6e58ab19ab78b5aaa12f70409e20cf20"
+      },
+      {
+        "image_id": "0012919",
+        "split": "Training",
+        "RGB_sha256": "c4fc1d526f410f53fb033de433e6e9e66cb5ce863a6ca2b961ce055e62aeeabd"
+      },
+      {
+        "image_id": "0006252",
+        "split": "Training",
+        "RGB_sha256": "4bf8d218f2052e2352d727acab6732a8e076120741467c89ed2cc4cb0bcab7ed"
+      },
+      {
+        "image_id": "0033273",
+        "split": "Training",
+        "RGB_sha256": "0aff273d91b7ae9ba7e51a3ea5058fa201d82b2604fa335f0bc58d9927ed3c4c"
+      },
+      {
+        "image_id": "0026182",
+        "split": "Training",
+        "RGB_sha256": "728b3081c1f88b1b10a5f97adcaee8f0f0fd3136bb87f6d14a54ace236e7396e"
+      },
+      {
+        "image_id": "0029163",
+        "split": "Training",
+        "RGB_sha256": "101ee709728db008090a22b4cf8a26db978b98f53f40feceeab9a45f19b44d0d"
+      },
+      {
+        "image_id": "0015358",
+        "split": "Training",
+        "RGB_sha256": "cd979cd97e7f9337ff4c4f5c7ddb6bdad2b0d168d6130084b39577ebd09aa31f"
+      },
+      {
+        "image_id": "0019841",
+        "split": "Training",
+        "RGB_sha256": "a2d0ab2ec869663f38636a22024cde2e7b2397e9f146bf392b9eafde738312f0"
+      },
+      {
+        "image_id": "0016018",
+        "split": "Training",
+        "RGB_sha256": "e01a303f19b0130759f582bf950f0cfc284ccc23d36aefc1b124248c221cf185"
+      }
+    ],
+    "calibration": [
+      {
+        "image_id": "0025710",
+        "split": "Training",
+        "RGB_sha256": "9c03abc431772e185fe86c9e356b96f7868f229e194e9225a2d30616b348d469"
+      },
+      {
+        "image_id": "0027706",
+        "split": "Training",
+        "RGB_sha256": "9f61bf7ddfa16f9b5249c155b4413494f83b54f15a33e6c827ed7436bc8411ee"
+      },
+      {
+        "image_id": "0017929",
+        "split": "Training",
+        "RGB_sha256": "4e20810925cb1467bb9ff8eb422a8cc7d658de2889826ebee890fc7bb4645728"
+      },
+      {
+        "image_id": "0019062",
+        "split": "Training",
+        "RGB_sha256": "dc094e80faeea9a330bf3699377581987475ea0e6d68f234a8f6f8b97cdb8718"
+      },
+      {
+        "image_id": "0020346",
+        "split": "Training",
+        "RGB_sha256": "3f1f649a659071c80a7a594f56acaf51478144b3d0a63390ceb2946ad65a274d"
+      },
+      {
+        "image_id": "0033956",
+        "split": "Training",
+        "RGB_sha256": "c4359bf732df0a49ef0fe7ef1bffb7aa4401226c018b25280be52de33654a13f"
+      },
+      {
+        "image_id": "0031754",
+        "split": "Training",
+        "RGB_sha256": "eb563d94201d000c9f6687eb5b3501589436add09d22aec36472cd8bf25841d5"
+      },
+      {
+        "image_id": "0027469",
+        "split": "Training",
+        "RGB_sha256": "f174e18fe003597365a0d451cf58f3a785626d76c210066b648cb89192a5c546"
+      },
+      {
+        "image_id": "0010163",
+        "split": "Training",
+        "RGB_sha256": "56a03f45b180c05576e187dde1554392f0f1e6581b7f971999eb23e7b5b8f764"
+      },
+      {
+        "image_id": "0030331",
+        "split": "Training",
+        "RGB_sha256": "1aeec6610df3b8c2d5e4524cff5dccaf667e8f858b4ace75cef492f9f2967f98"
+      },
+      {
+        "image_id": "0010565",
+        "split": "Training",
+        "RGB_sha256": "9f20118264e2161ee5526cc8f0557bac76a0c72ea9a1f01581fae7d4925c8614"
+      },
+      {
+        "image_id": "0008402",
+        "split": "Training",
+        "RGB_sha256": "5e9bc60cf097e085e51642436f7b59a2c1e818b9c6c8bb1e84e867b22c690aa4"
+      },
+      {
+        "image_id": "0007122",
+        "split": "Training",
+        "RGB_sha256": "5d17630d0209958ac7bd7ca099006ad5cd1b5a70959a5a5e01984145901745cd"
+      },
+      {
+        "image_id": "0001679",
+        "split": "Training",
+        "RGB_sha256": "08afddf124698f2653134a07b1ad24b9b02ff09a1166e78b8fbf11d64b482e32"
+      },
+      {
+        "image_id": "0016392",
+        "split": "Training",
+        "RGB_sha256": "9689f0f0b684105833c22f592c864f383313045aea5306a7aa04e496d7b6e025"
+      },
+      {
+        "image_id": "0031778",
+        "split": "Training",
+        "RGB_sha256": "f09ed50f87aceb63a067384ed22378b5e950c93e6e3af39f7d350325a32d69f8"
+      },
+      {
+        "image_id": "0005118",
+        "split": "Training",
+        "RGB_sha256": "70643522b5893b7c2cf225d0e358e26f97797814c838a65504f333a720e8af26"
+      },
+      {
+        "image_id": "0012827",
+        "split": "Training",
+        "RGB_sha256": "6141a9777e6f94c09d5a0e76aa4ad34eaac7b7791911f7ad0a5adc1482a5cbac"
+      },
+      {
+        "image_id": "0022387",
+        "split": "Training",
+        "RGB_sha256": "304c474b1594a9605fe468f16719ec43d1934fc8382af21faec63b3d7fa057a1"
+      },
+      {
+        "image_id": "0008487",
+        "split": "Training",
+        "RGB_sha256": "8aa22371fb35896cb08b9ebb9f70568802accec8e88d25e003242606f8005de6"
+      },
+      {
+        "image_id": "0029828",
+        "split": "Training",
+        "RGB_sha256": "a587af3f143f69d38a4140721ca11a34ba8ade52d1b00e3184667238e778a5d3"
+      },
+      {
+        "image_id": "0007780",
+        "split": "Training",
+        "RGB_sha256": "9433bcb14932f0dc12404070a2e7b0cc0431335e8a7b26757c1ed5afb11f1247"
+      },
+      {
+        "image_id": "0010748",
+        "split": "Training",
+        "RGB_sha256": "f47cb228e7f1cf38167a82127586de0f92b6e59eb246e6b4878e72ab2696dcc8"
+      },
+      {
+        "image_id": "0025683",
+        "split": "Training",
+        "RGB_sha256": "062c723d08e942915ded8411b19bde15863b40561a6c8fd2daa710a5f59515ae"
+      },
+      {
+        "image_id": "0032351",
+        "split": "Training",
+        "RGB_sha256": "9295e7607206d82793fc1178e8eee875d69528b1b8059ccd0ec974ca25317806"
+      },
+      {
+        "image_id": "0017031",
+        "split": "Training",
+        "RGB_sha256": "fcf21ef9357349456a3123af4971205a2041fc2a79a23b60420c144499317594"
+      },
+      {
+        "image_id": "0020204",
+        "split": "Training",
+        "RGB_sha256": "5884d289196c13f8f401f221e5cc2b24858935587c53356276acac698485c1d4"
+      },
+      {
+        "image_id": "0001126",
+        "split": "Training",
+        "RGB_sha256": "c1047bd16f7429ffe14d3fadd7a5676c3caab9590562a0eb8bf0b5ccf8788e3f"
+      },
+      {
+        "image_id": "0033728",
+        "split": "Training",
+        "RGB_sha256": "d2c18f968815bbff8dcf5477cfcc5c73f7e71553de87924771897e162a47b2cc"
+      },
+      {
+        "image_id": "0035446",
+        "split": "Training",
+        "RGB_sha256": "372193b562adce75217d3800501031861b934e8e26e14205c9c0ed6b3b98c073"
+      },
+      {
+        "image_id": "0033175",
+        "split": "Training",
+        "RGB_sha256": "3570c9297d738326435fbb8cf4ff6ec177613d9137e5c6554ab9c4ce14bb72df"
+      },
+      {
+        "image_id": "0027654",
+        "split": "Training",
+        "RGB_sha256": "9700d3fcfd9fca07127caa51e603d1d4c72239b13051fc94e3f1dba49eb379d8"
+      },
+      {
+        "image_id": "0021721",
+        "split": "Training",
+        "RGB_sha256": "3f1c73ae2b58b68e1ece8ee9dfc4035a387f15c34e427d91173c1d20e6256d9d"
+      },
+      {
+        "image_id": "0027382",
+        "split": "Training",
+        "RGB_sha256": "c884eb99dfbe8512a644bccc67e016b4df8133814393867bb8212e939bc2200d"
+      },
+      {
+        "image_id": "0031199",
+        "split": "Training",
+        "RGB_sha256": "7aee59038caacfeff74b6ecd9040e8417c9eba4d06cbdff9d0d10fb754c661f9"
+      },
+      {
+        "image_id": "0036969",
+        "split": "Training",
+        "RGB_sha256": "5815a5eb395900358648b8fd74e83a60707185f49e8f36558fc06565dc8b22c3"
+      },
+      {
+        "image_id": "0016810",
+        "split": "Training",
+        "RGB_sha256": "93278c34855dad9e58bd4dd9ea2fadcd5f06b3f7358665472932837465ad65d4"
+      },
+      {
+        "image_id": "0008490",
+        "split": "Training",
+        "RGB_sha256": "9431782d9153c109900e7a55a8400ec5ce019551efaa9fa769ef744f4bf32d9d"
+      },
+      {
+        "image_id": "0018493",
+        "split": "Training",
+        "RGB_sha256": "a0557c5c555b5a35542dd784f2186f03b0867025f797468235cb2371ad93fe81"
+      },
+      {
+        "image_id": "0005700",
+        "split": "Training",
+        "RGB_sha256": "69e3bd28171e079c100b53315835e81ea7d9c65d089ae9eaa2974523b482e665"
+      },
+      {
+        "image_id": "0001462",
+        "split": "Training",
+        "RGB_sha256": "ab35618ea52866f4fd7407b6c17e00ee0a55787d7e9375511715ace2027b5f8a"
+      },
+      {
+        "image_id": "0010484",
+        "split": "Training",
+        "RGB_sha256": "cb6afa22428139a0f23bae130b048a34cf25adf724ed109d6a56b95d3a0dbf80"
+      },
+      {
+        "image_id": "0026701",
+        "split": "Training",
+        "RGB_sha256": "a2d26d33bc29b4174011415d3817688aaefac8c25ae32932fc737edb6dfa71cf"
+      },
+      {
+        "image_id": "0030385",
+        "split": "Training",
+        "RGB_sha256": "8c13803ddfb9751c80f4d6b1ba9308bed7a3d0b99f276517dc0bf3bb7c76e10c"
+      },
+      {
+        "image_id": "0004418",
+        "split": "Training",
+        "RGB_sha256": "42b1a873d98153e6b7c6678916bc2f158e82a72844190fb16b7bf41ed130b876"
+      },
+      {
+        "image_id": "0016733",
+        "split": "Training",
+        "RGB_sha256": "8d729ff6547ce1220f5291c24ca0ab66172978e1c8f52979f0212ae7f4ecc5df"
+      },
+      {
+        "image_id": "0028718",
+        "split": "Training",
+        "RGB_sha256": "78b7e69dfe9e5bd0572afed37bd02e59d2a39760fd341093ca2a177b1cb91314"
+      },
+      {
+        "image_id": "0020583",
+        "split": "Training",
+        "RGB_sha256": "8266e09529c4d23d36071ecd60d9bef14a6c71accc15a0afc274b9d3ec63ae1d"
+      },
+      {
+        "image_id": "0031465",
+        "split": "Training",
+        "RGB_sha256": "0e8f931e39a8858ffb34f44f63aa845cc0fe268117de545db3be884575f2af9a"
+      },
+      {
+        "image_id": "0018116",
+        "split": "Training",
+        "RGB_sha256": "92b02a2c606fd0ca83167970e13b218ce7d5f5a333f8eb88c7d9c6ab8d104030"
+      }
+    ],
+    "validation": [
+      {
+        "image_id": "0036323",
+        "split": "Validation",
+        "RGB_sha256": "b0fb08eabec9d19809e2048704c0b62ad42620b50679e893602e08625da23aa6"
+      },
+      {
+        "image_id": "0037621",
+        "split": "Validation",
+        "RGB_sha256": "9afa0af25972c680d44f4d4350921b00e6a23d5aeca784c27a8ee83ff809c309"
+      },
+      {
+        "image_id": "0036599",
+        "split": "Validation",
+        "RGB_sha256": "3c1fde8c6cb33f825f966c9ccabb2318328a37f1d08a96ea32f69ba7fb2fedae"
+      },
+      {
+        "image_id": "0037960",
+        "split": "Validation",
+        "RGB_sha256": "2ac281906c01330878752929ee4fd8e78209eb20c3495c3f76daa2ea981df89d"
+      },
+      {
+        "image_id": "0036666",
+        "split": "Validation",
+        "RGB_sha256": "f53b2f53d31e6fbe467acb27bb6203c32c8c7c1eb8227b96cc4665b199cdeafe"
+      },
+      {
+        "image_id": "0026586",
+        "split": "Validation",
+        "RGB_sha256": "d85151aefe723d4c3798d578f093234628dee1380bc80e478227f31f0d42ed60"
+      },
+      {
+        "image_id": "0011533",
+        "split": "Validation",
+        "RGB_sha256": "eae9043f748777eb842d48f1b1307cfadf9788c04cabedbf0578c3538e658f3a"
+      },
+      {
+        "image_id": "0026297",
+        "split": "Validation",
+        "RGB_sha256": "9ba63ddc56aa1ff4bf1fd0bc6935d2151ddd9928276f71b83b8ea7462181aa55"
+      },
+      {
+        "image_id": "0017774",
+        "split": "Validation",
+        "RGB_sha256": "f58eb9195016070714523fb68bd95b4292a2a2994dc1765161b6047577c9255d"
+      },
+      {
+        "image_id": "0012141",
+        "split": "Validation",
+        "RGB_sha256": "8470d503aa97772f73009c0094b700c265972f0c57fd6cf0cc811e668b22be17"
+      },
+      {
+        "image_id": "0036898",
+        "split": "Validation",
+        "RGB_sha256": "8d391bd580e24da2aa1713a49486fdfd74223dbdf5bdfc8a9ebb22798adc21c6"
+      },
+      {
+        "image_id": "0025189",
+        "split": "Validation",
+        "RGB_sha256": "86c471f5a1500f1d6e4e73cad54cdae4cc867e3e75caa7ae2dc5e3c98a78f4e9"
+      },
+      {
+        "image_id": "0009796",
+        "split": "Validation",
+        "RGB_sha256": "1b98d4139ca72d3390630e8e7d64c000c6a11b7279b3fd7a4cec4ef017247acf"
+      },
+      {
+        "image_id": "0037222",
+        "split": "Validation",
+        "RGB_sha256": "0d7e4fa09691dee22b4df27ecae4e9693ea0b68644d07fc96e38a6e370a70f00"
+      },
+      {
+        "image_id": "0007324",
+        "split": "Validation",
+        "RGB_sha256": "0a20a6e57fb013026974d38bee989dea7ddefc8a14a1097b8dbdc34ae130d88a"
+      },
+      {
+        "image_id": "0036819",
+        "split": "Validation",
+        "RGB_sha256": "e457e356f61887c75c1c7482c8982ea6ad4c8021f6a2907dfeeeda3c51996128"
+      },
+      {
+        "image_id": "0005161",
+        "split": "Validation",
+        "RGB_sha256": "a6095bc4e421603ddf30566e029de283b6c1d572fe7c1a06f08c8c167e2e11d0"
+      },
+      {
+        "image_id": "0008496",
+        "split": "Validation",
+        "RGB_sha256": "6500ad1389a343fc35769ef7938d5e1717c36cd641e238af32850da0b5dd370f"
+      },
+      {
+        "image_id": "0037337",
+        "split": "Validation",
+        "RGB_sha256": "f67a4470a6d9af67b931667d95a9079323d89ce9b5e5dd8c84f8cacff8af9547"
+      },
+      {
+        "image_id": "0037590",
+        "split": "Validation",
+        "RGB_sha256": "a8175bbb1ebbb921d15a693274fc9c0ed5e5b274b3fd9f46337498af9548c6f8"
+      },
+      {
+        "image_id": "0037793",
+        "split": "Validation",
+        "RGB_sha256": "3168a95ba346ef6ce57d4cf493e17ad991e67434ab545d4981e46bb7f45292d2"
+      },
+      {
+        "image_id": "0032980",
+        "split": "Validation",
+        "RGB_sha256": "2e5ab59142f2ded9b5427bc0ea4b1519d8dda2d6244184921a370fb24870f405"
+      },
+      {
+        "image_id": "0032537",
+        "split": "Validation",
+        "RGB_sha256": "61b343eb6945da45fd2368e6c42f0f0b0f3ce98da4fd98f21a739a09d174da63"
+      },
+      {
+        "image_id": "0006959",
+        "split": "Validation",
+        "RGB_sha256": "f4758b1fb3931c52a029a00e1842c758750480fcec2816e1b5940078ba397034"
+      },
+      {
+        "image_id": "0030693",
+        "split": "Validation",
+        "RGB_sha256": "451bf277d0a98333b7f81010b6beb537be9bc3009ed2a8d6cb09b19fa83ba406"
+      },
+      {
+        "image_id": "0033401",
+        "split": "Validation",
+        "RGB_sha256": "3b0eb8c75d1f887c7cd899abf1e16869826ab85068b4e537d1937f8b466df74a"
+      },
+      {
+        "image_id": "0038310",
+        "split": "Validation",
+        "RGB_sha256": "2584dadd50c7659cbe996b9c747535cbc5926a4182226f7fc581558ec102f9d6"
+      },
+      {
+        "image_id": "0006091",
+        "split": "Validation",
+        "RGB_sha256": "471617b838f18d3185e104fc14cc1f90d3778f0db890086698eea8cd514170c4"
+      },
+      {
+        "image_id": "0014933",
+        "split": "Validation",
+        "RGB_sha256": "c7ae605628ffcbc3e38c79ee3060a6e5e1415fbbd7308a4a7f906bde5ea5ae23"
+      },
+      {
+        "image_id": "0034107",
+        "split": "Validation",
+        "RGB_sha256": "8daa0fb81dddfdb21b31fe38af3abde1668ef4cf698fb5269b85fa0f4ef41e2b"
+      },
+      {
+        "image_id": "0002105",
+        "split": "Validation",
+        "RGB_sha256": "d543634a0ce4d9d9543f2e68bb0680ca8e3366c53f6dc0e5135073c3838ea335"
+      },
+      {
+        "image_id": "0009306",
+        "split": "Validation",
+        "RGB_sha256": "07e7d23c6f07063b7fe1a590313d799e38fb36f1e40c9e3f70169d07a03bd49c"
+      },
+      {
+        "image_id": "0008774",
+        "split": "Validation",
+        "RGB_sha256": "a1f6c4d99bdfef551e5163af20a4756a500feec1043b099cb2abf5d6f62ffd77"
+      },
+      {
+        "image_id": "0028262",
+        "split": "Validation",
+        "RGB_sha256": "d4c2648ce1a6039a7dc2b5aaba84e872566807e80197d49da1700bef4c518236"
+      },
+      {
+        "image_id": "0003429",
+        "split": "Validation",
+        "RGB_sha256": "baee2a39d8a000a7e80c69fc7a6b831037c90d0dbce8ad681a4530fd1575e712"
+      },
+      {
+        "image_id": "0005087",
+        "split": "Validation",
+        "RGB_sha256": "acc36384e84255c35ed1bac5149108ade72bd9febd4d4fe8570b632523ca9abd"
+      },
+      {
+        "image_id": "0033391",
+        "split": "Validation",
+        "RGB_sha256": "d0790df69fb083ae96b96fca73f4a2991a0210897410c01c85a9ddf8ab474fee"
+      },
+      {
+        "image_id": "0031329",
+        "split": "Validation",
+        "RGB_sha256": "aeda5bb7f16d850e64523263f67b76b33a1056caa3b39d0353a8259c0fdc001e"
+      },
+      {
+        "image_id": "0036702",
+        "split": "Validation",
+        "RGB_sha256": "0867b4d9cf0eac80e11adfaa0f0c59888522cf14b7d7a6508c45a316011727b9"
+      },
+      {
+        "image_id": "0006169",
+        "split": "Validation",
+        "RGB_sha256": "2c2848bb9559f148d72c334ea436d60ebfefb5ebcdfc80a0b86a7893729689c0"
+      },
+      {
+        "image_id": "0036890",
+        "split": "Validation",
+        "RGB_sha256": "01c48db7e73003b82f3a5b101db97bd862fbb4f7a27f2c2b402650e8c38db16b"
+      },
+      {
+        "image_id": "0020715",
+        "split": "Validation",
+        "RGB_sha256": "c9279923670960729b61f34e78e284ef1f57f73eec0999c2d8b84c2328c6bdb9"
+      },
+      {
+        "image_id": "0035268",
+        "split": "Validation",
+        "RGB_sha256": "0e1877cf32bdbecad6ec3dfd7d42a289efb3d7193d353c0c8cded930c9a91d53"
+      },
+      {
+        "image_id": "0037710",
+        "split": "Validation",
+        "RGB_sha256": "c24d010ea6a6cd25caf672854a2c3e9312f64a5f0a2256005d519eebd07bf308"
+      },
+      {
+        "image_id": "0008995",
+        "split": "Validation",
+        "RGB_sha256": "6c7407868ff4302086cfaf77f0efe3421ba0f1ab023b8c61344c5677711feaf4"
+      },
+      {
+        "image_id": "0037423",
+        "split": "Validation",
+        "RGB_sha256": "91e40eb24eb8f917523e77d01730e8937126a05b82032ce6c36b04720ad96e0e"
+      },
+      {
+        "image_id": "0024856",
+        "split": "Validation",
+        "RGB_sha256": "9efdbf918e45d4817929e2ac35c05c735bfae905f4cd934754914b742cccb2eb"
+      },
+      {
+        "image_id": "0005705",
+        "split": "Validation",
+        "RGB_sha256": "5ffc8b0264291af7b0650bdb64be1b96b4caff3e0b723cac0f62d25250a226cb"
+      },
+      {
+        "image_id": "0021571",
+        "split": "Validation",
+        "RGB_sha256": "5f2462e13a53bb126e032111fde28392b7d785e7b78b244afcb0df72edc07121"
+      },
+      {
+        "image_id": "0034401",
+        "split": "Validation",
+        "RGB_sha256": "eeb63eb493db9affc51a349be394c5841121caa7c1cc398e38850b8cf9967855"
+      },
+      {
+        "image_id": "0037999",
+        "split": "Validation",
+        "RGB_sha256": "fb88758e5420827e5c6eab84a0b60173e6be683917d1b9d7c2ea090d095613d4"
+      },
+      {
+        "image_id": "0002131",
+        "split": "Validation",
+        "RGB_sha256": "efd72f170e53b1486248b1331265eebdbef34b6aa0fa447cad73c80e409481e4"
+      },
+      {
+        "image_id": "0018190",
+        "split": "Validation",
+        "RGB_sha256": "c1ee6801734eed2363be871389dbf61cfb70ba757ac0647e9d596c625a5db771"
+      },
+      {
+        "image_id": "0013903",
+        "split": "Validation",
+        "RGB_sha256": "85b8d9810329b47dd6cecbcf6e55d8419da21e5aaf5ec0b74814b1f22300d3d3"
+      },
+      {
+        "image_id": "0027552",
+        "split": "Validation",
+        "RGB_sha256": "66f8c32b1bacf7b2975afdfb6cc7dddab262ab6b487cbde923f69efd9a824faa"
+      },
+      {
+        "image_id": "0008152",
+        "split": "Validation",
+        "RGB_sha256": "8969d3d1824f38b5b2f785acaba7d23ef23c177b83a8505fc928fa60faf2057f"
+      },
+      {
+        "image_id": "0018379",
+        "split": "Validation",
+        "RGB_sha256": "d76d679a6de3f831de55669a6d54d059d1625c20c3c408ad8a42a5790b69293e"
+      },
+      {
+        "image_id": "0027513",
+        "split": "Validation",
+        "RGB_sha256": "2fa00d8f8a3d7334170fa09b66a80ae01d0b945d31b9ac810d653654487991c3"
+      },
+      {
+        "image_id": "0032044",
+        "split": "Validation",
+        "RGB_sha256": "ed5b2b2a89a2db3dc2c741f176ca88b6140ab006302fe9d33a42d09552f0e4ee"
+      },
+      {
+        "image_id": "0028367",
+        "split": "Validation",
+        "RGB_sha256": "600b7b3b401fcca6001dd2047624adf43a4bb974d0ded1231e8c5e6e63cd7f54"
+      },
+      {
+        "image_id": "0017611",
+        "split": "Validation",
+        "RGB_sha256": "06c3fb4f3bbad18049e9bbfb0106eac102c9a55c9a25d8c9623688ee8b77940f"
+      },
+      {
+        "image_id": "0009820",
+        "split": "Validation",
+        "RGB_sha256": "c17fff4356d0768c7a12c3b926199a81e6339285577564b15f538ad886950a9e"
+      },
+      {
+        "image_id": "0028702",
+        "split": "Validation",
+        "RGB_sha256": "b4af4b7c575ab0773628d947be6d9f76de7afdf70df6aed5ee87940b983984f1"
+      },
+      {
+        "image_id": "0017885",
+        "split": "Validation",
+        "RGB_sha256": "92082106d3fdaa8d99789558e93ecff164ae716b38018908c97e74e93ef4f38f"
+      },
+      {
+        "image_id": "0010993",
+        "split": "Validation",
+        "RGB_sha256": "7a5ed1ea5e0d445d08fa59f4ca3d3aae52667b24d9c9f4a226c08e2919078e37"
+      },
+      {
+        "image_id": "0038431",
+        "split": "Validation",
+        "RGB_sha256": "25edf586565a3c211dec6ff317f632792a018195a9e3850bb9b8a6b78bb166e2"
+      },
+      {
+        "image_id": "0018304",
+        "split": "Validation",
+        "RGB_sha256": "dd7f3a18a7289a77e8c9c910a9c2abcef1a8411ba935aba37911302e808807a2"
+      },
+      {
+        "image_id": "0005329",
+        "split": "Validation",
+        "RGB_sha256": "4e8e686ee49ae9b6c21e0a1c0b6fb76ece14a7341830bdefed46c0e9f86fc79e"
+      },
+      {
+        "image_id": "0028620",
+        "split": "Validation",
+        "RGB_sha256": "c76710232f9df9218e703b6f5ca05be2f3db212a3c1c510c3cf06196e9b51bce"
+      },
+      {
+        "image_id": "0012395",
+        "split": "Validation",
+        "RGB_sha256": "f333abba34d89943683768cb29cb2641614a32935cde1e421d95e1fc815825ee"
+      },
+      {
+        "image_id": "0037338",
+        "split": "Validation",
+        "RGB_sha256": "5fd5193d49198e4db619b03c68b87de30c31926c291e8e2a1701becc69781317"
+      },
+      {
+        "image_id": "0021584",
+        "split": "Validation",
+        "RGB_sha256": "cd32e2d5e3ec57854d955369d118369bc8a1f32066b262739531e9e0087a5bc6"
+      },
+      {
+        "image_id": "0024524",
+        "split": "Validation",
+        "RGB_sha256": "fac84258ea18b21626ad4571b494e8056b9f018dc3e8992e95fdede381a75271"
+      },
+      {
+        "image_id": "0004177",
+        "split": "Validation",
+        "RGB_sha256": "523b23e540bc72847dfd509510a8b44219d27c0bac10c8c8254ab4218ddc3d1d"
+      },
+      {
+        "image_id": "0035231",
+        "split": "Validation",
+        "RGB_sha256": "9ce0513febac0ee2f302bd278c21cefbdfba1deb6b8304720b31a1da79b15557"
+      },
+      {
+        "image_id": "0011541",
+        "split": "Validation",
+        "RGB_sha256": "1155644bd24a2ebabd6d01b0ee7ddd4fe9e7821badeabc7fb30a30c36986b4b7"
+      },
+      {
+        "image_id": "0009150",
+        "split": "Validation",
+        "RGB_sha256": "054dcdca162923c720be6f05756945537bcd7c6d7adf00c43e670005d0c571a3"
+      },
+      {
+        "image_id": "0037759",
+        "split": "Validation",
+        "RGB_sha256": "87d8e4e46e2070392de111be14c9418fddd8f60bff74353d86494d912dbb55a0"
+      },
+      {
+        "image_id": "0029297",
+        "split": "Validation",
+        "RGB_sha256": "1c1e9744c1e466657476057f34e7c6bc4d7f0d70c5b11a4abec35942992fd54a"
+      },
+      {
+        "image_id": "0004564",
+        "split": "Validation",
+        "RGB_sha256": "b64ecc60a8d5ca2179477d3742e254a2b779699ee1e40664b25a5d1690c9a35b"
+      },
+      {
+        "image_id": "0001763",
+        "split": "Validation",
+        "RGB_sha256": "ffb87cba209c45544c3e5bb2e873b1d8fc5c0a9aee1c6cabc003ed70ee4214e5"
+      },
+      {
+        "image_id": "0023340",
+        "split": "Validation",
+        "RGB_sha256": "a3f03b1b293196cfa39ff30b85979d00b2414c392a248122ef6fbe17dcfbc72c"
+      },
+      {
+        "image_id": "0014780",
+        "split": "Validation",
+        "RGB_sha256": "a9d01b9e41504bec0cbf2a23fb2725b419d68dbb07d57ec254b486d31db9d4a7"
+      },
+      {
+        "image_id": "0031884",
+        "split": "Validation",
+        "RGB_sha256": "d7b65e4fbfeba5033b342a5d2a1895d169248695f15ba39ad3ad96a26fc8e09f"
+      },
+      {
+        "image_id": "0014721",
+        "split": "Validation",
+        "RGB_sha256": "0d0101dfa656d8017b36f53ea682b9ec525aa2dfff5455062cee74514c9649cb"
+      },
+      {
+        "image_id": "0038068",
+        "split": "Validation",
+        "RGB_sha256": "46fd9ae746b51efab3083142dc0ed27fdc69b50568ff46b35786a8dfe9fa2042"
+      },
+      {
+        "image_id": "0011559",
+        "split": "Validation",
+        "RGB_sha256": "b5a7a6d676b80185a843e25fe1281097ee029027e528c724a74aa8c082344255"
+      },
+      {
+        "image_id": "0013464",
+        "split": "Validation",
+        "RGB_sha256": "af93ec38d87b4803ffc620e3d6a54886f2e126e580ae52acac1a4337904459c6"
+      },
+      {
+        "image_id": "0027090",
+        "split": "Validation",
+        "RGB_sha256": "5005d008b9a032fb39d65461de47b84939bcff1065d418e66b4654575f548da8"
+      },
+      {
+        "image_id": "0014274",
+        "split": "Validation",
+        "RGB_sha256": "275ef39ebead1e746e7a3fa3aee6acb81772cf5efd4ff7820144487bb94175f0"
+      },
+      {
+        "image_id": "0005857",
+        "split": "Validation",
+        "RGB_sha256": "f656e91cdd433c07172dc24d1d9e032e7e0b1a0622627597789cfc18f243fcb0"
+      },
+      {
+        "image_id": "0003109",
+        "split": "Validation",
+        "RGB_sha256": "bc689526893a511bac8d8e2a85205e32bb7fdf0f0c800682d9d48e5ac5e19fbc"
+      },
+      {
+        "image_id": "0028864",
+        "split": "Validation",
+        "RGB_sha256": "ede38120da2a80fc086bde368c48c0318a197a7b70802589f2caac2568b561da"
+      },
+      {
+        "image_id": "0036530",
+        "split": "Validation",
+        "RGB_sha256": "b5bcb9c6980800bdfadffad911091a006fa3dcd89ac34d6307aff2e3bb605ee5"
+      },
+      {
+        "image_id": "0036456",
+        "split": "Validation",
+        "RGB_sha256": "6aa0e72f3649fbf3346869cf577a955bd0575f3ca50ddb4758c5dfc2963c811a"
+      },
+      {
+        "image_id": "0025331",
+        "split": "Validation",
+        "RGB_sha256": "af00687abd8afcb584a48266ecb7416322610a55ebb78671c135f92dedb12264"
+      },
+      {
+        "image_id": "0000219",
+        "split": "Validation",
+        "RGB_sha256": "5fb298ef7d441d99f234ea7a14104b236a9b7e856a2a73da6877eb6038f737fb"
+      },
+      {
+        "image_id": "0030726",
+        "split": "Validation",
+        "RGB_sha256": "6cdc0c7963aad6621257f47571fdfd374bc9c04b930a4b8e9a6c9a914711c42f"
+      },
+      {
+        "image_id": "0006848",
+        "split": "Validation",
+        "RGB_sha256": "7a4d349057f9f5eb601ece33286b04faa2a85fe2db068dbe5d015d7dbb93d795"
+      },
+      {
+        "image_id": "0007804",
+        "split": "Validation",
+        "RGB_sha256": "dde915561f681b378aecc77e17fc8c8eb4e85931413bec23582344fdeff1b1ba"
+      }
+    ]
+  },
+  "duplicate_exclusions": [],
+  "dataset_archive_identity": "Existing shared CCIHP_icip.zip; original README SHA 4b73782345d94752e3a4a015ca0f8c9aa6bffe38d9568af7018071160f00bc5f",
+  "launch": {
+    "utc": "2026-10-31T20:04:51.174418+00:00",
+    "pid": 1220827,
+    "launch_commit": "8885c7441cd3ff3cce93a73464d9247208b19a42"
+  },
+  "trained_artifact": {
+    "path": "learned_color.pt",
+    "sha256": "4145b416f9020422e389210af6eab6adc6d92d6c37af6033f60ffc712969bfde",
+    "bytes": 30493
+  },
+  "model_redistribution": "Not published automatically; CCIHP annotations carry noncommercial terms; code MIT unchanged",
+  "external_artifact_directory": "outputs/t4-pilot-20261101",
+  "artifact_files": {
+    "validation_predictions.npz": {
+      "sha256": "7e8cead7c95a2f45e10da1a5b95b9a5dd5022379c69f33abac7ecdf2eeddafa5",
+      "bytes": 29960
+    },
+    "calibration_features.npz": {
+      "sha256": "63dc1679140a7ca7f19195e63833826079be1245f8118c711d510e96db7c9be8",
+      "bytes": 57831
+    },
+    "SUMMARY.json": {
+      "sha256": "4485ca5fe0497e67eb4eeaf4e070ee5067c3f584ff5e5cdefe50e21183ff99a0",
+      "bytes": 53067
+    },
+    "EXECUTION_STARTED.json": {
+      "sha256": "cdabd6432712dec7910feeb91a37567d883e931c4dd7355491ddd92e34e45ab0",
+      "bytes": 129
+    },
+    "PROCESS.json": {
+      "sha256": "8c6530a6b734e26fc3185ae62de41dde192bbb11d934d82e7e605c1819d179bb",
+      "bytes": 453
+    },
+    "TRAINING_HISTORY.json": {
+      "sha256": "5a301f10f7dbefc74ce07495843af8bd536465c135461d175b1e363978ee5636",
+      "bytes": 4258
+    },
+    "ENVIRONMENT.json": {
+      "sha256": "0398d67c80728733a9f12a84bd539995bda01b32465007f01239b0bdc313864a",
+      "bytes": 341
+    },
+    "REGIONS.json": {
+      "sha256": "f4ecf1db8ea6c847791cffa7ac8526f4cd124f7c0ff37c1a165210b1b9c8ad4e",
+      "bytes": 1666435
+    },
+    "DATA_COUNTS.json": {
+      "sha256": "19b6281232e338814cb32abfe5760ca3a0aba745d6a2863c7cc92f88ae751030",
+      "bytes": 639
+    },
+    "train_features.npz": {
+      "sha256": "0ca5c08a699c011c8046c88c3d8ba3917fb758094afe90c38a87fc81a18b28f6",
+      "bytes": 251242
+    },
+    "validation_features.npz": {
+      "sha256": "416928bb820c1c875314af2fcc404caf126f6294b6a9e01df9f570a2942621fb",
+      "bytes": 96246
+    },
+    "FROZEN_RUN.json": {
+      "sha256": "6e6a0506013da12908a80a3802bdebe463aeea38109c8c5698c6fd7839b68c3e",
+      "bytes": 80393
+    },
+    "learned_color.pt": {
+      "sha256": "4145b416f9020422e389210af6eab6adc6d92d6c37af6033f60ffc712969bfde",
+      "bytes": 30493
+    },
+    "STATE.json": {
+      "sha256": "16c7aa918f744ca0f5264b0be14d7b0fbbfc06e0712a0baba25cc565afb4c4e8",
+      "bytes": 514
+    }
+  }
+}

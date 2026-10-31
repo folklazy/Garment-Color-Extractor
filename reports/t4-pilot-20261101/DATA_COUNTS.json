@@ -1,0 +1,55 @@
+{
+  "accepted": {
+    "train": 1648,
+    "calibration": 370,
+    "validation": 614
+  },
+  "excluded_reasons": {
+    "REGION_LT100": 86,
+    "CHARACTERIZED_FRACTION_LT80": 248
+  },
+  "class_support": {
+    "train": [
+      649,
+      163,
+      330,
+      71,
+      90,
+      28,
+      24,
+      5,
+      33,
+      87,
+      14,
+      154
+    ],
+    "calibration": [
+      141,
+      45,
+      62,
+      32,
+      4,
+      7,
+      2,
+      4,
+      16,
+      28,
+      1,
+      28
+    ],
+    "validation": [
+      208,
+      52,
+      115,
+      41,
+      35,
+      17,
+      10,
+      3,
+      17,
+      46,
+      2,
+      68
+    ]
+  }
+}
