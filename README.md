@@ -1,156 +1,197 @@
-> **Selected method: T4 MLP 62→64→32→12 (6,508 parameters).** Highest declared-primary strict accuracy:68.73% (422/614). [รายละเอียดแบบบทความวิจัยและเหตุผลการเลือก](reports/SELECTED_COLOR_METHOD_TH.md) · [Machine-readable decision](registry/SELECTED_METHOD.json). M4 remains the macro-F1 leader; API default is unchanged.
-
-> **Current study: seven-method comparison COMPLETE.** [ผลทดลองภาษาไทย](REPORT.md) · [สรุปย่อ](RESULTS_SUMMARY_TH.md) · [สำหรับนำเสนอ](PRESENTATION_SUMMARY_TH.md) · [Protocol](EXPERIMENT_PROTOCOL.md) · [Canonical tables](reports/color-methods-20261101/METHOD_RESULTS.csv) · [Current state](STUDY_STATE.json).
->
-> ใช้ 614 oracle garment regions จาก Validation ที่เลือก 100 ภาพ (97 ภาพมี regions ผ่านเกณฑ์). MLP นำ strict accuracy **68.73%**; M4 นำ fixed12 macro F1 **58.07%**; M5 ensemble ที่ fit จริงได้ accuracy **66.29%**. เป็น exploratory subset comparison; ยังไม่ใช่คะแนน CCTV หรือ benchmark เต็ม 5,000 ภาพ. Default API ยังเป็น rules v2. [Data/terms](DATASET_DETAILS.md) · [Schema](DATA_SCHEMA.md) · [Setup/artifacts](docs/METHOD_COMPARISON_SETUP.md).
-
 # Garment Color Extractor
 
-CPU library for describing **observed colors inside an image region**. Supply a garment mask, bounding box, or cropped image; receive a palette, heuristic color label, and structured quality notes.
+Classify the **observed color of a garment region** using a compact neural network and CIELAB–HSV color descriptors. Supply an RGB image, a garment mask and its native garment category; the selected model predicts one of 12 color labels.
 
-**Current engine: `prototype_rules_v2` (v1.1.0).** It uses fixed rules and prototypes. It does not bundle trained model weights. A separate research M5 ensemble has now been fitted and evaluated on the shared pilot membership; its explicit local artifact is documented in the current report and is not the default API engine. Historical CCIHP/CCTV scores do **not** validate this implementation. See [review findings](reports/COLOR_REVIEW_TH.md), [benchmark evidence](benchmark/README.md), and [changes](CHANGELOG.md).
+**Selected method: T4 MLP · 62→64→32→12 · 6,508 parameters.** It achieved the highest primary strict accuracy in the completed seven-method comparison: **68.73% (422/614 garment regions)**. This result uses an oracle-mask CCIHP subset: 100 selected validation images, with 97 contributing images. CCTV deployment accuracy has not been established.
 
-## What the library does
+[Method paper / รายละเอียดภาษาไทย](reports/SELECTED_COLOR_METHOD_TH.md) · [Quick start](#quick-start) · [Model identity](registry/SELECTED_METHOD.json) · [Research and evaluation](#research-and-evaluation)
+
+## Selected method
 
 ```mermaid
 flowchart LR
-    A[RGB image + binary region] --> B[Validate geometry and channels]
-    B --> C[Optional interior erosion]
-    C --> D[Observed CIELAB palette]
-    D --> E[Aggregate named color families]
-    E --> F[Rule label + palette + warnings]
+    A[RGB image + garment mask] --> B[Shared mask erosion]
+    B --> C[CIELAB / HSV statistics and palette: 58D]
+    D[Garment category: one-hot 4D] --> E[Standardized descriptor: 62D]
+    C --> E
+    E --> F[MLP: 64 / 32 / 12]
+    F --> G[Color label + softmax scores]
 ```
 
-1. Validate the image and region. Preserve an empty region as `no_data`.
-2. Optionally erode the mask boundary, retaining the original when too few pixels remain. Erosion can reduce edge contamination; it does not guarantee a clean garment mask.
-3. Convert sampled pixels to OpenCV CIELAB/HSV and fit a deterministic palette with up to four clusters. Palette weights describe all analyzed pixels; a single-color region has one cluster.
-4. Map clusters through lightness/chroma gates and fixed weighted-Euclidean prototypes. Aggregate same-family mass before selecting the dominant label or a heuristic multicolor label.
-5. Return observed swatches, palette weights, region provenance and warnings. A legacy 58-element descriptor exists internally but is **not** an ensemble classifier input.
+| Property | Selected configuration |
+|---|---|
+| Algorithm ID | `T4_MLP_62_64_32_12_v1` |
+| Color descriptor | LAB/HSV quantiles, standard deviations, palette centroids/weights and contrast statistics |
+| Category input | One-hot native garment category: 5, 7, 9 or 12 |
+| Network | Linear62→64, ReLU, Linear64→32, ReLU, Linear32→12 |
+| Parameters | 6,508, including biases |
+| Training | AdamW, FP32, 40 epochs on Tesla T4 |
+| Selected checkpoint | Epoch28, selected by calibration cross-entropy |
+| Normalization | Training-only mean and standard deviation, stored in the checkpoint |
+| Output | Color ID1–12 and uncalibrated softmax scores |
 
-CIELAB conversion and clustering do not recover illumination-invariant material color. Shadows, reflections, white balance, low saturation and infrared imagery can change the observation. A grayscale/IR image cannot establish an object's original visible-light hue.
+The model classifies the supplied region. An upstream parser provides garment masks and person association. The selected checkpoint can be loaded explicitly on CPU; earlier verification found identical CPU/GPU labels on all 614 evaluated regions. No inference-speed ranking is claimed.
 
-## Install
+For equations, feature dimensions, training settings, learning curves, per-color results and limitations, read the **[selected-method paper](reports/SELECTED_COLOR_METHOD_TH.md)**.
 
-Python 3.8+ is declared in package metadata; this revision was tested locally on Python 3.12. No Python 3.8 execution claim is made.
+## Quick start
+
+### Install
 
 ```bash
-pip install -e .
-# Optional REST service
-pip install -e '.[api]'
-# Development tests
-pip install -e '.[api,dev]'
+python -m pip install -e '.[learned]'
 ```
 
-No model weights or GPU libraries are required by this package. Runtime depends on region size, CPU, thread settings and library versions; there is no verified fixed millisecond guarantee.
+This includes the optional PyTorch dependency. Source was tested with Python3.12; the package's declared Python3.8 minimum has not been independently verified.
 
-## Python usage
+### Provide the selected checkpoint
+
+The trained artifact is stored separately from Git:
+
+```text
+outputs/t4-pilot-20261101/learned_color.pt
+SHA256: 4145b416f9020422e389210af6eab6adc6d92d6c37af6033f60ffc712969bfde
+```
+
+Weights are not downloaded or distributed automatically. Obtain the authorized artifact and preserve its identity. Cloning this repository alone does not provide the checkpoint or dataset. See [artifact/setup requirements](docs/METHOD_COMPARISON_SETUP.md) and [dataset terms](DATASET_DETAILS.md).
+
+### Predict a garment color
 
 ```python
 import cv2
-from garment_color import GarmentColorExtractor, create_color_card
 
+from garment_color.learned import LearnedColorPredictor
+from garment_color.preprocessor import MaskPreprocessor
+
+# A readable image and matching binary mask for one garment region.
 image_bgr = cv2.imread('person.jpg')
-mask = cv2.imread('shirt_mask.png', cv2.IMREAD_GRAYSCALE) > 0
-extractor = GarmentColorExtractor()
-result = extractor.predict(image_bgr, mask=mask, is_bgr=True, garment_type='upper')
-
-print(result.to_json(indent=2))
+mask_gray = cv2.imread('upper_clothes_mask.png', cv2.IMREAD_GRAYSCALE)
 image_rgb = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB)
-card = create_color_card(image_rgb, mask, result)
-cv2.imwrite('color_diagnostic.png', card)  # Card is BGR.
+garment_mask = mask_gray > 0
+
+pixels = MaskPreprocessor().extract_clean_pixels(
+    image_rgb, garment_mask, apply_erosion=True
+)
+model = LearnedColorPredictor(
+    'outputs/t4-pilot-20261101/learned_color.pt',
+    device='cpu',
+    expected_sha256='4145b416f9020422e389210af6eab6adc6d92d6c37af6033f60ffc712969bfde',
+)
+result = model.predict_pixels(pixels, native_category=5)
+print(result['color_id'])
+print(result['softmax'])
 ```
 
-For boxes, use `bbox=(x1, y1, x2, y2)` without `mask`. Coordinates are half-open XYXY, clipped to the image; fractional minima are floored and maxima ceiled. Non-intersecting/reversed boxes raise `ValueError`. A box may include background or other body parts; it is not garment segmentation. With neither mask nor bbox the entire image is the region, and the result carries a warning.
+Load the model once and reuse it across regions. The file-based [example](examples/learned_checkpoint.py) additionally validates image/mask inputs and accepts explicit checkpoint, hash and category arguments.
 
-Use parsing masks from the selected parsing pipeline in real integrations. The [synthetic boxes example](examples/yolo_integration.py) illustrates data flow only: it does not execute YOLO, tracking, Re-ID, or validated upper/lower segmentation.
+## Input and output contract
 
-## Output contract
+| Input | Requirement |
+|---|---|
+| Image | uint8 RGB; convert OpenCV BGR before extracting pixels |
+| Mask | Binary mask on the original image grid for one person × one garment |
+| Preprocessing | Existing shared erosion policy; do not recompute the trained scaler |
+| Native category | 5 UpperClothes, 7 Coat, 9 Pants or 12 Skirt |
+
+A generic Upper/Lower mask alone does not distinguish Coat from UpperClothes or Pants from Skirt. Define the upstream category binding before integrating another parser; do not silently substitute a category or split a dress with an undeclared heuristic.
 
 | Field | Meaning |
 |---|---|
-| `algorithm_id` | `prototype_rules_v2`, an explicit behavior identity |
-| `status` | `ok` or `no_data`; observation availability, not accuracy acceptance |
-| `color_id` / `color_name` | Heuristic label in the 12-color vocabulary; `0` means uncharacterized |
-| `hex_code` / `rgb_swatch` | The same observed representative color; both null for an empty region |
-| `palette` | Observed RGB/HEX, pixel fractions and rule class for each retained cluster; weights sum to one for nonempty input |
-| `confidence` | Legacy field: supporting named-color-family pixel fraction, **not** correctness probability. Multicolor uses the two leading families' combined fraction |
-| `score_kind` | Explicit interpretation of the legacy score |
-| `calibrated_probability` | Always null; no probability calibration artifact is available |
-| `region_source` | `mask`, `bbox`, or `whole_image` |
-| `input_pixels` / `total_pixels` | Region area before / after optional erosion |
-| `erosion_retained_fraction` | Actual analyzed fraction, null for an empty region |
-| `warnings` | Low chroma, very dark/highlight region, small/empty input and input-region limitations |
-| `is_multicolor` | Rule detected multiple separated named color families; it does not classify garment patterns |
-| `latency_ms` | This call's wall-clock diagnostic, not a benchmark or latency SLA |
+| `status` | `ok` for a nonempty observation; `no_data` for an empty region |
+| `color_id` | Native color ID1–12; 0 for `no_data` |
+| `softmax` | Twelve scores in native class order; null for `no_data` |
+| `calibrated_probability` | Null on normal predictions; absent in the current empty-region response. Calibration is not established |
+| `algorithm_id` | Exact learned-model identity |
 
-Inputs must be nonempty uint8 RGB/BGR arrays of shape `(H, W, 3)` or file paths. Masks must match `(H, W)` with bool, 0/1, or 0/255 values. Multiclass label maps require explicit selection of a garment before calling. Supported region types: `upper`, `lower`, `hair`, `other`.
+Color order: **Dark, Medium, Light, Brown, Red, Pink, Yellow, Orange, Green, Blue, Purple, Multicolor**. Dark includes navy under the CCIHP reference. Softmax scores are not calibrated confidence, and the learned wrapper does not itself return the rule engine's palette/card schema.
 
-## Color vocabulary
+This describes appearance under the image's lighting. It does not recover illumination-invariant material color; grayscale/IR imagery cannot establish an object's original visible-light hue.
 
-| ID | Label | ID | Label |
-|---|---|---|---|
-| 0 | Uncharacterized | 7 | Yellow |
-| 1 | Dark | 8 | Orange |
-| 2 | Medium | 9 | Green |
-| 3 | Light | 10 | Blue |
-| 4 | Brown | 11 | Purple |
-| 5 | Red | 12 | Multicolor |
-| 6 | Pink | | |
+## Project navigation
 
-Registry swatches are illustrations of category names, not recovered garment colors. `Multicolor` has no single representative hue; the returned HEX and palette remain actual observations rather than the registry's magenta marker. Dark/Blue and other category boundaries are heuristic and need task-specific independent validation.
+| Purpose | Start here |
+|---|---|
+| Understand and use the selected method | This README and [method paper](reports/SELECTED_COLOR_METHOD_TH.md) |
+| Inspect the selected implementation | [Model](src/garment_color/learned.py), [features](src/garment_color/features.py), [mask preprocessing](src/garment_color/preprocessor.py) |
+| Check selection and current state | [Selection record](registry/SELECTED_METHOD.json), [study state](STUDY_STATE.json) |
+| Inspect experiments and benchmark evidence | [Research section below](#research-and-evaluation) |
+| Review software checks | [`tests/`](tests/) and [verification section below](#software-verification) |
 
-## CLI and API
+## Research and evaluation
+
+Experimental comparisons and test evidence are kept separate from the selected-method usage above.
+
+<details>
+<summary><strong>Open the seven-method comparison, protocol and result tables</strong></summary>
+
+The study compared M1 HSV, M2 fixed-anchor projection, M3 global LAB prototypes, M4 category-conditioned LAB prototypes, a real M5 HGB/ExtraTrees/prototype ensemble, the library rules and the T4 MLP on identical eligible regions.
+
+MLP leads the declared-primary strict accuracy at **68.73%**. **M4 leads fixed-12 macro F1 at 58.07%, versus MLP's 52.55%.** Selecting MLP preserves that trade-off; it does not establish superiority for every color or garment category. Orange/Purple have only 3/2 GT regions and no MLP true positives in this subset.
+
+- [Full comparison report](REPORT.md)
+- [Results summary in Thai](RESULTS_SUMMARY_TH.md) · [Presentation summary](PRESENTATION_SUMMARY_TH.md)
+- [Evaluation protocol](EXPERIMENT_PROTOCOL.md) · [Dataset details/terms](DATASET_DETAILS.md) · [Metric schema](DATA_SCHEMA.md)
+- [Canonical results](reports/color-methods-20261101/METHOD_RESULTS.csv) · [Per-color metrics](reports/color-methods-20261101/PER_CLASS.csv) · [Per-garment metrics](reports/color-methods-20261101/PER_CATEGORY.csv)
+- [Run provenance](reports/color-methods-20261101/MANIFEST.json) · [Selection evidence](reports/selected-color-method/SELECTION_EVIDENCE.json)
+- [Original T4 pilot report](reports/T4_COLOR_PILOT_TH.md) · [Research plan](PLAN.md) · [Work log](WORK_LOG.md)
+
+The same 300 Training images and 50 separate calibration images were used. Validation comprises 100 selected images, 97 with eligible garments, yielding 614 regions. These are exploratory oracle-mask selection results, with no independent CCTV accuracy, statistical-significance claim or clean latency/FPS/VRAM ranking. Frozen native parsing results and historical failures remain separate.
+
+</details>
+
+## Software verification
+
+<details>
+<summary><strong>Open CPU checks and verification evidence</strong></summary>
+
+Software contract tests live in [`tests/`](tests/). They cover input geometry, RGB/BGR handling, empty regions, palette mass, API serialization, explicit model artifacts, class-column alignment and independent metric examples. They do not replace dataset accuracy measurements.
+
+In a compatible environment with the optional API/test tooling installed:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+The pilot test helpers use Pillow; the current Starlette TestClient uses `httpx2`. These test dependencies are separate from the learned-model usage above. Exact environment and prior verification evidence:
+
+- [Pilot verification](reports/t4-pilot-20261101/VERIFICATION.json)
+- [Method-comparison verification](reports/color-methods-20261101/VERIFICATION.json)
+- [Comparison environment](reports/color-methods-20261101/ENVIRONMENT.json)
+- [Original contract review](reports/COLOR_REVIEW_TH.md)
+
+No dataset, trained weights or GPU benchmark is required for the synthetic CPU checks. Optional PyTorch cases require the learned extra; without it, their documented skip does not establish learned-model acceptance.
+
+</details>
+
+## Compatibility interface
+
+<details>
+<summary><strong>Open the existing rule-based SDK, CLI and REST service</strong></summary>
+
+`GarmentColorExtractor`, the `garment-color` CLI and `api.server:app` still use **`prototype_rules_v2`**. They are separate from the selected learned-model entry point, `LearnedColorPredictor`. This README change does not silently replace an existing caller's engine.
+
+```python
+from garment_color import GarmentColorExtractor
+
+extractor = GarmentColorExtractor()
+result = extractor.predict(
+    image_bgr, mask=garment_mask, is_bgr=True, garment_type='upper'
+)
+```
 
 ```bash
 garment-color --image person.jpg --mask shirt_mask.png --type upper --json
 uvicorn api.server:app --host 127.0.0.1 --port 8000
 ```
 
-`POST /api/v1/extract-color` accepts `image_base64`, optional binary `mask_base64` or `bbox`, `garment_type`, and `apply_erosion`. It returns the same structured result as Python. Invalid image data returns 400; invalid region contracts return 422. `/health` reports engine/version identity. The optional `api` module is included in the built distribution. This is a runnable integration example, not an operational deployment certification.
+Install the optional `api` extra for the REST service. `POST /api/v1/extract-color` accepts image data and a binary mask or bounding box. It returns rule labels, observed swatches/palette and quality warnings. Its legacy `confidence` field describes supporting pixel mass, not correctness probability. Empty regions have no observed swatch.
 
-## Diagnostic preview
+[Synthetic diagnostic cards](examples/assets/color_diagnostics.png) illustrate the rule-based output; they are not learned-model evaluation examples. See [changes/migration](CHANGELOG.md) and [historical evidence](benchmark/README.md) for context. Imported CCIHP/CCTV benchmark JSON does not validate the current executable merely because a method name matches.
 
-The following cards are generated from synthetic RGB regions, with no dataset or CCTV assets:
+</details>
 
-![Synthetic observed-color diagnostic cards](examples/assets/color_diagnostics.png)
+## Data, artifacts and licensing
 
-Regenerate with `python examples/render_diagnostics.py`.
+Datasets, trained checkpoints, feature arrays, bulk predictions and private CCTV assets remain outside Git. No CCTV images, filenames, annotations or thumbnails are published. Public reports contain compact metrics, provenance and data-free figures.
 
-## Verification and evidence
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-Tests cover hand-specified regions/colors, empty and thin masks, full palette mass, label aggregation, RGB/BGR, input rejection, actual API serialization and diagnostic card dimensions. They do not measure real-scene color accuracy.
-
-- [Technical review in Thai](reports/COLOR_REVIEW_TH.md)
-- [Benchmark evidence and limitations](benchmark/README.md)
-- [Change log / migration](CHANGELOG.md)
-- [Historical README snapshot](docs/history/README_before_review.md)
-
-CCTV images, names, annotations, thumbnails, masks, and private review manifests are external assets and are not published in this repository. Existing benchmark JSON files remain unchanged historical evidence. No corrected-package CCIHP/CCTV accuracy, supervised-M5 performance, or clean timing ranking is asserted.
-
-License: [MIT](LICENSE), unchanged by this review.
-
-
-## Optional learned T4 pilot
-
-A new, bounded experiment trained a small **62→64→32→12 MLP on Tesla T4**. It is separate from the default rule engine and from the historical M5 ensemble. See the [actual pilot report](reports/T4_COLOR_PILOT_TH.md) and [frozen protocol](configs/T4_COLOR_PILOT_PROTOCOL.json).
-
-The run used 300 Training images for fitting, 50 disjoint Training images for checkpoint selection and 100 official Validation images for evaluation. There was no new parsing inference. CCTV examples use existing masks as qualitative observations, with no independent color-accuracy claim.
-
-Weights are retained locally at `outputs/t4-pilot-20261101/learned_color.pt` and are **not** automatically redistributed. Code licensing does not by itself resolve the terms of artifacts learned from noncommercial dataset annotations. An authorized local artifact can be used with [examples/learned_checkpoint.py](examples/learned_checkpoint.py), passing its exact SHA256 and an actual garment mask. The optional module requires the `learned` extra; training in this review reused an existing compatible environment without installing dependencies.
-
-```python
-from garment_color.learned import LearnedColorPredictor
-from garment_color.preprocessor import MaskPreprocessor
-
-# image_rgb: uint8 RGB; garment_mask: matching binary region from the parser.
-pixels = MaskPreprocessor().extract_clean_pixels(image_rgb, garment_mask, True)
-model = LearnedColorPredictor('outputs/t4-pilot-20261101/learned_color.pt',
-                              device='cpu', expected_sha256='<SHA256 from pilot report>')
-result = model.predict_pixels(pixels, native_category=5)  # 5, 7, 9, or 12
-```
-
-Softmax scores are not calibrated correctness probabilities. This pilot does not switch the service's default engine or establish CCTV deployment readiness. Reproduction requires external CIHP RGB/CCIHP annotations and the recorded environment; clone alone is insufficient.
+First-party code: [MIT](LICENSE), unchanged. External annotations and trained artifacts have their own terms; see [data attribution and distribution](DATASET_DETAILS.md#attribution-and-distribution). Public code availability does not itself authorize redistribution or commercial use of all external assets.
