@@ -1,0 +1,84 @@
+{
+  "dataset": "CCTV_100_Evaluation_Benchmark",
+  "evaluated_utc": "2026-10-31T16:39:02.089732+00:00",
+  "results": {
+    "UPPER": {
+      "total": 120,
+      "M1_acc": 82.5,
+      "M2_acc": 69.17,
+      "M3_acc": 90.83,
+      "M4_acc": 90.83,
+      "M5_acc": 90.83
+    },
+    "LOWER": {
+      "total": 101,
+      "M1_acc": 84.16,
+      "M2_acc": 79.21,
+      "M3_acc": 96.04,
+      "M4_acc": 96.04,
+      "M5_acc": 96.04
+    },
+    "HAIR": {
+      "total": 69,
+      "M1_acc": 97.1,
+      "M2_acc": 92.75,
+      "M3_acc": 98.55,
+      "M4_acc": 98.55,
+      "M5_acc": 98.55
+    },
+    "OVERALL": {
+      "total": 290,
+      "M1_acc": 86.55,
+      "M2_acc": 78.28,
+      "M3_acc": 94.48,
+      "M4_acc": 94.48,
+      "M5_acc": 94.48
+    }
+  },
+  "day_night": {
+    "day": {
+      "M1": {
+        "correct": 133,
+        "total": 155
+      },
+      "M2": {
+        "correct": 116,
+        "total": 155
+      },
+      "M3": {
+        "correct": 143,
+        "total": 155
+      },
+      "M4": {
+        "correct": 143,
+        "total": 155
+      },
+      "M5": {
+        "correct": 143,
+        "total": 155
+      }
+    },
+    "night": {
+      "M1": {
+        "correct": 118,
+        "total": 135
+      },
+      "M2": {
+        "correct": 111,
+        "total": 135
+      },
+      "M3": {
+        "correct": 131,
+        "total": 135
+      },
+      "M4": {
+        "correct": 131,
+        "total": 135
+      },
+      "M5": {
+        "correct": 131,
+        "total": 135
+      }
+    }
+  }
+}

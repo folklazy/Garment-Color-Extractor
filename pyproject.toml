@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "garment-color-extractor"
+version = "1.0.0"
+description = "Lightweight, Shadow-Aware Garment Color Extraction Engine (M5) for Surveillance and Human Parsing"
+authors = [{ name = "folklazy" }]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.21.0",
+    "opencv-python-headless>=4.5.0",
+    "scikit-learn>=1.0.0",
+]
+
+[project.optional-dependencies]
+api = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+    "pydantic>=2.0.0",
+]
+dev = [
+    "pytest>=7.0.0",
+]
+
+[project.scripts]
+garment-color = "garment_color.cli:main"
