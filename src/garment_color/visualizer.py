@@ -124,3 +124,4 @@ def create_color_card(
     )
 
     return card
+

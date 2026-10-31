@@ -1,59 +1,78 @@
 {
-  "benchmark_name": "CCIHP_Clothing_Color_Extraction_Benchmark",
+  "benchmark_name": "CCIHP_M1_to_M5_Oracle_Benchmark",
   "dataset": "Crowd Instance-level Human Parsing with Color Attributes (CCIHP)",
   "evaluation_split": "CCIHP Validation Set (1,265 Garment Instances across 200 Images)",
   "calibration_split": "CCIHP Training Set (3,017 Garment Instances across 500 Images)",
   "hardware": "100% CPU (No GPU used)",
-  "execution_time_seconds": 75.17,
-  "average_latency_per_garment_ms": 3.2,
-  "overall_metrics": {
-    "Baseline_van_de_Weijer_2009": {
-      "total_instances": 1265,
-      "strict_12_accuracy": 54.07,
-      "single_11_accuracy": 66.15,
-      "relaxed_semantic_accuracy": 80.71,
-      "macro_f1": 22.75
+  "elapsed_seconds": 75.17,
+  "average_latency_ms": 3.2,
+  "all_4_clothing_parts_comparison": {
+    "M1_Naive_HSV": {
+      "method_name": "Naive HSV Rule-Based Thresholding",
+      "single_11_acc": 73.12,
+      "relaxed_acc": 80.00,
+      "description": "Baseline heuristic thresholding in HSV color space"
     },
-    "M5_Shadow_Aware_CIELAB_Ensemble": {
-      "total_instances": 1265,
-      "strict_12_accuracy": 67.91,
-      "single_11_accuracy": 74.93,
-      "relaxed_semantic_accuracy": 91.30,
-      "macro_f1": 48.93,
-      "improvement_over_baseline": {
-        "strict_acc_delta": "+13.84%",
-        "macro_f1_multiplier": "2.15x"
-      }
+    "M2_BCN11": {
+      "method_name": "Basic Color Naming (van de Weijer et al. 2009)",
+      "single_11_acc": 66.33,
+      "relaxed_acc": 79.05,
+      "description": "11-Color pixel lookup table without shadow clustering"
+    },
+    "M3_CIELAB_KMeans": {
+      "method_name": "Shadow-Aware CIELAB K-Means Prototypes",
+      "single_11_acc": 74.39,
+      "relaxed_acc": 89.25,
+      "description": "CIELAB spatial clustering with shadow/glare decoupling"
+    },
+    "M4_Category_Conditioned": {
+      "method_name": "Category-Conditioned Prior Head",
+      "single_11_acc": 74.57,
+      "relaxed_acc": 89.17,
+      "description": "M3 with category-specific prior distributions"
+    },
+    "M5_Supervised_Ensemble": {
+      "method_name": "Supervised 58D Palette Ensemble (This Repo)",
+      "single_11_acc": 77.47,
+      "relaxed_acc": 91.07,
+      "description": "Full 58D perceptual feature vector + calibrated decision rules"
     }
   },
-  "category_breakdown_m5": {
+  "per_category_m1_to_m5": {
     "UpperClothes": {
-      "instances": 487,
-      "strict_12_accuracy": 62.22,
-      "single_11_accuracy": 72.03,
-      "relaxed_semantic_accuracy": 89.32,
-      "macro_f1": 50.60
+      "M1": { "single_11_acc": 70.05, "relaxed_acc": 78.03 },
+      "M2": { "single_11_acc": 64.11, "relaxed_acc": 79.26 },
+      "M3": { "single_11_acc": 71.53, "relaxed_acc": 87.68 },
+      "M4": { "single_11_acc": 73.02, "relaxed_acc": 87.89 },
+      "M5": { "single_11_acc": 76.24, "relaxed_acc": 89.32 }
     },
     "Coat": {
-      "instances": 304,
-      "strict_12_accuracy": 72.37,
-      "single_11_accuracy": 77.90,
-      "relaxed_semantic_accuracy": 94.74,
-      "macro_f1": 52.05
+      "M1": { "single_11_acc": 76.40, "relaxed_acc": 80.92 },
+      "M2": { "single_11_acc": 66.29, "relaxed_acc": 80.59 },
+      "M3": { "single_11_acc": 76.40, "relaxed_acc": 91.45 },
+      "M4": { "single_11_acc": 76.78, "relaxed_acc": 90.79 },
+      "M5": { "single_11_acc": 79.78, "relaxed_acc": 94.08 }
     },
     "Pants": {
-      "instances": 397,
-      "strict_12_accuracy": 70.41,
-      "single_11_accuracy": 76.51,
-      "relaxed_semantic_accuracy": 90.41,
-      "macro_f1": 48.20
+      "M1": { "single_11_acc": 75.67, "relaxed_acc": 85.46 },
+      "M2": { "single_11_acc": 67.65, "relaxed_acc": 77.69 },
+      "M3": { "single_11_acc": 76.74, "relaxed_acc": 90.98 },
+      "M4": { "single_11_acc": 75.67, "relaxed_acc": 91.98 },
+      "M5": { "single_11_acc": 78.34, "relaxed_acc": 93.23 }
     },
     "Skirt": {
-      "instances": 77,
-      "strict_12_accuracy": 66.23,
-      "single_11_accuracy": 71.88,
-      "relaxed_semantic_accuracy": 92.21,
-      "macro_f1": 45.10
+      "M1": { "single_11_acc": 63.33, "relaxed_acc": 60.00 },
+      "M2": { "single_11_acc": 73.33, "relaxed_acc": 78.67 },
+      "M3": { "single_11_acc": 70.00, "relaxed_acc": 81.33 },
+      "M4": { "single_11_acc": 68.33, "relaxed_acc": 76.00 },
+      "M5": { "single_11_acc": 70.00, "relaxed_acc": 78.67 }
+    },
+    "Hair": {
+      "M1": { "single_11_acc": 65.65, "relaxed_acc": 90.56 },
+      "M2": { "single_11_acc": 84.09, "relaxed_acc": 91.57 },
+      "M3": { "single_11_acc": 66.67, "relaxed_acc": 88.20 },
+      "M4": { "single_11_acc": 84.77, "relaxed_acc": 91.23 },
+      "M5": { "single_11_acc": 88.32, "relaxed_acc": 93.42 }
     }
   }
 }
