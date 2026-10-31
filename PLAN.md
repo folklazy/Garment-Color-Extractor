@@ -10,3 +10,7 @@ The completed [T4 pilot](reports/T4_COLOR_PILOT_TH.md) and its unchanged [protoc
 4. **Git handoff:** public source/config/compact tables/docs only; data, trained weights, detailed logs and CCTV assets stay outside Git. Use working branch and draft PR; no main merge or historical rewrite. Check staged scope, remote commit and anonymous report access.
 
 Finish when all seven methods account for exact614 validation regions, reused results agree with parent evidence, actual exported ensemble reloads with the same predictions, and report/tables/links/Git are consistent. Accuracy is an experimental result, not a technical acceptance threshold. No automatic model replacement or additional full benchmark follows this work unit.
+
+## Current closure
+
+COMPLETE: all seven configurations account for exact614 validation regions. Actual input450images processed; contributing images294train/49calibration/97validation because some selected images have no eligible garments. New M1–M5 execution completed; accepted rules/MLP unchanged. Four focused CPU contracts, model reload, independent arithmetic and source/parent bindings pass. See [REPORT.md](REPORT.md) for results, diagnostics and separate accuracy/macroF1 leaders. Current work unit ends with Git publication; no automatic extra evaluation/default-model replacement.

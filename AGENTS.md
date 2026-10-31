@@ -2,7 +2,7 @@
 
 Start with README.md → reports/COLOR_REVIEW_TH.md → benchmark/EVIDENCE_INDEX.json → CHANGELOG.md. This is the source Git checkout for folklazy/Garment-Color-Extractor, separate from the Human Parsing publication checkout.
 
-- The shipped algorithm is `prototype_rules_v2`; there is no trained M5 ensemble artifact here. Historical imported scores do not validate this executable. Never upgrade its evidence status from a same-named research script.
+- The default shipped algorithm is `prototype_rules_v2`. Current method-comparison M5 has a real fitted local artifact under ignored outputs; it is not bundled or the default API. Historical imported scores do not validate this executable. Never upgrade its evidence status from a same-named research script.
 - Preserve benchmark JSON and docs/history snapshots. Keep algorithm/cache identity changes explicit. `confidence` is a legacy uncalibrated pixel-support score; empty regions have no observed color.
 - Never modify original CCTV/CIHP images, labels or historic parsing predictions. Do not publish CCTV filenames, images, crops, base64 thumbnails, annotations or private per-person manifests. Only sanitized aggregate evidence/code/docs may be committed.
 - Inspect existing environments first; do not install into or alter the working YOLO/parser environments. Shared CPU imports and bounded tests are acceptable; no new model downloads/training/GPU benchmark is authorized by these instructions.

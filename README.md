@@ -1,10 +1,12 @@
-> **New work: bounded T4 color pilot COMPLETE.** [Plan](PLAN.md) / [pilot report](reports/T4_COLOR_PILOT_TH.md). The pilot learned model is now available as an explicit local artifact; the default API remains prototype_rules_v2.
+> **Current study: seven-method comparison COMPLETE.** [ผลทดลองภาษาไทย](REPORT.md) · [สรุปย่อ](RESULTS_SUMMARY_TH.md) · [สำหรับนำเสนอ](PRESENTATION_SUMMARY_TH.md) · [Protocol](EXPERIMENT_PROTOCOL.md) · [Canonical tables](reports/color-methods-20261101/METHOD_RESULTS.csv) · [Current state](STUDY_STATE.json).
+>
+> ใช้ 614 oracle garment regions จาก Validation ที่เลือก 100 ภาพ (97 ภาพมี regions ผ่านเกณฑ์). MLP นำ strict accuracy **68.73%**; M4 นำ fixed12 macro F1 **58.07%**; M5 ensemble ที่ fit จริงได้ accuracy **66.29%**. เป็น exploratory subset comparison; ยังไม่ใช่คะแนน CCTV หรือ benchmark เต็ม 5,000 ภาพ. Default API ยังเป็น rules v2. [Data/terms](DATASET_DETAILS.md) · [Schema](DATA_SCHEMA.md) · [Setup/artifacts](docs/METHOD_COMPARISON_SETUP.md).
 
 # Garment Color Extractor
 
 CPU library for describing **observed colors inside an image region**. Supply a garment mask, bounding box, or cropped image; receive a palette, heuristic color label, and structured quality notes.
 
-**Current engine: `prototype_rules_v2` (v1.1.0).** It uses fixed rules and prototypes. It does not ship the trained M5 ensemble from the earlier research experiments. Historical CCIHP/CCTV scores do **not** validate this implementation. See [review findings](reports/COLOR_REVIEW_TH.md), [benchmark evidence](benchmark/README.md), and [changes](CHANGELOG.md).
+**Current engine: `prototype_rules_v2` (v1.1.0).** It uses fixed rules and prototypes. It does not bundle trained model weights. A separate research M5 ensemble has now been fitted and evaluated on the shared pilot membership; its explicit local artifact is documented in the current report and is not the default API engine. Historical CCIHP/CCTV scores do **not** validate this implementation. See [review findings](reports/COLOR_REVIEW_TH.md), [benchmark evidence](benchmark/README.md), and [changes](CHANGELOG.md).
 
 ## What the library does
 

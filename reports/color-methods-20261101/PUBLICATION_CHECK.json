@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "index_snapshot_tree": "8c93d3df38a0aba81549639ee7b1605e31920211",
+  "staged_files": 27,
+  "unapproved_files_or_secret_patterns": [],
+  "clean_checkout_targeted_tests": 4,
+  "clean_checkout_source_imports": true,
+  "assets_included": false,
+  "full_suite_rerun": false,
+  "note": "Targeted tests/imports ran from a clean index-snapshot checkout; later changes only to report renderer/figure whitespace and closure documentation, not tested algorithm code.",
+  "algorithm_sha256": "e226c800805db4586ce0116674f82754fc923697d041226c4320535b64f696ba",
+  "document_link_checks": 64,
+  "broken_local_document_links": 0
+}

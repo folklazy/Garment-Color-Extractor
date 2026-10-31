@@ -10,7 +10,7 @@ Use the branch/commit associated with [current report](../REPORT.md). The public
 
 ## Environment
 
-Use a compatible existing Python environment. Recorded versions are in each run's ENVIRONMENT.json. Source needs NumPy, OpenCV, SciPy, scikit-learn, Pillow, joblib and threadpoolctl; learned-model replay additionally needs PyTorch. Current execution used Python3.12 and the shared YOLO environment directly without installing or changing it. CPU M1–M5 do not require CUDA. Environment recreation may not reproduce floating-point/library behavior without matching versions.
+Use a compatible existing Python environment. Recorded versions are in each run's ENVIRONMENT.json. Source needs NumPy, OpenCV, SciPy, scikit-learn, Pillow, joblib and threadpoolctl; learned-model replay additionally needs PyTorch. Generating the optional data-free report figures also needs Matplotlib, using the Agg backend; it was already installed in the execution environment. Current execution used Python3.12 and the shared YOLO environment directly without installing or changing it. CPU M1–M5 do not require CUDA. Environment recreation may not reproduce floating-point/library behavior without matching versions.
 
 ```bash
 # From the Garment-Color-Extractor checkout; set your compatible interpreter.

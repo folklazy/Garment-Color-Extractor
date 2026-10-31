@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "verified_utc": "2026-10-31T20:31:48.446823+00:00",
+  "selected_validation_images": 100,
+  "contributing_validation_images": 97,
+  "exact_unique_regions": 614,
+  "methods_complete": 7,
+  "independent_counter_confusion_arithmetic": true,
+  "per_category_reconciles_global": true,
+  "accepted_parent_sha256_unchanged": true,
+  "source_sha256_unchanged": true,
+  "rules_MLP_reused_predictions_identical": true,
+  "M5_is_fitted_ensemble_not_alias": true,
+  "exported_ensemble_readback_all614": true,
+  "all2632_descriptor_palette_masses_valid": true,
+  "targeted_CPU_tests": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -p test_method_comparison.py -v",
+    "cases": 4,
+    "status": "PASS"
+  },
+  "legacy_results_and_source_not_modified": true,
+  "new_parsing_inference_calls": 0,
+  "new_GPU_calls": 0,
+  "limitations": [
+    "No independent image-label audit",
+    "No full5000 or CCTV accuracy evaluation",
+    "No clean timing/VRAM comparison"
+  ]
+}
