@@ -1,3 +1,5 @@
+> **New work: bounded T4 color pilot prepared.** [Plan](PLAN.md) / [pilot report](reports/T4_COLOR_PILOT_TH.md). The existing library below remains prototype_rules_v2; no trained checkpoint is active by default.
+
 # Garment Color Extractor
 
 CPU library for describing **observed colors inside an image region**. Supply a garment mask, bounding box, or cropped image; receive a palette, heuristic color label, and structured quality notes.

@@ -1,6 +1,6 @@
 {
   "updated_Bangkok": "2026-11-01T02:54:06.656155+07:00",
-  "status": "CODE_CONTRACT_REPAIRED_AWAITING_REVIEW",
+  "status": "T4_PILOT_PREPARED",
   "algorithm_id": "prototype_rules_v2",
   "package_version": "1.1.0",
   "review": "reports/COLOR_REVIEW_TH.md",
@@ -9,5 +9,9 @@
   "historical_benchmark_status": "PRESERVED_NOT_PACKAGE_VALIDATION",
   "trained_M5_artifact_present": false,
   "CCTV_color_GT": "MIXED_OR_UNKNOWN_PROVENANCE_NOT_INDEPENDENTLY_VERIFIED",
-  "next_action": "Review diff before merging; establish independent color labels and exact model/artifact bindings before accuracy comparison."
+  "next_action": "Launch source-bound detached pilot; no training begun yet.",
+  "new_user_authorization": "Bounded redesign/color learning and pilot evaluation on T4",
+  "current_protocol": "configs/T4_COLOR_PILOT_PROTOCOL.json",
+  "current_plan": "PLAN.md",
+  "current_report": "reports/T4_COLOR_PILOT_TH.md"
 }

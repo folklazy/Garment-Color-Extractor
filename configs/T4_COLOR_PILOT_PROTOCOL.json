@@ -1,0 +1,85 @@
+{
+  "protocol_id": "OBSERVED_GARMENT_COLOR_T4_PILOT_V1",
+  "status": "FROZEN_BEFORE_CURRENT_PILOT",
+  "task": "Oracle CCIHP person-by-native-garment color classification; not official characterized parsing AP",
+  "scope": [
+    "UpperClothes_5",
+    "Coat_7",
+    "Pants_9",
+    "Skirt_12"
+  ],
+  "label_space": "CCIHP Color_ids 1..12; original README includes navy in Dark; garment types can include dress parts",
+  "sampling": {
+    "seed": 20261101,
+    "train_images": 300,
+    "calibration_images_from_Training": 50,
+    "validation_images": 100,
+    "order": "sha256(seed:split:image_id)",
+    "exclude_exact_RGB_duplicates_across_partitions": true
+  },
+  "eligibility": {
+    "mask": "Human_ids>0 AND Category_ids equals native garment ID; color IDs never restrict input pixels",
+    "minimum_region_pixels": 100,
+    "minimum_characterized_fraction": 0.8,
+    "minimum_modal_color_fraction_among_characterized": 0.8,
+    "ambiguous_regions": "EXCLUDED_WITH_COUNTS before model fitting, independently of predictions"
+  },
+  "features": {
+    "shared": "prototype_rules_v2 58-element descriptor plus 4 native-garment one-hot values",
+    "erosion": "same optional 5x5 ellipse with documented small-region fallback for baseline and learned model",
+    "RGB": "PIL RGB uint8 original grid; no color jitter or augmentation",
+    "scaler": "train-only mean/std; constants scale1"
+  },
+  "comparators": [
+    "prototype_rules_v2 fixed baseline",
+    "T4_MLP_62_64_32_12_v1"
+  ],
+  "training": {
+    "device": "cuda:0 Tesla T4",
+    "precision": "FP32/no AMP/no TF32",
+    "batch_size": 128,
+    "max_epochs": 40,
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.001,
+    "loss": "unweighted CrossEntropy",
+    "checkpoint_selection": "lowest calibration cross-entropy, earliest epoch in exact tie",
+    "validation_used_for_tuning": false,
+    "seed": 20261101,
+    "automatic_retry": 0,
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+  },
+  "metrics": {
+    "primary": "strict per-region accuracy on exact frozen eligible validation membership",
+    "secondary": [
+      "fixed12 macroF1 (zero denominator0)",
+      "supported-GT macroF1",
+      "per-class precision/recall/F1/support",
+      "per-native-category accuracy",
+      "confusion12x12"
+    ],
+    "empty_population": "null, never0",
+    "unknown": "excluded by GT eligibility with retained reasons; no score-based exclusions",
+    "probability_claim": "softmax scores are uncalibrated"
+  },
+  "resources": {
+    "minimum_free_GPU_MiB": 2048,
+    "minimum_free_disk_GiB": 50,
+    "max_hours": 2,
+    "CPU_threads": 2,
+    "single_GPU_worker": true,
+    "fallback": false,
+    "other_GPU_processes": "do not modify; free memory guard applies"
+  },
+  "CCTV": {
+    "purpose": "qualitative appearance check only",
+    "images": 12,
+    "selection": "6day+6night deterministic SHA order; no model scores",
+    "parsing": "reuse saved M2FP packets only; no new segmentation inference",
+    "metrics": null,
+    "reason": "color label provenance is mixed/unknown, grayscale/IR hue may be unobservable",
+    "publish_assets": false
+  },
+  "evidence_limit": "Exploratory pilot after previous studies, not a preregistered independent final confirmation; no full 5000-image benchmark or deployment acceptance.",
+  "artifact_policy": "Fresh outputs/t4-pilot-<UTC> for manifests/features/checkpoint/predictions/logs; do not publish model trained on NC dataset or CCTV assets automatically. Publish compact aggregate metrics/code/provenance only."
+}

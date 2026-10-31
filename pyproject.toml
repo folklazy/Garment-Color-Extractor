@@ -17,6 +17,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+learned = ["torch>=2.0"]
 api = [
     "fastapi>=0.100.0",
     "uvicorn>=0.20.0",
