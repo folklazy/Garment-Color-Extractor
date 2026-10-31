@@ -1,127 +1,67 @@
-"""Visual Inspection & Swatch Card Generator.
-
-Generates visual color diagnostics, overlays, and HTML/SVG color cards for inspection.
-"""
+"""Code-rendered diagnostic card. Output is BGR for cv2.imwrite; no model calls."""
 from __future__ import annotations
-
 import cv2
 import numpy as np
-
 from .core import ColorPrediction
 
 
-def create_color_card(
-    image_rgb: np.ndarray,
-    mask: np.ndarray,
-    prediction: ColorPrediction,
-    card_width: int = 400,
-    card_height: int = 500,
-) -> np.ndarray:
-    """Generate a clean, high-resolution visual inspection card as a BGR image.
-    
-    Contains:
-      - Cropped garment image with mask outline
-      - Dominant color swatch square
-      - Color name (EN & TH) + CCIHP Color ID badge
-      - Confidence score & Latency
+def create_color_card(image_rgb: np.ndarray, mask: np.ndarray, prediction: ColorPrediction,
+                      card_width: int = 480, card_height: int = 620) -> np.ndarray:
+    """Show the actual input region, observed palette and explicit score semantics.
+
+    The card uses ASCII labels because OpenCV's built-in fonts do not render Thai.
+    English/Thai names remain available in structured JSON.
     """
-    card = np.full((card_height, card_width, 3), 245, dtype=np.uint8)  # Off-white background
-
-    # 1. Header Banner
-    header_color = (40, 40, 40)
-    cv2.rectangle(card, (0, 0), (card_width, 60), header_color, -1)
-    cv2.putText(
-        card,
-        "GARMENT COLOR DIAGNOSTIC",
-        (15, 38),
-        cv2.FONT_HERSHEY_DUPLEX,
-        0.7,
-        (255, 255, 255),
-        1,
-        cv2.LINE_AA,
-    )
-
-    # 2. Crop garment region
-    y_indices, x_indices = np.where(mask > 0)
-    if len(y_indices) > 0:
-        y1, y2 = max(0, y_indices.min() - 10), min(image_rgb.shape[0], y_indices.max() + 10)
-        x1, x2 = max(0, x_indices.min() - 10), min(image_rgb.shape[1], x_indices.max() + 10)
-        crop = image_rgb[y1:y2, x1:x2].copy()
-        crop_mask = mask[y1:y2, x1:x2]
-
-        # Draw green contour around garment
-        contours, _ = cv2.findContours(
-            crop_mask.astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
-        )
-        cv2.drawContours(crop, contours, -1, (0, 255, 0), 2)
-
-        # Resize crop to fit preview box (width 360, height 220)
-        crop_bgr = cv2.cvtColor(crop, cv2.COLOR_RGB2BGR)
-        h_c, w_c = crop_bgr.shape[:2]
-        scale = min(360.0 / w_c, 220.0 / h_c)
-        new_w, new_h = int(w_c * scale), int(h_c * scale)
-        resized_crop = cv2.resize(crop_bgr, (new_w, new_h), interpolation=cv2.INTER_AREA)
-
-        # Place preview inside card
-        off_x = (card_width - new_w) // 2
-        off_y = 80 + (220 - new_h) // 2
-        card[off_y : off_y + new_h, off_x : off_x + new_w] = resized_crop
-        cv2.rectangle(card, (off_x, off_y), (off_x + new_w, off_y + new_h), (200, 200, 200), 1)
-
-    # 3. Swatch & Result Box
-    box_y = 320
-    cv2.rectangle(card, (20, box_y), (card_width - 20, card_height - 20), (255, 255, 255), -1)
-    cv2.rectangle(card, (20, box_y), (card_width - 20, card_height - 20), (210, 210, 210), 1)
-
-    # Swatch square (BGR format for OpenCV)
-    r, g, b = prediction.rgb_swatch
-    swatch_bgr = (int(b), int(g), int(r))
-    cv2.rectangle(card, (35, box_y + 20), (105, box_y + 90), swatch_bgr, -1)
-    cv2.rectangle(card, (35, box_y + 20), (105, box_y + 90), (120, 120, 120), 1)
-
-    # Text details
-    cv2.putText(
-        card,
-        f"{prediction.color_name} (ID: {prediction.color_id})",
-        (120, box_y + 40),
-        cv2.FONT_HERSHEY_DUPLEX,
-        0.65,
-        (20, 20, 20),
-        1,
-        cv2.LINE_AA,
-    )
-    cv2.putText(
-        card,
-        f"HEX: {prediction.hex_code}",
-        (120, box_y + 65),
-        cv2.FONT_HERSHEY_SIMPLEX,
-        0.5,
-        (80, 80, 80),
-        1,
-        cv2.LINE_AA,
-    )
-    cv2.putText(
-        card,
-        f"Confidence: {prediction.confidence * 100:.1f}%",
-        (120, box_y + 88),
-        cv2.FONT_HERSHEY_SIMPLEX,
-        0.5,
-        (40, 140, 40),
-        1,
-        cv2.LINE_AA,
-    )
-
-    # Footer latency & pixel count
-    cv2.putText(
-        card,
-        f"Pixels: {prediction.total_pixels}  |  Latency: {prediction.latency_ms:.1f}ms",
-        (35, box_y + 130),
-        cv2.FONT_HERSHEY_SIMPLEX,
-        0.45,
-        (120, 120, 120),
-        1,
-        cv2.LINE_AA,
-    )
-
+    if not isinstance(card_width,int) or not isinstance(card_height,int) or card_width<320 or card_height<500:
+        raise ValueError('card_width>=320 and card_height>=500 are required')
+    if image_rgb.dtype!=np.uint8 or image_rgb.ndim!=3 or image_rgb.shape[2]!=3:
+        raise ValueError('image_rgb must be uint8 RGB')
+    if mask.shape!=image_rgb.shape[:2] or mask.ndim!=2:
+        raise ValueError('mask must match the image grid')
+    card=np.full((card_height,card_width,3),(247,246,244),np.uint8)
+    margin=20; muted=(110,99,90);ink=(43,34,27)
+    def text(value,x,y,size=.48,color=ink):
+        while value and cv2.getTextSize(value,cv2.FONT_HERSHEY_SIMPLEX,size,1)[0][0]>card_width-x-margin:
+            value=value[:-4]+'...' if len(value)>4 else ''
+        cv2.putText(card,value,(x,y),cv2.FONT_HERSHEY_SIMPLEX,size,color,1,cv2.LINE_AA)
+    cv2.rectangle(card,(0,0),(card_width,66),(45,35,24),-1)
+    text('OBSERVED COLOR',margin,30,.7,(255,255,255))
+    text('Region inspection / prototype rules',margin,51,.40,(205,218,224))
+    top=84;bottom=int(card_height*.46);preview_h=bottom-top
+    cv2.rectangle(card,(margin,top),(card_width-margin,bottom),(230,230,230),-1)
+    yy,xx=np.where(mask>0)
+    if len(xx):
+        y0,y1=max(0,yy.min()-8),min(image_rgb.shape[0],yy.max()+9)
+        x0,x1=max(0,xx.min()-8),min(image_rgb.shape[1],xx.max()+9)
+        crop=image_rgb[y0:y1,x0:x1].copy();cm=(mask[y0:y1,x0:x1]>0)
+        crop[~cm]=(crop[~cm]*.2+235*.8).astype(np.uint8)
+        contours,_=cv2.findContours(cm.astype(np.uint8),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        cv2.drawContours(crop,contours,-1,(40,170,140),1)
+        crop=cv2.cvtColor(crop,cv2.COLOR_RGB2BGR)
+        scale=min((card_width-2*margin)/crop.shape[1],preview_h/crop.shape[0])
+        nw,nh=max(1,int(crop.shape[1]*scale)),max(1,int(crop.shape[0]*scale))
+        preview=cv2.resize(crop,(nw,nh),interpolation=cv2.INTER_AREA)
+        px=(card_width-nw)//2;py=top+(preview_h-nh)//2
+        card[py:py+nh,px:px+nw]=preview
+    else:text('No pixels selected',margin+15,top+40,.5,muted)
+    y=bottom+28
+    text(prediction.color_name if prediction.status=='ok' else 'No color observation',margin,y,.65)
+    text('ID '+str(prediction.color_id)+' / '+prediction.status,margin,y+23,.43,muted)
+    y+=45
+    palette=prediction.palette
+    if palette:
+        cumulative=0.;bar_w=card_width-2*margin
+        for i,entry in enumerate(palette):
+            left=margin+int(cumulative*bar_w);cumulative+=entry['weight']
+            right=margin+int(cumulative*bar_w) if i<len(palette)-1 else card_width-margin
+            r,g,b=entry['rgb'];cv2.rectangle(card,(left,y),(right,y+32),(b,g,r),-1)
+        text('Observed palette / full region pixel fractions',margin,y+51,.39,muted)
+    else:text('Palette unavailable (empty region)',margin,y+20,.43,muted)
+    y+=78
+    text('Swatch: '+str(prediction.hex_code or 'N/A'),margin,y,.48)
+    text('Support: '+f'{prediction.confidence:.1%}'+' (not probability)',margin,y+23,.43)
+    text(f'Input {prediction.input_pixels:,} px / analyzed {prediction.total_pixels:,} px',margin,y+46,.40,muted)
+    text(f'Region: {prediction.region_source}',margin,y+68,.40,muted)
+    text('Image appearance; material hue is not verified.',margin,card_height-32,.36,muted)
+    text('View JSON warnings before interpreting the label.',margin,card_height-15,.36,muted)
     return card
-

@@ -1,0 +1,31 @@
+{
+  "status": "HISTORICAL_IMPORTED_EVIDENCE_NOT_PACKAGE_VALIDATION",
+  "source_commit": "a7a80bcf3808897f203c45329b31a5afa445b426",
+  "artifacts": [
+    {
+      "path": "benchmark/eval_results.json",
+      "sha256": "1db499f411985dea72cbd41acb00d0f238fccb1ad30e25249165cea43f63f6d9",
+      "bytes": 3307
+    },
+    {
+      "path": "benchmark/ccihp_benchmark_summary.json",
+      "sha256": "90f0e80d770909da83d0feb590fecdbe6b0e5112ef496996c45a4285f214f4a5",
+      "bytes": 110206
+    },
+    {
+      "path": "docs/history/README_before_review.md",
+      "sha256": "c4e284e3a57ddab7445f68da78e8e3924c3366d7d6bcbcb6609674593ba632d6",
+      "bytes": 15623
+    },
+    {
+      "path": "docs/history/BENCHMARK_before_review.md",
+      "sha256": "dcb15a4adf4a76da4aef1d1de20da7ff4a60756f21e4a62671eb9906c1cd2d6b",
+      "bytes": 4536
+    }
+  ],
+  "limitations": [
+    "Imported scores are not bound to the executable shipped rule classifier.",
+    "ccihp_benchmark_summary.json is the earlier A/B pilot, not the M1..M5 training/output bundle.",
+    "Historical speed and no-leakage claims have no sufficient timing/membership provenance in this package."
+  ]
+}

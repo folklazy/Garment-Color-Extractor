@@ -1,0 +1,13 @@
+{
+  "updated_Bangkok": "2026-11-01T02:54:06.656155+07:00",
+  "status": "CODE_CONTRACT_REPAIRED_AWAITING_REVIEW",
+  "algorithm_id": "prototype_rules_v2",
+  "package_version": "1.1.0",
+  "review": "reports/COLOR_REVIEW_TH.md",
+  "verification": "reports/VERIFICATION.json",
+  "real_scene_accuracy": "NOT_ESTABLISHED_FOR_THIS_IMPLEMENTATION",
+  "historical_benchmark_status": "PRESERVED_NOT_PACKAGE_VALIDATION",
+  "trained_M5_artifact_present": false,
+  "CCTV_color_GT": "MIXED_OR_UNKNOWN_PROVENANCE_NOT_INDEPENDENTLY_VERIFIED",
+  "next_action": "Review diff before merging; establish independent color labels and exact model/artifact bindings before accuracy comparison."
+}

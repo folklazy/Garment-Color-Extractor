@@ -7,7 +7,7 @@ from garment_color import GarmentColorExtractor
 
 def main():
     print("=" * 60)
-    print("Garment Color Extractor (M5 Engine) - Quickstart Demo")
+    print("Garment Color Extractor (prototype rules) - Quickstart Demo")
     print("=" * 60)
 
     # 1. Initialize Extractor Engine
@@ -30,7 +30,7 @@ def main():
     print(f"👕 Predicted Color:  {result.color_name} ({result.color_name_th})")
     print(f"🔢 CCIHP Color ID:   {result.color_id}")
     print(f"🎨 HEX Swatch:       {result.hex_code}")
-    print(f"📊 Confidence:       {result.confidence * 100:.1f}%")
+    print(f"📊 Support score:       {result.confidence * 100:.1f}%")
     print(f"⚡ Latency:          {result.latency_ms} ms")
     print(f"💡 Reasoning:        {result.reasoning}")
     print("=" * 60)
