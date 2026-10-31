@@ -1,0 +1,5 @@
+# Work log
+
+## 2026-11-01T02:54:06.656155+07:00 — color source/evidence review and contract repair
+
+Basea7a80bc/maincleaninitial,remoteverifiedfolklazy/Garment-Color-Extractor(public). Inspectedalllibrary/API/CLI/examples/tests/benchmarkfilesandactuallegacycolorresearch/ingestion/evalreferences. Foundshippedrules≠trainedM5,unboundbenchmark/timingclaims,CCTV M4/M5aliases/automaticlabelprovenance. PreservedrawbenchmarkJSON/LICENSE/originalCCTVartifacts; addedhistoricalsnapshots/hashindex/sanitized287of290ruleagreementaudit(notaccuracy). Implementedprototype_rules_v2/binaryinputcontract/observedpalette/null/pixelmassscore/card/API/packagingcorrections; rewrittenREADME/protocol-evidencelimits. ExistingCPUenvironmentreused,baseline11andfinalcleansource22testsPASS,actualAPI/wheel/CLI/examples/visualsyntheticcardPASS. Noinference/training/GPUbenchmark/install/GTmutation. Nextcommitworkingbranch/push/draftPRwithoutmergingmain,thenverifyremote/reportlinks.

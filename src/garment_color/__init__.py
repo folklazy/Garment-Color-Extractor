@@ -1,7 +1,4 @@
-"""Garment Color Extractor (M5 Engine).
-
-A lightweight, CPU-optimized, shadow-aware garment color classifier calibrated on CCIHP.
-"""
+"""Observed-color extraction with heuristic labels and explicit evidence limits."""
 
 from .core import ColorPrediction, GarmentColorExtractor
 from .taxonomy import (
@@ -12,7 +9,7 @@ from .taxonomy import (
 )
 from .visualizer import create_color_card
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __author__ = "folklazy"
 __all__ = [
     "GarmentColorExtractor",

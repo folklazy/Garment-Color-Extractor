@@ -1,4 +1,4 @@
-"""End-to-End Person Re-ID Integration Example: YOLO Detector + GarmentColorExtractor.
+"""Synthetic bounding-box color example; no detector, tracking or Re-ID is run.
 
 Demonstrates how to process full-frame surveillance images, extract upper/lower
 garment colors for each detected person, and produce structured queryable attributes.
@@ -28,7 +28,7 @@ def simulate_yolo_detections(image_h: int, image_w: int):
 
 def main():
     print("=" * 65)
-    print("YOLO + GarmentColorExtractor (M5): End-to-End Re-ID Pipeline")
+    print("Synthetic boxes + observed color (no actual YOLO / Re-ID)")
     print("=" * 65)
 
     extractor = GarmentColorExtractor()
@@ -47,7 +47,7 @@ def main():
     # Run simulated detector
     detections = simulate_yolo_detections(1080, 1920)
 
-    reid_database_records = []
+    example_attribute_records = []
 
     for det in detections:
         pid = det["person_id"]
@@ -76,27 +76,27 @@ def main():
                 "color_name": pred_upper.color_name,
                 "color_id": pred_upper.color_id,
                 "hex": pred_upper.hex_code,
-                "confidence": pred_upper.confidence,
+                "support_score": pred_upper.confidence,
             },
             "lower_clothing": {
                 "color_name": pred_lower.color_name,
                 "color_id": pred_lower.color_id,
                 "hex": pred_lower.hex_code,
-                "confidence": pred_lower.confidence,
+                "support_score": pred_lower.confidence,
             },
             "total_latency_ms": round(pred_upper.latency_ms + pred_lower.latency_ms, 2),
         }
-        reid_database_records.append(record)
+        example_attribute_records.append(record)
 
         print(f"\n👤 Person #{pid} (BBox: {det['bbox']}, Conf: {det['confidence']}):")
-        print(f"  👕 Upper: {pred_upper.color_name} ({pred_upper.color_name_th}) [{pred_upper.hex_code}] - Conf: {pred_upper.confidence:.2f}")
-        print(f"  👖 Lower: {pred_lower.color_name} ({pred_lower.color_name_th}) [{pred_lower.hex_code}] - Conf: {pred_lower.confidence:.2f}")
+        print(f"  👕 Upper: {pred_upper.color_name} ({pred_upper.color_name_th}) [{pred_upper.hex_code}] - Support (not probability): {pred_upper.confidence:.2f}")
+        print(f"  👖 Lower: {pred_lower.color_name} ({pred_lower.color_name_th}) [{pred_lower.hex_code}] - Support (not probability): {pred_lower.confidence:.2f}")
         print(f"  ⚡ Extraction Latency: {record['total_latency_ms']} ms")
 
     print("\n" + "=" * 65)
     print("Database Ingestion Payload (JSON):")
     import json
-    print(json.dumps(reid_database_records, indent=2, ensure_ascii=False))
+    print(json.dumps(example_attribute_records, indent=2, ensure_ascii=False))
     print("=" * 65)
 
 

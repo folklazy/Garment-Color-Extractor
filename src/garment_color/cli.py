@@ -18,7 +18,7 @@ from .core import GarmentColorExtractor
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Garment Color Extractor (M5 Engine): Extract garment colors from image & mask"
+        description="Garment Color Extractor (prototype rules): Extract garment colors from image & mask"
     )
     parser.add_argument("--image", "-i", type=str, required=True, help="Path to input image file (JPG/PNG)")
     parser.add_argument("--mask", "-m", type=str, default=None, help="Path to binary mask file (PNG)")
@@ -68,17 +68,20 @@ def main():
         print(pred.to_json(indent=2))
     else:
         print("\n" + "=" * 55)
-        print("👕 GARMENT COLOR EXTRACTION RESULT (M5 Engine)")
+        print("👕 OBSERVED GARMENT COLOR RESULT")
         print("=" * 55)
         print(f"  Target Type:       {args.type.upper()}")
         print(f"  Predicted Color:   {pred.color_name} ({pred.color_name_th})")
         print(f"  Color ID (CCIHP):  {pred.color_id}")
-        print(f"  Confidence:        {pred.confidence * 100:.1f}%")
+        print(f"  Support score:        {pred.confidence * 100:.1f}%")
         print(f"  HEX Swatch:        {pred.hex_code}")
         print(f"  Is Multicolor:     {pred.is_multicolor}")
         if pred.is_multicolor and pred.secondary_color_name:
             print(f"  Secondary Color:   {pred.secondary_color_name} ({pred.secondary_hex_code})")
         print(f"  Latency:           {pred.latency_ms:.2f} ms")
+        print("  Score meaning:      Uncalibrated supporting pixel fraction")
+        print(f"  Status:             {pred.status}")
+        print(f"  Warnings:           {', '.join(pred.warnings)}")
         print(f"  Reasoning:         {pred.reasoning}")
         print("=" * 55 + "\n")
 

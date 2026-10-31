@@ -1,7 +1,6 @@
-"""M5 Decision Head: Supervised Decision Rules & Calibrated Prototypes.
+"""Heuristic lightness gates and weighted-Euclidean prototype matching.
 
-Combines perceptual CIELAB Gaussian matching, Navy-vs-Black luminance gating,
-and dual-cluster Multicolor detection.
+This is not the supervised M5 ensemble in the historical research scripts.
 """
 from __future__ import annotations
 
@@ -18,8 +17,8 @@ from .taxonomy import (
     get_color_by_id,
 )
 
-# Calibrated Gaussian Prototype Centroids in CIELAB (L*, a*, b*)
-# Derived from 3,017 training instances on CCIHP and validated on CCTV-100
+# Fixed legacy rule prototypes, not Gaussian distributions. No fitted-model
+# artifact binds these values to the historical CCIHP calibration experiment.
 CALIBRATED_PROTOTYPES = {
     1: np.array([12.5, 0.2, -0.8], dtype=np.float32),     # Dark / Black
     2: np.array([53.0, 0.1, 0.4], dtype=np.float32),      # Medium / Grey
@@ -49,8 +48,8 @@ class ClassificationResult:
     reasoning: str
 
 
-class M5Classifier:
-    """M5 Decision Head implementing calibrated perceptual rules."""
+class PrototypeRuleClassifier:
+    """Rule classifier; output scores are not calibrated probabilities."""
 
     def __init__(
         self,
@@ -58,6 +57,12 @@ class M5Classifier:
         multicolor_sec_ratio_min: float = 0.27,
         multicolor_delta_e_min: float = 22.0,
     ):
+        if not np.isfinite(navy_luminance_cutoff) or not 0<=navy_luminance_cutoff<=100:
+            raise ValueError('navy_luminance_cutoff must be in [0,100]')
+        if not np.isfinite(multicolor_sec_ratio_min) or not 0<=multicolor_sec_ratio_min<=1:
+            raise ValueError('multicolor_sec_ratio_min must be in [0,1]')
+        if not np.isfinite(multicolor_delta_e_min) or multicolor_delta_e_min<0:
+            raise ValueError('multicolor_delta_e_min must be finite and nonnegative')
         self.navy_luminance_cutoff = navy_luminance_cutoff
         self.multicolor_sec_ratio_min = multicolor_sec_ratio_min
         self.multicolor_delta_e_min = multicolor_delta_e_min
@@ -112,7 +117,7 @@ class M5Classifier:
         return best_id
 
     def classify(self, features: GarmentFeatures, target_part: str = "upper") -> ClassificationResult:
-        """Execute full M5 decision logic on garment features."""
+        """Classify aggregated color-family mass, preserving observed palette."""
         if features.total_pixels == 0:
             c0 = get_color_by_id(0)
             return ClassificationResult(
@@ -128,11 +133,18 @@ class M5Classifier:
                 reasoning="Empty mask, no pixels provided."
             )
 
-        prim = features.primary_cluster
-        sec = features.secondary_cluster
-
-        prim_id = self.classify_cluster(prim.centroid_lab, target_part)
-        sec_id = self.classify_cluster(sec.centroid_lab, target_part)
+        # Folds can create several clusters of one named color. Aggregate their
+        # mass before choosing a label; the single largest cluster is insufficient.
+        groups={}
+        for cluster in features.clusters:
+            cid=self.classify_cluster(cluster.centroid_lab,target_part)
+            groups.setdefault(cid,[]).append(cluster)
+        ranked=sorted(groups,key=lambda cid:(-sum(c.weight for c in groups[cid]),cid))
+        prim_id=ranked[0];sec_id=ranked[1] if len(ranked)>1 else prim_id
+        prim=max(groups[prim_id],key=lambda c:c.weight)
+        sec=max(groups[sec_id],key=lambda c:c.weight)
+        primary_mass=sum(c.weight for c in groups[prim_id])
+        secondary_mass=sum(c.weight for c in groups[sec_id]) if len(ranked)>1 else 0.
 
         # Delta-E between primary and secondary cluster
         delta_e = float(np.sqrt(np.sum((prim.centroid_lab - sec.centroid_lab) ** 2)))
@@ -144,33 +156,37 @@ class M5Classifier:
         is_multi = False
         if (
             target_part.lower() != "hair"
-            and sec.weight >= self.multicolor_sec_ratio_min
+            and secondary_mass >= self.multicolor_sec_ratio_min
             and prim_id != sec_id
             and delta_e >= self.multicolor_delta_e_min
         ):
             is_multi = True
             final_id = 12  # Multicolor
             c_info = get_color_by_id(12)
-            confidence = min(0.98, float(sec.weight * 2.2))
-            reason = f"Multicolor detected: Primary {COLOR_REGISTRY[prim_id].name} ({prim.weight:.1%}) + Secondary {COLOR_REGISTRY[sec_id].name} ({sec.weight:.1%}), ΔE={delta_e:.1f}"
+            confidence = primary_mass+secondary_mass
+            reason = f"Multiple color families: {COLOR_REGISTRY[prim_id].name} ({primary_mass:.1%}) + {COLOR_REGISTRY[sec_id].name} ({secondary_mass:.1%}); centroid distance={delta_e:.1f}. Score is supporting pixel mass, not probability."
         else:
             final_id = prim_id
             c_info = get_color_by_id(prim_id)
-            confidence = min(0.99, max(0.65, float(prim.weight)))
-            reason = f"Dominant single color: {c_info.name} ({prim.weight:.1%} of garment pixels)"
+            confidence = primary_mass
+            reason = f"Dominant color family: {c_info.name} ({primary_mass:.1%} of sampled-region pixels); score is not calibrated probability."
 
-        sec_info = get_color_by_id(sec_id) if (sec_id != prim_id and sec.weight >= 0.15) else None
+        sec_info = get_color_by_id(sec_id) if (sec_id != prim_id and secondary_mass >= 0.15) else None
 
         return ClassificationResult(
             color_id=final_id,
             color_name=c_info.name,
             color_name_th=c_info.name_th,
-            confidence=round(confidence, 3),
-            hex_code=prim.hex_code if final_id != 12 else c_info.hex,
+            confidence=float(confidence),
+            hex_code=prim.hex_code,
             is_multicolor=is_multi,
             secondary_color_id=sec_info.id if sec_info else None,
             secondary_color_name=sec_info.name if sec_info else None,
             secondary_hex_code=sec.hex_code if sec_info else None,
             reasoning=reason
         )
+
+
+# Legacy import name retained; no trained ensemble is implied by this alias.
+M5Classifier = PrototypeRuleClassifier
 

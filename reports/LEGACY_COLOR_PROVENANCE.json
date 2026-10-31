@@ -1,0 +1,28 @@
+{
+  "scope": "READ_ONLY_COLOR_LABEL_PROVENANCE_REVIEW_NOT_MODEL_ACCURACY",
+  "checked_utc": "2026-10-31T19:50:24.002620+00:00",
+  "counts": {
+    "observations": 290,
+    "legacy_rule_matches": 287,
+    "lower_observations": 101,
+    "lower_rule_matches": 101,
+    "upper_observations": 120,
+    "upper_rule_matches": 118,
+    "hair_observations": 69,
+    "hair_rule_matches": 68
+  },
+  "interpretation": "Agreement with the ingestion rule is provenance/consistency evidence, not independent human color accuracy. Per-instance explicit-label provenance was lost in canonical export; cannot infer the number of human labels from agreement.",
+  "source_hashes": {
+    "scripts/ingest_cctv_poc_dataset.py": "277bc43abef4bf048697eee772e6cd98b204420fa9751175cfe9fd8c4b4ab7c6",
+    "scripts/evaluate_cctv_color_m1_m5.py": "390d395c486187f2f5dc42347e82d797bdaefce2f9f015ecb8d6ed8fd3657a58"
+  },
+  "protected_originals_sha256": {
+    "CCTV_METADATA.json": "bd36052d734cd25a525e1533c745bf391cfbeb879e078e3bf2684a0e33f9811b",
+    "CCTV_COLOR_STUDY_METRICS.json": "1c6bcdb43d6573374def16b8d0071c9ea31e353eed26b01752307908a4dfa759",
+    "CCTV_COLOR_GALLERY.html": "690e739c76f620ea82018ada70a317479a75731942017588ae1de584a3d8b7be"
+  },
+  "originals_unchanged": true,
+  "new_GPU_calls": 0,
+  "training": false,
+  "private_identifiers_published": false
+}

@@ -1,313 +1,128 @@
-# 👕 Garment Color Extractor (M5 Engine)
+# Garment Color Extractor
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CCIHP Benchmark](https://img.shields.io/badge/CCIHP%20Benchmark-91.07%25%20(Relaxed)-brightgreen.svg)](#-academic-benchmark--ablation-study-m1-to-m5)
-[![Zero-GPU](https://img.shields.io/badge/GPU-0MB%20(100%25%20CPU)-success.svg)](#-key-features)
-[![Inference Speed](https://img.shields.io/badge/Speed-%3C%203.2%20ms%2Fgarment-blueviolet.svg)](#-key-features)
-[![FastAPI](https://img.shields.io/badge/API-FastAPI%20REST-009688.svg)](#-fastapi-microservice)
+CPU library for describing **observed colors inside an image region**. Supply a garment mask, bounding box, or cropped image; receive a palette, heuristic color label, and structured quality notes.
 
-An interpretable, shadow-aware garment color classification framework for **Human Parsing, Pedestrian Attribute Recognition (PAR), and Video Analytics**.
+**Current engine: `prototype_rules_v2` (v1.1.0).** It uses fixed rules and prototypes. It does not ship the trained M5 ensemble from the earlier research experiments. Historical CCIHP/CCTV scores do **not** validate this implementation. See [review findings](reports/COLOR_REVIEW_TH.md), [benchmark evidence](benchmark/README.md), and [changes](CHANGELOG.md).
 
-Evaluated on the academic **CCIHP (Crowd Instance-level Human Parsing with Color Attributes)** benchmark across **1,265 human-annotated validation garments**. Outperforms classical color naming baselines (*van de Weijer et al., IEEE TPAMI 2009*) by **+12.02% in Relaxed Accuracy** and **2.15x in Macro-F1**, while running **100% on CPU** in **< 3.2 ms** with **0 MB GPU VRAM**.
-
----
-
-## 🔬 Methodology & Architecture
-
-In computer vision literature, extracting clothing color is defined as a mapping from a visual region to a linguistic color label:
-$$\mathcal{F}: (\mathbf{I}, \mathbf{M}) \longrightarrow \hat{y} \in \mathcal{C}$$
-where $\mathbf{I} \in \mathbb{R}^{H \times W \times 3}$ is the RGB image, $\mathbf{M} \in \{0, 1\}^{H \times W}$ is the garment segmentation mask, and $\mathcal{C} = \{1, 2, \dots, 12\}$ is the standardized CCIHP color vocabulary.
-
-The **M5 Engine** structures this task into four sequential, physically grounded modules:
+## What the library does
 
 ```mermaid
 flowchart LR
-    subgraph S1 ["Stage 1: Spatial Denoising"]
-        direction TB
-        A["Input: (I, M)"] --> B["Morphological Erosion<br>M_core = M ⊖ K"]
-        B --> C["Extract Core Pixels<br>(Eliminate edge bleed)"]
-    end
-
-    subgraph S2 ["Stage 2: Photometric Decoupling"]
-        direction TB
-        D["RGB → CIELAB Space<br>(L*, a*, b*)"] --> E["Separate Lightness (L*)<br>from Chroma (a*, b*)"]
-        E --> F["Shadow & Glare<br>Decomposition"]
-    end
-
-    subgraph S3 ["Stage 3: Palette Quantization"]
-        direction TB
-        G["MiniBatch K-Means<br>(K = 4 in LAB)"] --> H["Cluster Centroids (c1, c2)<br>& Area Weights (w1, w2)"]
-        H --> I["Form 58D Feature Vector"]
-    end
-
-    subgraph S4 ["Stage 4: Metric Decision Head"]
-        direction TB
-        J["Achromatic Gate<br>(Chroma C* < 11.5)"] --> K["Calibrated Navy Gate<br>(L* cutoff = 26.78)"]
-        K --> L["Weighted ΔE Matching<br>(w_L = 0.65)"]
-        L --> M["Multicolor Gating<br>(w2 ≥ 27%, ΔE ≥ 22.0)"]
-    end
-
-    C --> D
-    F --> G
-    I --> J
-    M --> Out["Predicted Attribute<br>Color ID, Name, HEX"]
-
-    style S1 fill:#f8fafc,stroke:#64748b,stroke-width:1px
-    style S2 fill:#f0fdf4,stroke:#16a34a,stroke-width:1px
-    style S3 fill:#eff6ff,stroke:#2563eb,stroke-width:1px
-    style S4 fill:#faf5ff,stroke:#9333ea,stroke-width:1px
-    style Out fill:#fffbeb,stroke:#d97706,stroke-width:2px
+    A[RGB image + binary region] --> B[Validate geometry and channels]
+    B --> C[Optional interior erosion]
+    C --> D[Observed CIELAB palette]
+    D --> E[Aggregate named color families]
+    E --> F[Rule label + palette + warnings]
 ```
 
-*Figure 1: End-to-end architecture of the proposed M5 Garment Color Extraction Framework.*
+1. Validate the image and region. Preserve an empty region as `no_data`.
+2. Optionally erode the mask boundary, retaining the original when too few pixels remain. Erosion can reduce edge contamination; it does not guarantee a clean garment mask.
+3. Convert sampled pixels to OpenCV CIELAB/HSV and fit a deterministic palette with up to four clusters. Palette weights describe all analyzed pixels; a single-color region has one cluster.
+4. Map clusters through lightness/chroma gates and fixed weighted-Euclidean prototypes. Aggregate same-family mass before selecting the dominant label or a heuristic multicolor label.
+5. Return observed swatches, palette weights, region provenance and warnings. A legacy 58-element descriptor exists internally but is **not** an ensemble classifier input.
 
----
+CIELAB conversion and clustering do not recover illumination-invariant material color. Shadows, reflections, white balance, low saturation and infrared imagery can change the observation. A grayscale/IR image cannot establish an object's original visible-light hue.
 
-### Step-by-Step Pipeline Mechanics
+## Install
 
-#### Stage 1: Spatial Boundary Denoising ($\mathbf{M} \to \mathbf{M}_{\text{core}}$)
-* **The Problem:** Neural network masks (from Mask2Former, YOLO, or SAM) inevitably suffer from boundary blur, bleeding 2–4 pixels into background walls, floor tiles, or human skin.
-* **The Formulation:** We apply morphological erosion with an elliptical kernel $\mathbf{K} \in \{3\times3, 5\times5\}$:
-  $$\mathbf{M}_{\text{core}} = \mathbf{M} \ominus \mathbf{K}$$
-* **Intuition:** Peeling away the outermost pixel boundary isolates the **core fabric region**, completely eliminating background color leakage before any color extraction occurs.
-
-#### Stage 2: Photometric Invariance & Shadow Decoupling ($\text{sRGB} \to \text{CIELAB}$)
-* **The Problem:** In sRGB/HSV color spaces, illumination and color information are entangled. A cast shadow across a white t-shirt causes RGB values to plunge, tricking naive algorithms into predicting grey or black.
-* **The Formulation:** Pixels are mapped into the device-independent **CIE $L^*a^*b^*$ color space**:
-  * $L^* \in [0, 100]$: Achromatic lightness channel.
-  * $a^* \in [-128, 127]$: Green–Red opponent chromaticity.
-  * $b^* \in [-128, 127]$: Blue–Yellow opponent chromaticity.
-* **Intuition:** By decoupling luminance ($L^*$) from chromaticity ($a^*, b^*$), the intrinsic fabric color remains invariant across shaded folds and bright lighting. Extreme specular highlights ($L^* > 98$) and void shadows ($L^* < 12$) are safely isolated.
-
-#### Stage 3: Unsupervised Palette Quantization (MiniBatch $K$-Means, $K=4$)
-* **The Problem:** Clothing is rarely uniform; real garments feature folds, secondary logos, zippers, or multicolor patterns. Taking a simple global mean or median blurs distinct colors together.
-* **The Formulation:** We fit a MiniBatch $K$-Means clustering model ($K=4$) directly in CIELAB space to minimize within-cluster sum of squares:
-  $$\arg\min_{\mathbf{S}} \sum_{k=1}^{4} \sum_{\mathbf{p} \in S_k} \|\mathbf{p} - \mathbf{c}_k\|^2$$
-* **Intuition:** Yields dominant cluster centroids $\mathbf{c}_1, \mathbf{c}_2$ and area proportions $w_1, w_2$. Along with multi-channel quantiles and variances, this forms a compact **58-dimensional perceptual feature vector $\mathbf{f}_{58}$**.
-
-#### Stage 4: Calibrated Metric Decision Head ($\mathbf{f}_{58} \to \hat{y}$)
-A hierarchical decision network calibrated on 3,017 real-world garments:
-1. **Achromatic Gate:** Evaluates metric chroma $C^* = \sqrt{a^{*2} + b^{*2}}$. If $C^* < 11.5$, chromaticity is negligible $\to$ deterministic mapping to **Dark** ($L^* < 28$), **Medium** ($28 \le L^* < 75$), or **Light** ($L^* \ge 75$).
-2. **Calibrated Navy Gate:** Solves the notorious navy-vs-black ambiguity under low light using a calibrated decision hyperplane ($L^*_{\text{cutoff}} = 26.78, b^* < -8.0$).
-3. **Luminance-Discounted $\Delta E$ Matching:** Chromatic clusters are matched against empirical prototype centers using a modified Euclidean distance that downweights luminance variations ($w_L = 0.65$):
-   $$\Delta E_{\text{weighted}} = \sqrt{0.65 \cdot (\Delta L^*)^2 + (\Delta a^*)^2 + (\Delta b^*)^2}$$
-4. **Multicolor Gating:** If the secondary cluster occupies $w_2 \ge 27\%$ of the garment area with perceptual contrast $\Delta E(\mathbf{c}_1, \mathbf{c}_2) \ge 22.0$, the garment is formally classified as **`12 Multicolor`** (capturing stripes, plaid, and color-blocking).
-
----
-
-## 📊 Academic Benchmark & Ablation Study (M1 to M5)
-
-Evaluated under strict academic protocols on **1,265 Oracle Ground Truth garments** across 200 validation images from the **CCIHP** benchmark (3,017 calibration garments from Training Set, **zero data leakage**):
-
-### Overall Ablation Results (M1 to M5)
-
-| Method ID | Method Description | Color Representation | Single-11 Acc (%) | Relaxed Semantic Acc (%) | CPU Latency |
-| :---: | :--- | :--- | :---: | :---: | :---: |
-| **M1** | Heuristic HSV Thresholding | Naive RGB/HSV rule-based | 73.12% | 80.00% | 1.1 ms |
-| **M2** | Basic Color Naming (*van de Weijer 2009*) | 11-Color pixel lookup table | 66.33% | 79.05% | 4.8 ms |
-| **M3** | Shadow-Aware CIELAB Clustering | MiniBatch K-Means ($K=4$) + LAB | 74.39% | 89.25% | 2.5 ms |
-| **M4** | Category-Conditioned Prior Head | M3 + Upper/Lower garment priors | 74.57% | 89.17% | 2.6 ms |
-| **M5** | **Supervised 58D Palette Ensemble** 🏆 | **Full 58D vector + calibrated decision head** | **`77.47%`** | **`91.07%`** | **`3.2 ms`** |
-
-### Per-Category Performance (M1 to M5 Relaxed Accuracy)
-
-| Garment Category | Instance Count ($N$) | M1 (HSV) | M2 (BCN11) | M3 (CIELAB) | M4 (Prior) | **M5 (Ensemble)** 🏆 |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Coat (Jackets / Blazers / Outerwear)** | 304 | 80.92% | 80.59% | 91.45% | 90.79% | **`94.08%`** |
-| **Pants (Trousers / Jeans / Shorts)** | 397 | 85.46% | 77.69% | 90.98% | 91.98% | **`93.23%`** |
-| **UpperClothes (Shirts / T-shirts / Tops)** | 487 | 78.03% | 79.26% | 87.68% | 87.89% | **`89.32%`** |
-| **Skirt (Skirts / Dress-bottoms)** | 77 | 60.00% | 78.67% | 81.33% | 76.00% | **`78.67%`** |
-| **Hair (Natural Hair Shades)** | — | 90.56% | 91.57% | 88.20% | 91.23% | **`93.42%`** |
-| **All Garments Combined** | **1,265** | **80.00%** | **79.05%** | **89.25%** | **89.17%** | **`91.07%`** |
-
-*Complete benchmark breakdowns and confusion matrices are available in [benchmark/README.md](benchmark/README.md).*
-
----
-
-## 🎨 12-Color Taxonomy (CCIHP Standard)
-
-| ID | Color Name | ชื่อภาษาไทย | Sample Hex | Category Examples |
-| :---: | :--- | :--- | :---: | :--- |
-| **1** | **Dark** | สีดำ / โทนเข้ม | `#1A1A1A` | Black, charcoal, deep navy, dark tone |
-| **2** | **Medium** | สีเทา / โทนกลาง | `#808080` | Medium grey, heather grey, slate, mid-tone |
-| **3** | **Light** | สีขาว / โทนสว่าง | `#F0F0F0` | White, ivory, cream, off-white, light pastel |
-| **4** | **Brown** | สีน้ำตาล / สีกากี | `#7B4B27` | Brown, beige, khaki, tan, coffee, camel |
-| **5** | **Red** | สีแดง | `#C42021` | Red, crimson, maroon, burgundy, scarlet |
-| **6** | **Pink** | สีชมพู | `#E5859E` | Pink, rose, salmon, peach, magenta |
-| **7** | **Yellow** | สีเหลือง | `#E6C82B` | Yellow, gold, mustard, lemon |
-| **8** | **Orange** | สีส้ม | `#E36F1E` | Orange, rust, terracotta, tangerine |
-| **9** | **Green** | สีเขียว | `#2B8C3E` | Green, olive, emerald, lime, forest green |
-| **10** | **Blue** | สีน้ำเงิน / สีฟ้า | `#2D5FB9` | Blue, navy, denim, sky blue, cobalt |
-| **11** | **Purple** | สีม่วง | `#7B3798` | Purple, violet, lavender, indigo, lilac |
-| **12** | **Multicolor** | หลากสี / มีลวดลาย | `#FF00FF` | Striped, plaid, floral, multi-colored |
-
----
-
-## 📦 Installation
+Python 3.8+ is declared in package metadata; this revision was tested locally on Python 3.12. No Python 3.8 execution claim is made.
 
 ```bash
-git clone https://github.com/folklazy/Garment-Color-Extractor.git
-cd Garment-Color-Extractor
-
-# Install core library
 pip install -e .
-
-# Or install with REST API dependencies (FastAPI + Uvicorn)
-pip install -e ".[api]"
+# Optional REST service
+pip install -e '.[api]'
+# Development tests
+pip install -e '.[api,dev]'
 ```
 
----
+No model weights or GPU libraries are required by this package. Runtime depends on region size, CPU, thread settings and library versions; there is no verified fixed millisecond guarantee.
 
-## 💻 Usage Examples
-
-### 1. Basic Python SDK
-
-```python
-import cv2
-from garment_color import GarmentColorExtractor
-
-# 1. Initialize engine
-extractor = GarmentColorExtractor()
-
-# 2. Load image and binary mask (or bounding box)
-image_rgb = cv2.cvtColor(cv2.imread("person.jpg"), cv2.COLOR_BGR2RGB)
-shirt_mask = cv2.imread("shirt_mask.png", cv2.IMREAD_GRAYSCALE) > 0
-
-# 3. Extract garment color (< 3.2 ms on CPU)
-result = extractor.predict(
-    image=image_rgb,
-    mask=shirt_mask,
-    garment_type="upper"  # 'upper', 'lower', or 'hair'
-)
-
-print(f"Color:      {result.color_name} ({result.color_name_th})")
-print(f"Color ID:   {result.color_id}")
-print(f"Confidence: {result.confidence * 100:.1f}%")
-print(f"Hex Code:   {result.hex_code}")
-print(f"RGB Swatch: {result.rgb_swatch}")
-print(f"Multicolor: {result.is_multicolor}")
-print(f"Latency:    {result.latency_ms:.2f} ms")
-```
-
-### 2. End-to-End Person Re-ID Pipeline (YOLO + Garment Color)
-
-```python
-from garment_color import GarmentColorExtractor
-
-extractor = GarmentColorExtractor()
-
-# Extract attributes from detected bounding boxes
-upper_bbox = (120, 80, 260, 230)
-lower_bbox = (120, 230, 260, 420)
-
-upper_pred = extractor.predict(image=frame_rgb, bbox=upper_bbox, garment_type="upper")
-lower_pred = extractor.predict(image=frame_rgb, bbox=lower_bbox, garment_type="lower")
-
-person_attributes = {
-    "upper_color": upper_pred.color_name,
-    "lower_color": lower_pred.color_name,
-    "upper_hex": upper_pred.hex_code,
-    "lower_hex": lower_pred.hex_code,
-}
-```
-*(See [examples/yolo_integration.py](examples/yolo_integration.py) for the complete runnable script).*
-
-### 3. Generate Visual Diagnostic Swatch Card
+## Python usage
 
 ```python
 import cv2
 from garment_color import GarmentColorExtractor, create_color_card
 
+image_bgr = cv2.imread('person.jpg')
+mask = cv2.imread('shirt_mask.png', cv2.IMREAD_GRAYSCALE) > 0
 extractor = GarmentColorExtractor()
-pred = extractor.predict(image_rgb, mask=shirt_mask, garment_type="upper")
+result = extractor.predict(image_bgr, mask=mask, is_bgr=True, garment_type='upper')
 
-# Generate visual inspection card with cropped garment & swatch
-diagnostic_card = create_color_card(image_rgb, shirt_mask, pred)
-cv2.imwrite("color_diagnostic.png", diagnostic_card)
+print(result.to_json(indent=2))
+image_rgb = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB)
+card = create_color_card(image_rgb, mask, result)
+cv2.imwrite('color_diagnostic.png', card)  # Card is BGR.
 ```
 
-### 4. Command Line Interface (CLI)
+For boxes, use `bbox=(x1, y1, x2, y2)` without `mask`. Coordinates are half-open XYXY, clipped to the image; fractional minima are floored and maxima ceiled. Non-intersecting/reversed boxes raise `ValueError`. A box may include background or other body parts; it is not garment segmentation. With neither mask nor bbox the entire image is the region, and the result carries a warning.
+
+Use parsing masks from the selected parsing pipeline in real integrations. The [synthetic boxes example](examples/yolo_integration.py) illustrates data flow only: it does not execute YOLO, tracking, Re-ID, or validated upper/lower segmentation.
+
+## Output contract
+
+| Field | Meaning |
+|---|---|
+| `algorithm_id` | `prototype_rules_v2`, an explicit behavior identity |
+| `status` | `ok` or `no_data`; observation availability, not accuracy acceptance |
+| `color_id` / `color_name` | Heuristic label in the 12-color vocabulary; `0` means uncharacterized |
+| `hex_code` / `rgb_swatch` | The same observed representative color; both null for an empty region |
+| `palette` | Observed RGB/HEX, pixel fractions and rule class for each retained cluster; weights sum to one for nonempty input |
+| `confidence` | Legacy field: supporting named-color-family pixel fraction, **not** correctness probability. Multicolor uses the two leading families' combined fraction |
+| `score_kind` | Explicit interpretation of the legacy score |
+| `calibrated_probability` | Always null; no probability calibration artifact is available |
+| `region_source` | `mask`, `bbox`, or `whole_image` |
+| `input_pixels` / `total_pixels` | Region area before / after optional erosion |
+| `erosion_retained_fraction` | Actual analyzed fraction, null for an empty region |
+| `warnings` | Low chroma, very dark/highlight region, small/empty input and input-region limitations |
+| `is_multicolor` | Rule detected multiple separated named color families; it does not classify garment patterns |
+| `latency_ms` | This call's wall-clock diagnostic, not a benchmark or latency SLA |
+
+Inputs must be nonempty uint8 RGB/BGR arrays of shape `(H, W, 3)` or file paths. Masks must match `(H, W)` with bool, 0/1, or 0/255 values. Multiclass label maps require explicit selection of a garment before calling. Supported region types: `upper`, `lower`, `hair`, `other`.
+
+## Color vocabulary
+
+| ID | Label | ID | Label |
+|---|---|---|---|
+| 0 | Uncharacterized | 7 | Yellow |
+| 1 | Dark | 8 | Orange |
+| 2 | Medium | 9 | Green |
+| 3 | Light | 10 | Blue |
+| 4 | Brown | 11 | Purple |
+| 5 | Red | 12 | Multicolor |
+| 6 | Pink | | |
+
+Registry swatches are illustrations of category names, not recovered garment colors. `Multicolor` has no single representative hue; the returned HEX and palette remain actual observations rather than the registry's magenta marker. Dark/Blue and other category boundaries are heuristic and need task-specific independent validation.
+
+## CLI and API
 
 ```bash
-# Using image and mask
-garment-color --image person.jpg --mask shirt.png --type upper
-
-# Using bounding box coordinates (x1 y1 x2 y2)
-garment-color --image person.jpg --bbox 50 120 220 380 --type lower
-
-# Output raw JSON
-garment-color --image person.jpg --bbox 50 120 220 380 --json
+garment-color --image person.jpg --mask shirt_mask.png --type upper --json
+uvicorn api.server:app --host 127.0.0.1 --port 8000
 ```
 
----
+`POST /api/v1/extract-color` accepts `image_base64`, optional binary `mask_base64` or `bbox`, `garment_type`, and `apply_erosion`. It returns the same structured result as Python. Invalid image data returns 400; invalid region contracts return 422. `/health` reports engine/version identity. The optional `api` module is included in the built distribution. This is a runnable integration example, not an operational deployment certification.
 
-## 🌐 FastAPI REST Microservice
+## Diagnostic preview
 
-Launch the standalone production server:
+The following cards are generated from synthetic RGB regions, with no dataset or CCTV assets:
+
+![Synthetic observed-color diagnostic cards](examples/assets/color_diagnostics.png)
+
+Regenerate with `python examples/render_diagnostics.py`.
+
+## Verification and evidence
 
 ```bash
-uvicorn api.server:app --host 0.0.0.0 --port 8000 --reload
+python -m unittest discover -s tests -v
 ```
 
-Interactive Swagger documentation is available at: `http://localhost:8000/docs`
+Tests cover hand-specified regions/colors, empty and thin masks, full palette mass, label aggregation, RGB/BGR, input rejection, actual API serialization and diagnostic card dimensions. They do not measure real-scene color accuracy.
 
-```bash
-curl -X POST "http://localhost:8000/api/v1/extract-color" \
-     -H "Content-Type: application/json" \
-     -d '{
-       "image_base64": "<BASE64_IMAGE_STRING>",
-       "mask_base64": "<BASE64_MASK_STRING>",
-       "garment_type": "upper"
-     }'
-```
+- [Technical review in Thai](reports/COLOR_REVIEW_TH.md)
+- [Benchmark evidence and limitations](benchmark/README.md)
+- [Change log / migration](CHANGELOG.md)
+- [Historical README snapshot](docs/history/README_before_review.md)
 
----
+CCTV images, names, annotations, thumbnails, masks, and private review manifests are external assets and are not published in this repository. Existing benchmark JSON files remain unchanged historical evidence. No corrected-package CCIHP/CCTV accuracy, supervised-M5 performance, or clean timing ranking is asserted.
 
-## 📁 Repository Structure
-
-```text
-Garment-Color-Extractor/
-├── src/
-│   └── garment_color/
-│       ├── __init__.py         # Package entrypoint (v1.0.0)
-│       ├── core.py             # GarmentColorExtractor orchestrator class
-│       ├── taxonomy.py         # CCIHP 12-color registry, RGB/HEX, EN/TH names
-│       ├── preprocessor.py     # Morphological erosion & shadow decoupling
-│       ├── color_spaces.py     # Vectorized sRGB, CIELAB, HSV, Delta-E metrics
-│       ├── features.py         # 58D feature extraction & MiniBatchKMeans (K=4)
-│       ├── classifier.py       # M5 decision rules (Navy cutoff, multicolor check)
-│       ├── visualizer.py       # Visual diagnostic card generator
-│       └── cli.py              # CLI runner
-├── api/
-│   ├── server.py               # FastAPI application with REST endpoints
-│   └── schemas.py              # Pydantic request & response models
-├── examples/
-│   ├── quickstart.py           # 5-line minimal working demo
-│   └── yolo_integration.py     # End-to-end Person Re-ID detection pipeline
-├── tests/
-│   ├── test_extractor.py       # Unit tests for M5 classification
-│   ├── test_color_spaces.py    # Unit tests for color conversions
-│   └── test_taxonomy.py        # Unit tests for color registry
-├── benchmark/
-│   ├── README.md               # Detailed evaluation report on CCIHP benchmark
-│   ├── eval_results.json       # Structured benchmark statistics (1,265 garments)
-│   └── ccihp_benchmark_summary.json # Raw validation pilot log
-├── pyproject.toml              # Modern build configuration
-├── requirements.txt            # Package dependencies
-├── setup.py                    # Legacy installation script
-├── LICENSE                     # MIT License
-└── README.md                   # Documentation
-```
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 👤 Author
-
-* **folklazy** - [GitHub Profile](https://github.com/folklazy)
+License: [MIT](LICENSE), unchanged by this review.

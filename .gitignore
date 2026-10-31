@@ -36,3 +36,8 @@ ENV/
 .DS_Store
 Thumbs.db
 
+# Private/generated study assets. Retained aggregate evidence belongs in reports/.
+outputs/
+logs/
+.local/
+

@@ -1,11 +1,12 @@
-"""Morphological Preprocessing & Shadow/Glare Decomposition.
+"""Optional boundary erosion and a separate, unused luminance-filter helper.
 
-Prevents background boundary leakage and decouples shadow artifacts from garment colors.
+Neither operation guarantees removal of contamination or illumination effects.
 """
 from __future__ import annotations
 
 import cv2
 import numpy as np
+from typing import Tuple
 
 
 class MaskPreprocessor:
@@ -17,6 +18,10 @@ class MaskPreprocessor:
         min_pixels_for_erosion: int = 80,
         min_pixels_remaining: int = 40,
     ):
+        if not isinstance(erode_kernel_size,int) or erode_kernel_size<1 or erode_kernel_size%2==0:
+            raise ValueError('Erosion kernel size must be a positive odd integer')
+        if min_pixels_for_erosion<1 or min_pixels_remaining<1:
+            raise ValueError('Minimum pixel counts must be positive')
         self.erode_kernel_size = erode_kernel_size
         self.min_pixels_for_erosion = min_pixels_for_erosion
         self.min_pixels_remaining = min_pixels_remaining
@@ -35,14 +40,15 @@ class MaskPreprocessor:
         kernel = cv2.getStructuringElement(
             cv2.MORPH_ELLIPSE, (self.erode_kernel_size, self.erode_kernel_size)
         )
-        eroded = cv2.erode(mask_uint8, kernel, iterations=1)
+        eroded = cv2.erode(mask_uint8, kernel, iterations=1,borderType=cv2.BORDER_CONSTANT,borderValue=0)
 
         if np.count_nonzero(eroded) >= self.min_pixels_remaining:
             return eroded > 0
 
         # Fallback to 3x3 kernel if 5x5 eroded too much
-        kernel_small = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
-        eroded_small = cv2.erode(mask_uint8, kernel_small, iterations=1)
+        small=min(self.erode_kernel_size,3)
+        kernel_small = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (small, small))
+        eroded_small = cv2.erode(mask_uint8, kernel_small, iterations=1,borderType=cv2.BORDER_CONSTANT,borderValue=0)
         if np.count_nonzero(eroded_small) >= self.min_pixels_remaining:
             return eroded_small > 0
 
@@ -73,7 +79,9 @@ class MaskPreprocessor:
 
 
 def decompose_shadows(pixels_lab: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
-    """Decompose CIELAB pixels into core chromatic body and shadow/glare components.
+    """Legacy luminance-range filter, unused by GarmentColorExtractor.
+
+    This is not a physical shadow decomposition or intrinsic-color recovery.
     
     Returns:
       (clean_pixels_lab, is_valid_mask)

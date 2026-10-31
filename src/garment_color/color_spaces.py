@@ -68,7 +68,7 @@ def delta_e_cie76(lab1: np.ndarray, lab2: np.ndarray) -> np.ndarray:
 def delta_e_weighted(lab: np.ndarray, prototypes: np.ndarray, w_l: float = 0.65) -> np.ndarray:
     """Calculate luminance-discounted Delta-E matrix.
     
-    Discounting L* prevents cast shadows or mild overexposure from overriding
+    Discounting L* reduces the contribution of lightness differences relative to
     strong chromatic signatures (a*, b*).
     
     Args:

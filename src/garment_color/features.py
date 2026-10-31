@@ -1,6 +1,6 @@
-"""58-Dimensional Color Feature Extraction & Clustering Engine.
+"""Deterministic observed-color palette and a legacy 58-element descriptor.
 
-Extracts rich statistical, perceptual, and cluster representations from garment pixels.
+The descriptor is diagnostic; the shipped rule classifier does not consume it.
 """
 from __future__ import annotations
 
@@ -36,13 +36,17 @@ class GarmentFeatures:
 
 
 def extract_features(pixels_rgb: np.ndarray, n_clusters: int = 4) -> GarmentFeatures:
-    """Extract full 58-dimensional perceptual feature vector and K-Means clusters."""
+    """Extract observed palette; weights refer to all supplied pixels."""
+    if not isinstance(pixels_rgb,np.ndarray) or pixels_rgb.ndim!=2 or pixels_rgb.shape[1]!=3 or pixels_rgb.dtype!=np.uint8:
+        raise ValueError('pixels_rgb must be uint8 RGB with shape (N, 3)')
+    if not isinstance(n_clusters,int) or n_clusters<1:
+        raise ValueError('n_clusters must be a positive integer')
     n_pixels = len(pixels_rgb)
     if n_pixels == 0:
         empty_cluster = ClusterInfo(
             centroid_lab=np.array([50.0, 0.0, 0.0], dtype=np.float32),
             centroid_rgb=np.array([128, 128, 128], dtype=np.uint8),
-            weight=1.0,
+            weight=0.0,
             hex_code="#808080",
         )
         return GarmentFeatures(
@@ -51,7 +55,7 @@ def extract_features(pixels_rgb: np.ndarray, n_clusters: int = 4) -> GarmentFeat
             median_hex="#808080",
             median_lab=(50.0, 0.0, 0.0),
             median_hsv=(0.0, 0.0, 0.5),
-            clusters=[empty_cluster],
+            clusters=[],
             primary_cluster=empty_cluster,
             secondary_cluster=empty_cluster,
             feature_vector_58d=np.zeros(58, dtype=np.float32),
@@ -68,21 +72,21 @@ def extract_features(pixels_rgb: np.ndarray, n_clusters: int = 4) -> GarmentFeat
     med_hsv = tuple(float(x) for x in np.median(pixels_hsv, axis=0))
 
     # Fast K-Means (K=4) clustering in CIELAB
-    k = min(n_clusters, max(1, n_pixels // 15))
+    # Fit a bounded, deterministic sample; identical colors must not create
+    # artificial secondary clusters. Predict weights on every supplied pixel.
+    sample_pixels=pixels_lab
+    if n_pixels>2000:
+        indices=np.random.RandomState(42).choice(n_pixels,2000,replace=False)
+        sample_pixels=pixels_lab[indices]
+    k = min(n_clusters, max(1, n_pixels // 15),len(np.unique(sample_pixels,axis=0)))
     if k <= 1 or n_pixels < 20:
         c_lab = np.mean(pixels_lab, axis=0).astype(np.float32)
         c_rgb = np.mean(pixels_rgb, axis=0).astype(np.uint8)
         c_hex = rgb_to_hex(c_rgb[0], c_rgb[1], c_rgb[2])
         c_info = ClusterInfo(c_lab, c_rgb, 1.0, c_hex)
-        clusters = [c_info, c_info]
+        clusters = [c_info]
     else:
         # Sample for speed if large
-        sample_pixels = pixels_lab
-        sample_indices = None
-        if n_pixels > 2000:
-            sample_indices = np.random.RandomState(42).choice(n_pixels, 2000, replace=False)
-            sample_pixels = pixels_lab[sample_indices]
-
         kmeans = MiniBatchKMeans(
             n_clusters=k,
             random_state=42,
@@ -92,12 +96,12 @@ def extract_features(pixels_rgb: np.ndarray, n_clusters: int = 4) -> GarmentFeat
 
         labels = kmeans.predict(pixels_lab)
         bincounts = np.bincount(labels, minlength=k)
-        sorted_order = np.argsort(-bincounts)
+        sorted_order = sorted(range(k),key=lambda i:(-int(bincounts[i]),*kmeans.cluster_centers_[i].tolist()))
 
         clusters = []
         for idx in sorted_order:
             w = float(bincounts[idx]) / float(n_pixels)
-            if w < 0.02 and len(clusters) >= 2:
+            if bincounts[idx]==0:
                 continue
             centroid_l = kmeans.cluster_centers_[idx].astype(np.float32)
 
@@ -110,11 +114,8 @@ def extract_features(pixels_rgb: np.ndarray, n_clusters: int = 4) -> GarmentFeat
             c_hex = rgb_to_hex(c_rgb[0], c_rgb[1], c_rgb[2])
             clusters.append(ClusterInfo(centroid_l, c_rgb, w, c_hex))
 
-        if len(clusters) == 1:
-            clusters.append(clusters[0])
-
     prim = clusters[0]
-    sec = clusters[1] if len(clusters) > 1 else clusters[0]
+    sec = clusters[1] if len(clusters) > 1 else ClusterInfo(prim.centroid_lab.copy(),prim.centroid_rgb.copy(),0.,prim.hex_code)
 
     # Build 58D feature vector
     feats: List[float] = []

@@ -16,15 +16,15 @@ from .schemas import ExtractColorRequest, ExtractColorResponse
 
 app = FastAPI(
     title="Garment Color Extractor API",
-    version="1.0.0",
-    description="High-performance, CPU-only garment color classification microservice (M5 Engine).",
+    version="1.1.0",
+    description="CPU-only observed-color prototype rules. Scores are uncalibrated; no intrinsic-color or benchmark accuracy guarantee.",
 )
 
 # Enable CORS for web dashboards
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -38,7 +38,7 @@ def decode_base64_image(b64_str: str) -> np.ndarray:
         # Strip header if present (e.g. data:image/jpeg;base64,...)
         if "," in b64_str:
             b64_str = b64_str.split(",", 1)[1]
-        img_bytes = base64.b64decode(b64_str)
+        img_bytes = base64.b64decode(b64_str,validate=True)
         arr = np.frombuffer(img_bytes, dtype=np.uint8)
         img_bgr = cv2.imdecode(arr, cv2.IMREAD_COLOR)
         if img_bgr is None:
@@ -56,11 +56,13 @@ def decode_base64_mask(b64_str: str) -> np.ndarray:
     try:
         if "," in b64_str:
             b64_str = b64_str.split(",", 1)[1]
-        mask_bytes = base64.b64decode(b64_str)
+        mask_bytes = base64.b64decode(b64_str,validate=True)
         arr = np.frombuffer(mask_bytes, dtype=np.uint8)
-        mask_gray = cv2.imdecode(arr, cv2.IMREAD_GRAYSCALE)
+        mask_gray = cv2.imdecode(arr, cv2.IMREAD_UNCHANGED)
         if mask_gray is None:
             raise ValueError("Could not decode mask from bytes")
+        if mask_gray.ndim!=2 or not np.isin(mask_gray,[0,1,255]).all():
+            raise ValueError('Expected a single-channel binary mask, not semantic labels or RGB')
         return mask_gray > 0
     except Exception as e:
         raise HTTPException(
@@ -72,7 +74,7 @@ def decode_base64_mask(b64_str: str) -> np.ndarray:
 @app.get("/health", tags=["Monitoring"])
 def health_check():
     """Health check endpoint."""
-    return {"status": "healthy", "engine": "M5_Shadow_Aware_CIELAB", "version": "1.0.0"}
+    return {"status":"healthy","engine":"prototype_rules_v2","version":"1.1.0","calibrated_probability":False}
 
 
 @app.post(
@@ -86,27 +88,10 @@ def extract_color(req: ExtractColorRequest) -> ExtractColorResponse:
     img_rgb = decode_base64_image(req.image_base64)
     mask = decode_base64_mask(req.mask_base64) if req.mask_base64 else None
 
-    pred = extractor.predict(
-        image=img_rgb,
-        mask=mask,
-        bbox=req.bbox,
-        garment_type=req.garment_type,
-        apply_erosion=req.apply_erosion,
-    )
-
-    return ExtractColorResponse(
-        color_id=pred.color_id,
-        color_name=pred.color_name,
-        color_name_th=pred.color_name_th,
-        confidence=pred.confidence,
-        hex_code=pred.hex_code,
-        rgb_swatch=pred.rgb_swatch,
-        is_multicolor=pred.is_multicolor,
-        secondary_color_id=pred.secondary_color_id,
-        secondary_color_name=pred.secondary_color_name,
-        secondary_hex_code=pred.secondary_hex_code,
-        total_pixels=pred.total_pixels,
-        latency_ms=pred.latency_ms,
-        reasoning=pred.reasoning,
-    )
+    try:
+        pred=extractor.predict(image=img_rgb,mask=mask,bbox=req.bbox,
+                               garment_type=req.garment_type,apply_erosion=req.apply_erosion)
+    except ValueError as error:
+        raise HTTPException(status_code=422,detail=str(error)) from error
+    return ExtractColorResponse(**pred.to_dict())
 

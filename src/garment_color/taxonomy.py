@@ -1,6 +1,6 @@
 """CCIHP 12-Color Taxonomy & Color Palette Definitions.
 
-Standard color definitions calibrated for CCTV & Human Parsing applications.
+Color vocabulary and illustrative swatches; not an intrinsic-color calibration.
 """
 from __future__ import annotations
 

@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "garment-color-extractor"
-version = "1.0.0"
-description = "Lightweight, Shadow-Aware Garment Color Extraction Engine (M5) for Surveillance and Human Parsing"
+version = "1.1.0"
+description = "CPU observed-color palettes and explicit heuristic color labels"
 authors = [{ name = "folklazy" }]
 license = { text = "MIT" }
 readme = "README.md"
@@ -29,3 +29,10 @@ dev = [
 [project.scripts]
 garment-color = "garment_color.cli:main"
 
+
+[tool.setuptools]
+packages = ["garment_color", "api"]
+
+[tool.setuptools.package-dir]
+garment_color = "src/garment_color"
+api = "api"
