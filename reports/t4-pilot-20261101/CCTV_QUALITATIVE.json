@@ -1,0 +1,12 @@
+{
+  "images": 12,
+  "regions": 19,
+  "day_images": 6,
+  "night_images": 6,
+  "saved_model": "M2FP_R101_CIHP",
+  "new_parsing_calls": 0,
+  "low_chroma_region_count": 14,
+  "accuracy": null,
+  "reason": "Mixed/unknown color-label provenance and observability; not independent accuracy evidence",
+  "gallery": "outputs/t4-pilot-20261101/private_cctv_gallery/index.html"
+}

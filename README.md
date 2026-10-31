@@ -1,4 +1,4 @@
-> **New work: bounded T4 color pilot prepared.** [Plan](PLAN.md) / [pilot report](reports/T4_COLOR_PILOT_TH.md). The existing library below remains prototype_rules_v2; no trained checkpoint is active by default.
+> **New work: bounded T4 color pilot COMPLETE.** [Plan](PLAN.md) / [pilot report](reports/T4_COLOR_PILOT_TH.md). The pilot learned model is now available as an explicit local artifact; the default API remains prototype_rules_v2.
 
 # Garment Color Extractor
 
@@ -128,3 +128,25 @@ Tests cover hand-specified regions/colors, empty and thin masks, full palette ma
 CCTV images, names, annotations, thumbnails, masks, and private review manifests are external assets and are not published in this repository. Existing benchmark JSON files remain unchanged historical evidence. No corrected-package CCIHP/CCTV accuracy, supervised-M5 performance, or clean timing ranking is asserted.
 
 License: [MIT](LICENSE), unchanged by this review.
+
+
+## Optional learned T4 pilot
+
+A new, bounded experiment trained a small **62→64→32→12 MLP on Tesla T4**. It is separate from the default rule engine and from the historical M5 ensemble. See the [actual pilot report](reports/T4_COLOR_PILOT_TH.md) and [frozen protocol](configs/T4_COLOR_PILOT_PROTOCOL.json).
+
+The run used 300 Training images for fitting, 50 disjoint Training images for checkpoint selection and 100 official Validation images for evaluation. There was no new parsing inference. CCTV examples use existing masks as qualitative observations, with no independent color-accuracy claim.
+
+Weights are retained locally at `outputs/t4-pilot-20261101/learned_color.pt` and are **not** automatically redistributed. Code licensing does not by itself resolve the terms of artifacts learned from noncommercial dataset annotations. An authorized local artifact can be used with [examples/learned_checkpoint.py](examples/learned_checkpoint.py), passing its exact SHA256 and an actual garment mask. The optional module requires the `learned` extra; training in this review reused an existing compatible environment without installing dependencies.
+
+```python
+from garment_color.learned import LearnedColorPredictor
+from garment_color.preprocessor import MaskPreprocessor
+
+# image_rgb: uint8 RGB; garment_mask: matching binary region from the parser.
+pixels = MaskPreprocessor().extract_clean_pixels(image_rgb, garment_mask, True)
+model = LearnedColorPredictor('outputs/t4-pilot-20261101/learned_color.pt',
+                              device='cpu', expected_sha256='<SHA256 from pilot report>')
+result = model.predict_pixels(pixels, native_category=5)  # 5, 7, 9, or 12
+```
+
+Softmax scores are not calibrated correctness probabilities. This pilot does not switch the service's default engine or establish CCTV deployment readiness. Reproduction requires external CIHP RGB/CCIHP annotations and the recorded environment; clone alone is insufficient.

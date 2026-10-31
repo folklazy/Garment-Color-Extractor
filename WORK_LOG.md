@@ -7,3 +7,7 @@ Basea7a80bc/maincleaninitial,remoteverifiedfolklazy/Garment-Color-Extractor(publ
 ## 2026-10-31T20:04:35.707040+00:00 UTC — T4 pilot design/readiness
 
 UserexplicitlyauthorizesnewroughbutstandardredesignandtestonT4. Newbranchfeat/t4-color-pilotfromreviewd642ddd. GPU0T4empty/free14912MiB/noactivecolorjob. Existing.venvhascompatibletorch/CUDA/sklearn;noinstall. ReadactualCCIHPREADME/nativeGT;freeze300train50calibration100ValidationSHA/RGB-dedupmembershipbeforecurrentpilot. RegioncolorGTindependentdatasetlabels,fullmaskinputnotcolor-filtered. New62DMLPtrain-onlyscaler40epochs/calibrationcheckpointselection,defaultlibraryunchanged. CPU4independenteligibility/metrics/membership/artifactcasesPASS(noGPUyet). Preparedfreshoutputs/t4-pilot-20261101/CONFIGevidence. Nextprelaunchcommit/pushthenonescopedT4trainingattempt,exportvalidationreportandprivateCCTV12qualitativecheck.
+
+## 2026-11-01T03:07:22.540243+07:00 — T4 pilot closure
+
+ActualT4MLP40epochs/calibrationselection/exportcomplete; train300/cal50/val100sourcebound. Baselineaccuracy58.31%,MLP68.73%; noVALtuning/defaultAPIchange. CPUreloadlabelsidenticaltoGPUallregions,softmaxallclose; exactsavedconfusionarithmetic/source/artifactchecksPASS. SavedM2FPCCTV12qualitativeonly,noindependentcolorGTaccuracy. No parserinference/downloads/GTmutation. STATEGPUcallcounterunuseddisclosedandderivedtrainingbatchaccountingrecorded. Nextpublishcompactevidenceonlyandhandoff,dontautomaticallyexpand.
