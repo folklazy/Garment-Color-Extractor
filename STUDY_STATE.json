@@ -1,5 +1,5 @@
 {
-  "updated_Bangkok": "2026-11-01T03:57:57.519743+07:00",
+  "updated_Bangkok": "2026-11-01T03:46:16.797469+07:00",
   "status": "METHOD_SELECTED_FOR_NEXT_PHASE",
   "algorithm_id": "prototype_rules_v2",
   "package_version": "1.1.0",
@@ -19,7 +19,7 @@
   "default_API_engine": "prototype_rules_v2",
   "pilot_validation_accuracy": 0.6872964169381107,
   "CCTV_accuracy": null,
-  "updated_utc": "2026-10-31T20:57:57.518166+00:00",
+  "updated_utc": "2026-10-31T20:46:16.797244+00:00",
   "method_comparison": {
     "run_id": "color-methods-20261101",
     "protocol_id": "OBSERVED_GARMENT_COLOR_SEVEN_METHODS_V1",
@@ -45,6 +45,5 @@
   "selected_method": "T4_MLP_62_64_32_12_v1",
   "selection_decision": "registry/SELECTED_METHOD.json",
   "selected_method_report": "reports/SELECTED_COLOR_METHOD_TH.md",
-  "selection_scope": "Highest declared-primary strict accuracy on the completed oracle-region subset; not deployment acceptance",
-  "readme_layout": "SELECTED_METHOD_PRIMARY_RESEARCH_AND_TESTS_COLLAPSIBLE"
+  "selection_scope": "Highest declared-primary strict accuracy on the completed oracle-region subset; not deployment acceptance"
 }
