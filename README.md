@@ -7,82 +7,92 @@
 [![Inference Speed](https://img.shields.io/badge/Speed-%3C%203.2%20ms%2Fgarment-blueviolet.svg)](#-key-features)
 [![FastAPI](https://img.shields.io/badge/API-FastAPI%20REST-009688.svg)](#-fastapi-microservice)
 
-A lightweight, shadow-aware garment color extraction and classification framework for **Human Parsing, Person Re-Identification (Re-ID), and Surveillance Video Analytics**.
+An interpretable, shadow-aware garment color classification framework for **Human Parsing, Pedestrian Attribute Recognition (PAR), and Video Analytics**.
 
-Evaluated on the academic **CCIHP (Crowd Instance-level Human Parsing with Color Attributes)** benchmark across **1,265 human-annotated validation garments**. Outperforms classical color naming baselines by **+12.02% in Relaxed Accuracy** and **2.15x in Macro-F1**, while running **100% on CPU** in **< 3.2 ms** with **0 MB GPU VRAM**.
-
----
-
-## 🚀 Key Features
-
-* **⚡ Ultra-Fast CPU Execution (< 3.2 ms):** Highly vectorized NumPy, OpenCV, and Scikit-Learn pipeline. Requires **0 MB of GPU VRAM**, freeing 100% of GPU resources for heavy detectors or parsers.
-* **🌓 Shadow & Glare Resilience:** Uses perceptual **CIELAB color space** (`L*`, `a*`, `b*`) with luminance discounting (`w_L = 0.65`) to decouple harsh cast shadows and specular glare from genuine fabric pigmentation.
-* **🛡️ Boundary Bleed Protection:** Incorporates dynamic morphological mask erosion (2–5 px) to eliminate background tiles, asphalt, and skin reflections along mask edges.
-* **👔 Calibrated Navy vs. Black Separation:** Solves the classic computer vision problem of dark blue garments collapsing into black under low light using a calibrated luminance cutoff (`L* = 26.78`) with chroma gating.
-* **🎨 12-Color CCIHP Taxonomy:** Maps directly to standard human parsing datasets with bilingual English and Thai color labels.
-* **🏁 Dual-Color Pattern Detection:** Automatically identifies striped, plaid, and multi-colored clothing using secondary cluster weight (`τ_multi ≥ 27%`) and perceptual `ΔE` contrast.
-* **🔌 Versatile Integration:** Includes Python SDK, CLI terminal tool, visual swatch card generator, and a turnkey FastAPI REST microservice.
+Evaluated on the academic **CCIHP (Crowd Instance-level Human Parsing with Color Attributes)** benchmark across **1,265 human-annotated validation garments**. Outperforms classical color naming baselines (*van de Weijer et al., IEEE TPAMI 2009*) by **+12.02% in Relaxed Accuracy** and **2.15x in Macro-F1**, while running **100% on CPU** in **< 3.2 ms** with **0 MB GPU VRAM**.
 
 ---
 
-## 🔬 Framework Architecture (Paper-Style Overview)
+## 🔬 Methodology & Architecture
 
-The proposed **M5 Engine** operates as an interpretable four-stage perceptual pipeline, decoupling illumination artifacts from intrinsic fabric pigmentation through physical color space decomposition and calibrated statistical clustering:
+In computer vision literature, extracting clothing color is defined as a mapping from a visual region to a linguistic color label:
+$$\mathcal{F}: (\mathbf{I}, \mathbf{M}) \longrightarrow \hat{y} \in \mathcal{C}$$
+where $\mathbf{I} \in \mathbb{R}^{H \times W \times 3}$ is the RGB image, $\mathbf{M} \in \{0, 1\}^{H \times W}$ is the garment segmentation mask, and $\mathcal{C} = \{1, 2, \dots, 12\}$ is the standardized CCIHP color vocabulary.
+
+The **M5 Engine** structures this task into four sequential, physically grounded modules:
 
 ```mermaid
 flowchart LR
-    subgraph S1 ["1. Boundary Denoising"]
-        A["Image I<br>Mask M"] --> B["Dynamic Erosion<br>Kernel: 2-5px"]
+    subgraph S1 ["Stage 1: Spatial Denoising"]
+        direction TB
+        A["Input: (I, M)"] --> B["Morphological Erosion<br>M_core = M ⊖ K"]
+        B --> C["Extract Core Pixels<br>(Eliminate edge bleed)"]
     end
 
-    subgraph S2 ["2. Color Decoupling"]
-        B --> C["sRGB → CIELAB<br>(L*, a*, b*)"]
-        C --> D["Shadow / Glare<br>Decomposition"]
+    subgraph S2 ["Stage 2: Photometric Decoupling"]
+        direction TB
+        D["RGB → CIELAB Space<br>(L*, a*, b*)"] --> E["Separate Lightness (L*)<br>from Chroma (a*, b*)"]
+        E --> F["Shadow & Glare<br>Decomposition"]
     end
 
-    subgraph S3 ["3. Cluster Representation"]
-        D --> E["MiniBatch K-Means<br>(K=4 in LAB)"]
-        E --> F["58D Feature<br>Vector f"]
+    subgraph S3 ["Stage 3: Palette Quantization"]
+        direction TB
+        G["MiniBatch K-Means<br>(K = 4 in LAB)"] --> H["Cluster Centroids (c1, c2)<br>& Area Weights (w1, w2)"]
+        H --> I["Form 58D Feature Vector"]
     end
 
-    subgraph S4 ["4. Calibrated Decision Head"]
-        F --> G["Achromatic Gate<br>(Chroma < 11.5)"]
-        G --> H["Navy Cutoff<br>(L* = 26.78)"]
-        H --> I["Weighted ΔE<br>(w_L = 0.65)"]
-        I --> J["Multicolor Gate<br>(τ = 27%)"]
+    subgraph S4 ["Stage 4: Metric Decision Head"]
+        direction TB
+        J["Achromatic Gate<br>(Chroma C* < 11.5)"] --> K["Calibrated Navy Gate<br>(L* cutoff = 26.78)"]
+        K --> L["Weighted ΔE Matching<br>(w_L = 0.65)"]
+        L --> M["Multicolor Gating<br>(w2 ≥ 27%, ΔE ≥ 22.0)"]
     end
 
-    J --> Out["Prediction y<br>(ID, HEX, Conf)"]
+    C --> D
+    F --> G
+    I --> J
+    M --> Out["Predicted Attribute<br>Color ID, Name, HEX"]
 
-    style S1 fill:#f9f9fb,stroke:#4a5568,stroke-width:1px
-    style S2 fill:#edf2f7,stroke:#2b6cb0,stroke-width:1px
-    style S3 fill:#ebf8ff,stroke:#3182ce,stroke-width:1px
-    style S4 fill:#f0fff4,stroke:#38a169,stroke-width:1px
-    style Out fill:#e6fffa,stroke:#319795,stroke-width:2px
+    style S1 fill:#f8fafc,stroke:#64748b,stroke-width:1px
+    style S2 fill:#f0fdf4,stroke:#16a34a,stroke-width:1px
+    style S3 fill:#eff6ff,stroke:#2563eb,stroke-width:1px
+    style S4 fill:#faf5ff,stroke:#9333ea,stroke-width:1px
+    style Out fill:#fffbeb,stroke:#d97706,stroke-width:2px
 ```
 
-*Figure 1: Architectural overview of the M5 Garment Color Extraction Framework.*
+*Figure 1: End-to-end architecture of the proposed M5 Garment Color Extraction Framework.*
 
-### How It Works (Four-Stage Physical Intuition)
+---
 
-1. **Stage 1: Boundary Denoising (`Mask M → Core Fabric M_core`):**
-   * *Problem:* Segmentation masks from neural networks often bleed 2–4 pixels into the background (skin, wall, tile).
-   * *Solution:* Dynamic morphological erosion using an elliptical structuring element (kernel `3×3` or `5×5`) extracts the core fabric region, eliminating edge contamination.
-2. **Stage 2: Perceptual Color Decoupling (`sRGB → CIELAB`):**
-   * *Problem:* In RGB/HSV, brightness is coupled with hue; shadows cause light clothes to look dark or grey.
-   * *Solution:* Transformation into **CIE L\*a\*b\* color space** decouples lightness (`L*` ∈ [0, 100]) from chroma (`a*`, `b*`). Harsh shadows (`L*` < 12) and specular glares (`L*` > 98) are isolated without corrupting fabric chroma.
-3. **Stage 3: Multi-Centroid Cluster Representation (`58D Feature Vector`):**
-   * *Problem:* Clothing often contains folds, shadows, textures, or secondary pattern stripes.
-   * *Solution:* Fast **MiniBatch K-Means (`K = 4`)** in CIELAB extracts primary and secondary cluster centroids (`c1`, `c2`) and area weights (`w1`, `w2`). Together with multi-channel quantiles and variances, a compact **58-dimensional perceptual feature vector** is formed.
-4. **Stage 4: Calibrated Decision Head (`58D Vector → Color Class 1..12`):**
-   * **Achromatic Gate:** Evaluates metric chroma `C* = √(a*² + b*²)`. If `C*` < 11.5, routes to Light (White), Medium (Grey), or Dark (Black).
-   * **Calibrated Navy Gate:** Addresses dark blue vs. black ambiguity with a calibrated luminance threshold (`L*` = 26.78, `b*` < -8.0).
-   * **Weighted ΔE Prototype Matching:** Uses luminance-discounted perceptual distance:
-     ```text
-     ΔE_weighted = √( 0.65 · (ΔL*)² + (Δa*)² + (Δb*)² )
-     ```
-     against empirical CCIHP cluster centers.
-   * **Multicolor Gate:** Triggers `12 Multicolor` if secondary cluster weight `w2` ≥ 27% and `ΔE(c1, c2)` ≥ 22.0.
+### Step-by-Step Pipeline Mechanics
+
+#### Stage 1: Spatial Boundary Denoising ($\mathbf{M} \to \mathbf{M}_{\text{core}}$)
+* **The Problem:** Neural network masks (from Mask2Former, YOLO, or SAM) inevitably suffer from boundary blur, bleeding 2–4 pixels into background walls, floor tiles, or human skin.
+* **The Formulation:** We apply morphological erosion with an elliptical kernel $\mathbf{K} \in \{3\times3, 5\times5\}$:
+  $$\mathbf{M}_{\text{core}} = \mathbf{M} \ominus \mathbf{K}$$
+* **Intuition:** Peeling away the outermost pixel boundary isolates the **core fabric region**, completely eliminating background color leakage before any color extraction occurs.
+
+#### Stage 2: Photometric Invariance & Shadow Decoupling ($\text{sRGB} \to \text{CIELAB}$)
+* **The Problem:** In sRGB/HSV color spaces, illumination and color information are entangled. A cast shadow across a white t-shirt causes RGB values to plunge, tricking naive algorithms into predicting grey or black.
+* **The Formulation:** Pixels are mapped into the device-independent **CIE $L^*a^*b^*$ color space**:
+  * $L^* \in [0, 100]$: Achromatic lightness channel.
+  * $a^* \in [-128, 127]$: Green–Red opponent chromaticity.
+  * $b^* \in [-128, 127]$: Blue–Yellow opponent chromaticity.
+* **Intuition:** By decoupling luminance ($L^*$) from chromaticity ($a^*, b^*$), the intrinsic fabric color remains invariant across shaded folds and bright lighting. Extreme specular highlights ($L^* > 98$) and void shadows ($L^* < 12$) are safely isolated.
+
+#### Stage 3: Unsupervised Palette Quantization (MiniBatch $K$-Means, $K=4$)
+* **The Problem:** Clothing is rarely uniform; real garments feature folds, secondary logos, zippers, or multicolor patterns. Taking a simple global mean or median blurs distinct colors together.
+* **The Formulation:** We fit a MiniBatch $K$-Means clustering model ($K=4$) directly in CIELAB space to minimize within-cluster sum of squares:
+  $$\arg\min_{\mathbf{S}} \sum_{k=1}^{4} \sum_{\mathbf{p} \in S_k} \|\mathbf{p} - \mathbf{c}_k\|^2$$
+* **Intuition:** Yields dominant cluster centroids $\mathbf{c}_1, \mathbf{c}_2$ and area proportions $w_1, w_2$. Along with multi-channel quantiles and variances, this forms a compact **58-dimensional perceptual feature vector $\mathbf{f}_{58}$**.
+
+#### Stage 4: Calibrated Metric Decision Head ($\mathbf{f}_{58} \to \hat{y}$)
+A hierarchical decision network calibrated on 3,017 real-world garments:
+1. **Achromatic Gate:** Evaluates metric chroma $C^* = \sqrt{a^{*2} + b^{*2}}$. If $C^* < 11.5$, chromaticity is negligible $\to$ deterministic mapping to **Dark** ($L^* < 28$), **Medium** ($28 \le L^* < 75$), or **Light** ($L^* \ge 75$).
+2. **Calibrated Navy Gate:** Solves the notorious navy-vs-black ambiguity under low light using a calibrated decision hyperplane ($L^*_{\text{cutoff}} = 26.78, b^* < -8.0$).
+3. **Luminance-Discounted $\Delta E$ Matching:** Chromatic clusters are matched against empirical prototype centers using a modified Euclidean distance that downweights luminance variations ($w_L = 0.65$):
+   $$\Delta E_{\text{weighted}} = \sqrt{0.65 \cdot (\Delta L^*)^2 + (\Delta a^*)^2 + (\Delta b^*)^2}$$
+4. **Multicolor Gating:** If the secondary cluster occupies $w_2 \ge 27\%$ of the garment area with perceptual contrast $\Delta E(\mathbf{c}_1, \mathbf{c}_2) \ge 22.0$, the garment is formally classified as **`12 Multicolor`** (capturing stripes, plaid, and color-blocking).
 
 ---
 
