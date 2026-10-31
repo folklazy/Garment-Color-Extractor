@@ -14,3 +14,7 @@ Finish when all seven methods account for exact614 validation regions, reused re
 ## Current closure
 
 COMPLETE: all seven configurations account for exact614 validation regions. Actual input450images processed; contributing images294train/49calibration/97validation because some selected images have no eligible garments. New M1–M5 execution completed; accepted rules/MLP unchanged. Four focused CPU contracts, model reload, independent arithmetic and source/parent bindings pass. See [REPORT.md](REPORT.md) for results, diagnostics and separate accuracy/macroF1 leaders. Current work unit ends with Git publication; no automatic extra evaluation/default-model replacement.
+
+## Selected method — user-requested decision
+
+User asks for one best method and paper-style documentation. Selected **T4_MLP_62_64_32_12_v1** for the next phase, using the previously declared primary strict accuracy:422/614=68.73%. Selection does not change metrics, mapping, model weights, default API or frozen protocol. M4 remains the macroF1 leader, recorded as a secondary trade-off rather than a second selected method. See [selected-method report](reports/SELECTED_COLOR_METHOD_TH.md) and [decision](registry/SELECTED_METHOD.json). No new training/inference/testing was needed for this metadata/documentation work unit.

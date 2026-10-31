@@ -1,3 +1,5 @@
+> **คำตัดสินหลังการเปรียบเทียบ:** ผู้ใช้มอบหมายให้เลือกหนึ่งวิธีหลักแล้ว เลือก **T4_MLP_62_64_32_12_v1** ตาม primary strict accuracy68.73%. อ่าน [method profile แบบบทความวิจัย](reports/SELECTED_COLOR_METHOD_TH.md) และ [selection decision](registry/SELECTED_METHOD.json). ข้อเสนอ shortlist ในเนื้อหาการเปรียบเทียบด้านล่างเป็นบันทึกก่อนคำตัดสินนี้; ผลและข้อได้เปรียบ macro F1 ของ M4 คงเดิม.
+
 # ผลเปรียบเทียบเทคนิคสีเสื้อผ้า 7 วิธี
 
 สถานะ **COMPLETE 7/7 configurations**, ตรวจครบวิธีละ **614 garment regions** จาก Validationที่เลือก100ภาพ โดย97ภาพมีregionsผ่านเกณฑ์; ปิด execution 2026-11-01T03:27:59.421199+07:00 เวลาไทย. Run `color-methods-20261101` / protocol `OBSERVED_GARMENT_COLOR_SEVEN_METHODS_V1`. เป็น exploratory subset study ไม่ใช่ CIHP5000ภาพ, parsing benchmark หรือ CCTV accuracy.

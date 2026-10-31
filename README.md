@@ -1,3 +1,5 @@
+> **Selected method: T4 MLP 62→64→32→12 (6,508 parameters).** Highest declared-primary strict accuracy:68.73% (422/614). [รายละเอียดแบบบทความวิจัยและเหตุผลการเลือก](reports/SELECTED_COLOR_METHOD_TH.md) · [Machine-readable decision](registry/SELECTED_METHOD.json). M4 remains the macro-F1 leader; API default is unchanged.
+
 > **Current study: seven-method comparison COMPLETE.** [ผลทดลองภาษาไทย](REPORT.md) · [สรุปย่อ](RESULTS_SUMMARY_TH.md) · [สำหรับนำเสนอ](PRESENTATION_SUMMARY_TH.md) · [Protocol](EXPERIMENT_PROTOCOL.md) · [Canonical tables](reports/color-methods-20261101/METHOD_RESULTS.csv) · [Current state](STUDY_STATE.json).
 >
 > ใช้ 614 oracle garment regions จาก Validation ที่เลือก 100 ภาพ (97 ภาพมี regions ผ่านเกณฑ์). MLP นำ strict accuracy **68.73%**; M4 นำ fixed12 macro F1 **58.07%**; M5 ensemble ที่ fit จริงได้ accuracy **66.29%**. เป็น exploratory subset comparison; ยังไม่ใช่คะแนน CCTV หรือ benchmark เต็ม 5,000 ภาพ. Default API ยังเป็น rules v2. [Data/terms](DATASET_DETAILS.md) · [Schema](DATA_SCHEMA.md) · [Setup/artifacts](docs/METHOD_COMPARISON_SETUP.md).
