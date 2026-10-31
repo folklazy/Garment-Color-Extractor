@@ -1,0 +1,125 @@
+{
+  "protocol_id": "OBSERVED_GARMENT_COLOR_SEVEN_METHODS_V1",
+  "status": "FROZEN_BEFORE_NEW_M1_TO_M5_SCORES",
+  "scope_authorization": "User asks to execute and summarize each selected technique, like YOLO, commit and push; extends bounded pilot to M1\u2013M5 on unchanged membership",
+  "parent_run": "t4-pilot-20261101",
+  "data_protocol": "configs/T4_COLOR_PILOT_PROTOCOL.json",
+  "methods": [
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "prototype_rules_v2",
+    "T4_MLP_62_64_32_12_v1"
+  ],
+  "expected_images": {
+    "train": 300,
+    "calibration": 50,
+    "validation": 100
+  },
+  "expected_regions": {
+    "train": 1648,
+    "calibration": 370,
+    "validation": 614
+  },
+  "inputs": "identical original-grid full-mask post-erosion RGB pixels; GT color never filters input",
+  "labels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "native_categories": [
+    5,
+    7,
+    9,
+    12
+  ],
+  "feature_dimensions": {
+    "M2_to_M4_base": 84,
+    "M5": 96,
+    "prototype_rules": 58,
+    "MLP": 62
+  },
+  "fit_partitions": {
+    "prototypes_ensemble": "train",
+    "multicolor_thresholds": "calibration",
+    "MLP": "reuse accepted T4 artifact; no refit"
+  },
+  "M5": {
+    "HGB": {
+      "max_iter": 180,
+      "learning_rate": 0.055,
+      "max_depth": 6,
+      "min_samples_leaf": 12,
+      "l2_regularization": 1.5,
+      "early_stopping": false
+    },
+    "ExtraTrees": {
+      "n_estimators": 250,
+      "max_depth": 16,
+      "min_samples_leaf": 3,
+      "n_jobs": 2
+    },
+    "seed": 42,
+    "sample_weight_exponent": 0.22,
+    "ensemble_weights": [
+      0.6,
+      0.4
+    ],
+    "prototype_blend": 0.15,
+    "heads": [
+      "UPPER",
+      "LOWER"
+    ]
+  },
+  "threshold_grids": {
+    "M2": [
+      0.4,
+      0.8,
+      41
+    ],
+    "M3": [
+      0.16,
+      0.55,
+      40
+    ],
+    "M4": [
+      0.18,
+      0.55,
+      38
+    ]
+  },
+  "primary": "strict region accuracy",
+  "secondary": [
+    "fixed12 macroF1",
+    "GT-supported macroF1",
+    "per-color P/R/F1/support",
+    "per-native-category accuracy",
+    "confusion12x12"
+  ],
+  "missing": "null with reason, no zero replacement",
+  "selection": "descriptive primary/secondary leaders; no new weighted score/VAL tuning",
+  "new_parsing_calls": 0,
+  "new_GPU_calls": 0,
+  "MLP_training_reused": true,
+  "CCTV_evaluation": false,
+  "resources": {
+    "CPU_threads": 2,
+    "max_hours": 2,
+    "min_free_disk_GiB": 50,
+    "boundary_RSS_guard_GiB": 4,
+    "automatic_retry": 0
+  },
+  "publication": "source/config/compact tables only; weights/data/feature arrays/raw logs private",
+  "evidence_limit": "Exploratory reused pilot validation, already viewed for two methods; not an independent confirmation or full5000 benchmark"
+}

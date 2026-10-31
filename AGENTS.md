@@ -12,3 +12,7 @@ Start with README.md → reports/COLOR_REVIEW_TH.md → benchmark/EVIDENCE_INDEX
 ## Latest explicit user scope — T4 pilot redesign
 
 User explicitly authorizes designing and running a bounded new color pilot, including a small learned classifier on the available T4. This supersedes the earlier no-training/GPU sentence only for configs/T4_COLOR_PILOT_PROTOCOL.json: 300 train +50 calibration +100 validation images, no downloads or new parsing inference; saved-mask CCTV qualitative check12images only, no CCTV color accuracy claim. Freeze memberships/source before scores; preserve historical artifacts. No additional full benchmark or hyperparameter search is implied.
+
+## Current explicit user scope — method comparison
+
+User authorizes testing selected techniques and publishing a YOLO-style comparison. Current contract: configs/COLOR_METHOD_COMPARISON.json. Reuse the accepted 300/50/100-image pilot membership, rules predictions and T4 MLP artifact. Fit/evaluate real M1–M5 once with train/calibration separation; no new parsing inference, downloads, CCTV accuracy benchmark or full5000 expansion. New ensemble weights remain external to Git. Historical evidence is preserved.

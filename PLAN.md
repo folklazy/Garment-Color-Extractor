@@ -1,27 +1,12 @@
-# Observed garment color — T4 pilot plan
+# Observed garment color — current comparison plan
 
-Authoritative execution contract: [T4_COLOR_PILOT_PROTOCOL.json](configs/T4_COLOR_PILOT_PROTOCOL.json). This is an exploratory small trial designed after earlier flawed evidence, not a new full parser benchmark.
+Current authoritative protocol: [EXPERIMENT_PROTOCOL.md](EXPERIMENT_PROTOCOL.md) / [COLOR_METHOD_COMPARISON.json](configs/COLOR_METHOD_COMPARISON.json). Current state: [STUDY_STATE.json](STUDY_STATE.json). Start README → PLAN → protocol → current report.
 
-## Scope
+The completed [T4 pilot](reports/T4_COLOR_PILOT_TH.md) and its unchanged [protocol](configs/T4_COLOR_PILOT_PROTOCOL.json) are parent evidence. The user now authorizes comparing each selected technique in the style of the YOLO study, then committing/pushing the deliverables.
 
-CCIHP oracle masks, person×nativegarment5/7/9/12. Native definitions include top/bottom of dresses; this is not CIHP non-Dress C4-P. Color labels1–12 come from dataset annotations, never from the evaluator's own RGB rules. Face has no suitable color target; Hair is supplementary future work, not silently pooled with clothing.
+1. **Definition/freeze:** reuse accepted exact300train/50calibration/100Validation images and1648/370/614 garment regions. Pin seven configurations M1–M5/rules/MLP, shared inputs, metrics, thresholds and source bindings before new scores. Independent CPU acceptance covers class-column alignment, actual ensemble blend, descriptor shape and calibration ties. No new experiment data or parsing calls.
+2. **Execution:** one bounded CPU fit of M2–M5 and evaluation M1–M5; reuse two accepted pilot observations. Export actual ensemble artifact, fit evidence and per-region predictions. Readback verification and exact membership reconciliation; stop on errors, retain history. CPU2threads/4GiB boundary RSS guard/50GiBfree/2h; no GPU work beyond the already completed T4 MLP.
+3. **Closure:** compute canonical tables, per-color/category breakdowns and source/artifact manifest. Identify descriptive strict-accuracy/macroF1 leaders independently. Reports explain method/category-conditioning differences, dataset exclusions/rare classes and lack of CCTV/end-to-end/deployment evidence. No speed/VRAM ranking.
+4. **Git handoff:** public source/config/compact tables/docs only; data, trained weights, detailed logs and CCTV assets stay outside Git. Use working branch and draft PR; no main merge or historical rewrite. Check staged scope, remote commit and anonymous report access.
 
-300Trainingimages forfit,50differentTrainingimages forcalibration,100Validationimages forevaluation. DeterministicSHAorder/RGBdedup acrosspartitions beforefeature/modelscore. Allmodelsuseidenticaleligiblemasks/pixels/erosion andGTlabels. GT0unknown does not filter RGBinputpixels. Minimumregion100px,80%characterized and80%modalcolorconsensus; excludedreasons retained. This defines a subset task, not fullvalidationperformance.
-
-Two configurations: existingprototype_rules_v2baseline and anewsupervised62→64→32→12MLP. Input58descriptor+4nativegarmentonehot. Train-onlystandardization;40epochsAdamW/FP32onTeslaT4;bestcheckpointonlyfromcalibrationcrossentropy. No search/VALtuning/retries/fallback. Strictaccuracy/fixed12macroF1/support/confusion primary; no relaxedscore orcleanlatencyranking.
-
-## Stages
-
-1. Freeze memberships/GT/source/environment and pass independentCPUlabel/metric/artifactcases.
-2. Extractsameoraclefeaturesforbothconfigurations,retainallregion/evidence/exclusionrows.
-3. Train onceonT4;exportactualweights+normalizer+feature/classorder+sourcehashes,thenevaluateheld-outValidationonce.
-4. Replayexportedmodelagainstsavedfeaturestoensureload/readbackparity. BoundedsavedM2FPCCTVqualitativeexamples12(6day/6night) only; no coloraccuracyclaimsagainstunverifiedlabelprovenance. No newparsinginference.
-5. Publishcompactreport/tables/source/manifestsandlimits;keepdatasets/checkpoint/featurearrays/CCTVgalleryprivate;closeattemptstatuswithnoautomaticfullrun.
-
-## Resources/stop
-
-CPUthreads2/GPU0T4oneworker/freeVRAM2GiB/disk50GiB/time2h. Actualtrainingpeakrecorded asdiagnostic. FirstOOM/nonfinite/source/GT/contract/resourceerrorstopsattemptandretainsartifacts;noautomaticrestart orprecisionchange. Existingenvironmentsusedwithoutinstallation. Newuserauthorizationpermitsonlythissmallcolortraining/evaluation;no0.8B/1B/parsingrerun/tracking/colorfullbenchmark.
-
-## Acceptance and limits
-
-Exactdeclaredmemberships,disjointRGBhashes,allplannedimages accountedfor,metricarithmetic/confusion/denominatorscorrect,exportedmodelreadbackpredictionsidentical. Accuracydoesnotdecidetechnicalacceptance;reportlowperformancehonestly. Smallvalidationmaylackrareclasses;showsupport. Noindependentfinalconfirmation/CCTVdeploymentacceptance/materialhueclaim. No automaticreplacementofdefaultAPIenginefrompilotscores.
+Finish when all seven methods account for exact614 validation regions, reused results agree with parent evidence, actual exported ensemble reloads with the same predictions, and report/tables/links/Git are consistent. Accuracy is an experimental result, not a technical acceptance threshold. No automatic model replacement or additional full benchmark follows this work unit.

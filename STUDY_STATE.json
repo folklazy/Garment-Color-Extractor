@@ -1,6 +1,6 @@
 {
   "updated_Bangkok": "2026-11-01T02:54:06.656155+07:00",
-  "status": "T4_PILOT_COMPLETE_REQUIRES_REVIEW",
+  "status": "METHOD_COMPARISON_FROZEN_PENDING_EXECUTION",
   "algorithm_id": "prototype_rules_v2",
   "package_version": "1.1.0",
   "review": "reports/COLOR_REVIEW_TH.md",
@@ -9,15 +9,22 @@
   "historical_benchmark_status": "PRESERVED_NOT_PACKAGE_VALIDATION",
   "trained_M5_artifact_present": false,
   "CCTV_color_GT": "MIXED_OR_UNKNOWN_PROVENANCE_NOT_INDEPENDENTLY_VERIFIED",
-  "next_action": "Review pilot evidence/rare classes before expanding or enabling learned model; no automatic full benchmark.",
+  "next_action": "One bounded real M1\u2013M5 fit/evaluation; reuse accepted rules/MLP.",
   "new_user_authorization": "Bounded redesign/color learning and pilot evaluation on T4",
-  "current_protocol": "configs/T4_COLOR_PILOT_PROTOCOL.json",
+  "current_protocol": "configs/COLOR_METHOD_COMPARISON.json",
   "current_plan": "PLAN.md",
-  "current_report": "reports/T4_COLOR_PILOT_TH.md",
+  "current_report": "REPORT.md",
   "learned_color_artifact_present_locally": true,
   "learned_algorithm": "T4_MLP_62_64_32_12_v1",
   "default_API_engine": "prototype_rules_v2",
   "pilot_validation_accuracy": 0.6872964169381107,
   "CCTV_accuracy": null,
-  "updated_utc": "2026-10-31T20:08:26.707886+00:00"
+  "updated_utc": "2026-10-31T20:23:19.286520+00:00",
+  "method_comparison": {
+    "configurations": 7,
+    "validation_images": 100,
+    "validation_regions": 614,
+    "new_parsing_calls": 0,
+    "new_GPU_calls": 0
+  }
 }
