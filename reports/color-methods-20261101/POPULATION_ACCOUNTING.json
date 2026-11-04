@@ -1,0 +1,33 @@
+{
+  "train": {
+    "selected_images": 300,
+    "contributing_images": 294,
+    "images_without_eligible_regions": [
+      "0019841",
+      "0023740",
+      "0025094",
+      "0025701",
+      "0027991",
+      "0029464"
+    ],
+    "eligible_regions": 1648
+  },
+  "calibration": {
+    "selected_images": 50,
+    "contributing_images": 49,
+    "images_without_eligible_regions": [
+      "0012827"
+    ],
+    "eligible_regions": 370
+  },
+  "validation": {
+    "selected_images": 100,
+    "contributing_images": 97,
+    "images_without_eligible_regions": [
+      "0009820",
+      "0017885",
+      "0020715"
+    ],
+    "eligible_regions": 614
+  }
+}

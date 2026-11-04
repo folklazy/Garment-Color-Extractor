@@ -1,27 +1,26 @@
-# Observed garment color — T4 pilot plan
+# Current future scope — three active color candidates
 
-Authoritative execution contract: [T4_COLOR_PILOT_PROTOCOL.json](configs/T4_COLOR_PILOT_PROTOCOL.json). This is an exploratory small trial designed after earlier flawed evidence, not a new full parser benchmark.
+Authoritative active roster: [registry/ACTIVE_CANDIDATES.json](registry/ACTIVE_CANDIDATES.json). Retain M1/M4/T4_MLP_62_64_32_12_v1 only; M2/M3/M5/prototype_rules_v2 are excluded from future rounds with no automatic reserve/ablation status. See [full Thai rationale](reports/SELECTED_COLOR_METHOD_TH.md#ชุด-candidate-ปัจจุบัน-เหลือ-3-วิธีสำหรับงานต่อ). The selected research configuration remains MLP; category-contract readiness is required before downstream integration. A future executable evaluation must declare this active membership in a fresh scoped protocol; the frozen seven-method runner below is for historical reproduction only. No new fit/inference/benchmark is launched by this decision.
 
-## Scope
+## Historical completed plan and selection records
 
-CCIHP oracle masks, person×nativegarment5/7/9/12. Native definitions include top/bottom of dresses; this is not CIHP non-Dress C4-P. Color labels1–12 come from dataset annotations, never from the evaluator's own RGB rules. Face has no suitable color target; Hair is supplementary future work, not silently pooled with clothing.
+# Observed garment color — current comparison plan
 
-300Trainingimages forfit,50differentTrainingimages forcalibration,100Validationimages forevaluation. DeterministicSHAorder/RGBdedup acrosspartitions beforefeature/modelscore. Allmodelsuseidenticaleligiblemasks/pixels/erosion andGTlabels. GT0unknown does not filter RGBinputpixels. Minimumregion100px,80%characterized and80%modalcolorconsensus; excludedreasons retained. This defines a subset task, not fullvalidationperformance.
+Current authoritative protocol: [EXPERIMENT_PROTOCOL.md](EXPERIMENT_PROTOCOL.md) / [COLOR_METHOD_COMPARISON.json](configs/COLOR_METHOD_COMPARISON.json). Current state: [STUDY_STATE.json](STUDY_STATE.json). Start README → PLAN → protocol → current report.
 
-Two configurations: existingprototype_rules_v2baseline and anewsupervised62→64→32→12MLP. Input58descriptor+4nativegarmentonehot. Train-onlystandardization;40epochsAdamW/FP32onTeslaT4;bestcheckpointonlyfromcalibrationcrossentropy. No search/VALtuning/retries/fallback. Strictaccuracy/fixed12macroF1/support/confusion primary; no relaxedscore orcleanlatencyranking.
+The completed [T4 pilot](reports/T4_COLOR_PILOT_TH.md) and its unchanged [protocol](configs/T4_COLOR_PILOT_PROTOCOL.json) are parent evidence. The user now authorizes comparing each selected technique in the style of the YOLO study, then committing/pushing the deliverables.
 
-## Stages
+1. **Definition/freeze:** reuse accepted exact300train/50calibration/100Validation images and1648/370/614 garment regions. Pin seven configurations M1–M5/rules/MLP, shared inputs, metrics, thresholds and source bindings before new scores. Independent CPU acceptance covers class-column alignment, actual ensemble blend, descriptor shape and calibration ties. No new experiment data or parsing calls.
+2. **Execution:** one bounded CPU fit of M2–M5 and evaluation M1–M5; reuse two accepted pilot observations. Export actual ensemble artifact, fit evidence and per-region predictions. Readback verification and exact membership reconciliation; stop on errors, retain history. CPU2threads/4GiB boundary RSS guard/50GiBfree/2h; no GPU work beyond the already completed T4 MLP.
+3. **Closure:** compute canonical tables, per-color/category breakdowns and source/artifact manifest. Identify descriptive strict-accuracy/macroF1 leaders independently. Reports explain method/category-conditioning differences, dataset exclusions/rare classes and lack of CCTV/end-to-end/deployment evidence. No speed/VRAM ranking.
+4. **Git handoff:** public source/config/compact tables/docs only; data, trained weights, detailed logs and CCTV assets stay outside Git. Use working branch and draft PR; no main merge or historical rewrite. Check staged scope, remote commit and anonymous report access.
 
-1. Freeze memberships/GT/source/environment and pass independentCPUlabel/metric/artifactcases.
-2. Extractsameoraclefeaturesforbothconfigurations,retainallregion/evidence/exclusionrows.
-3. Train onceonT4;exportactualweights+normalizer+feature/classorder+sourcehashes,thenevaluateheld-outValidationonce.
-4. Replayexportedmodelagainstsavedfeaturestoensureload/readbackparity. BoundedsavedM2FPCCTVqualitativeexamples12(6day/6night) only; no coloraccuracyclaimsagainstunverifiedlabelprovenance. No newparsinginference.
-5. Publishcompactreport/tables/source/manifestsandlimits;keepdatasets/checkpoint/featurearrays/CCTVgalleryprivate;closeattemptstatuswithnoautomaticfullrun.
+Finish when all seven methods account for exact614 validation regions, reused results agree with parent evidence, actual exported ensemble reloads with the same predictions, and report/tables/links/Git are consistent. Accuracy is an experimental result, not a technical acceptance threshold. No automatic model replacement or additional full benchmark follows this work unit.
 
-## Resources/stop
+## Current closure
 
-CPUthreads2/GPU0T4oneworker/freeVRAM2GiB/disk50GiB/time2h. Actualtrainingpeakrecorded asdiagnostic. FirstOOM/nonfinite/source/GT/contract/resourceerrorstopsattemptandretainsartifacts;noautomaticrestart orprecisionchange. Existingenvironmentsusedwithoutinstallation. Newuserauthorizationpermitsonlythissmallcolortraining/evaluation;no0.8B/1B/parsingrerun/tracking/colorfullbenchmark.
+COMPLETE: all seven configurations account for exact614 validation regions. Actual input450images processed; contributing images294train/49calibration/97validation because some selected images have no eligible garments. New M1–M5 execution completed; accepted rules/MLP unchanged. Four focused CPU contracts, model reload, independent arithmetic and source/parent bindings pass. See [REPORT.md](REPORT.md) for results, diagnostics and separate accuracy/macroF1 leaders. Current work unit ends with Git publication; no automatic extra evaluation/default-model replacement.
 
-## Acceptance and limits
+## Selected method — user-requested decision
 
-Exactdeclaredmemberships,disjointRGBhashes,allplannedimages accountedfor,metricarithmetic/confusion/denominatorscorrect,exportedmodelreadbackpredictionsidentical. Accuracydoesnotdecidetechnicalacceptance;reportlowperformancehonestly. Smallvalidationmaylackrareclasses;showsupport. Noindependentfinalconfirmation/CCTVdeploymentacceptance/materialhueclaim. No automaticreplacementofdefaultAPIenginefrompilotscores.
+User asks for one best method and paper-style documentation. Selected **T4_MLP_62_64_32_12_v1** for the next phase, using the previously declared primary strict accuracy:422/614=68.73%. Selection does not change metrics, mapping, model weights, default API or frozen protocol. M4 remains the macroF1 leader, recorded as a secondary trade-off rather than a second selected method. See [selected-method report](reports/SELECTED_COLOR_METHOD_TH.md) and [decision](registry/SELECTED_METHOD.json). No new training/inference/testing was needed for this metadata/documentation work unit.

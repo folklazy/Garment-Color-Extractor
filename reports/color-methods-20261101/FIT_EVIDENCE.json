@@ -1,0 +1,87 @@
+{
+  "model_sha256": "a5e6010341dc21d1a3706e96ae4f8325da8c4ea4626fc1db6e88b0dfd688f809",
+  "model_bytes": 11298309,
+  "heads": {
+    "UPPER": {
+      "training_rows": 1066,
+      "feature_dimensions": 96,
+      "classes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "HGB_iterations": 180,
+      "ExtraTrees_estimators": 250,
+      "sample_weight_exponent": 0.22
+    },
+    "LOWER": {
+      "training_rows": 582,
+      "feature_dimensions": 96,
+      "classes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "HGB_iterations": 180,
+      "ExtraTrees_estimators": 250,
+      "sample_weight_exponent": 0.22
+    }
+  },
+  "calibration": {
+    "M2:GLOBAL": {
+      "rows": 370,
+      "multicolor": 28,
+      "multicolor_weight": 0.45,
+      "threshold": 0.77,
+      "fallback": null
+    },
+    "M3:GLOBAL": {
+      "rows": 370,
+      "multicolor": 28,
+      "multicolor_weight": 0.45,
+      "threshold": 0.23,
+      "fallback": null
+    },
+    "M4:UPPER": {
+      "rows": 232,
+      "multicolor": 18,
+      "multicolor_weight": 0.2,
+      "threshold": 0.42000000000000004,
+      "fallback": null
+    },
+    "M4:LOWER": {
+      "rows": 138,
+      "multicolor": 10,
+      "multicolor_weight": 0.2,
+      "threshold": 0.31000000000000005,
+      "fallback": null
+    }
+  },
+  "seed": 42,
+  "no_validation_fitting": true,
+  "no_hair_head": true,
+  "descriptor_base": 84,
+  "M5_dimensions": 96,
+  "library_warnings": {
+    "One of the clusters is empty. Re-run kmeans with a different initialization.": 41
+  },
+  "joblib_reload_predictions_identical": 614
+}

@@ -1,0 +1,45 @@
+{
+  "decision_id": "COLOR_METHOD_SELECTION_20261101",
+  "status": "SELECTED_FOR_NEXT_PHASE",
+  "selected_method": "T4_MLP_62_64_32_12_v1",
+  "decision_utc": "2026-10-31T20:43:18.652188+00:00",
+  "authorization": "User explicitly asks agent to choose one best method and document it like a paper",
+  "selection_basis": "Highest strict region accuracy, the primary metric declared before the seven-method comparison; complete same-population evaluation",
+  "primary_metric": "strict_accuracy",
+  "primary_value": 0.6872964169381107,
+  "correct_regions": 422,
+  "expected_regions": 614,
+  "scope": "Observed garment-color classification on the fixed CCIHP oracle-region subset; selected research configuration for next phase, not deployment acceptance",
+  "secondary_tradeoff": {
+    "macroF1_leader": "M4",
+    "selected_macroF1": 0.5255135386226435,
+    "M4_macroF1": 0.5807482777848979,
+    "selection_does_not_change_secondary_results": true
+  },
+  "evidence": "reports/selected-color-method/SELECTION_EVIDENCE.json",
+  "paper_report": "reports/SELECTED_COLOR_METHOD_TH.md",
+  "comparison_report": "REPORT.md",
+  "protocol": "configs/COLOR_METHOD_COMPARISON.json",
+  "comparison_run": "color-methods-20261101",
+  "trained_model_parent_run": "t4-pilot-20261101",
+  "checkpoint": {
+    "logical_path": "outputs/t4-pilot-20261101/learned_color.pt",
+    "sha256": "4145b416f9020422e389210af6eab6adc6d92d6c37af6033f60ffc712969bfde",
+    "bytes": 30493,
+    "redistribution": "NOT_AUTOMATICALLY_AUTHORIZED"
+  },
+  "architecture": {
+    "inputs": 62,
+    "hidden": [
+      64,
+      32
+    ],
+    "outputs": 12,
+    "parameters": 6508,
+    "precision": "FP32"
+  },
+  "default_API_engine": "prototype_rules_v2",
+  "default_API_changed": false,
+  "new_training_or_inference": false,
+  "next_action": "Use this selected configuration for a separately scoped downstream integration/evaluation; no automatic new experiment or public weight release"
+}

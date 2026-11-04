@@ -1,0 +1,133 @@
+{
+  "generated_utc": "2026-10-31T20:43:18.652445+00:00",
+  "source_result_commit": "1ad08dbba3f65dd34885db1cc76bf4d55121758f",
+  "decision_id": "COLOR_METHOD_SELECTION_20261101",
+  "status": "VERIFIED_FROM_EXISTING_ARTIFACTS",
+  "methods_complete": 7,
+  "parameters": 6508,
+  "tensor_shapes": [
+    {
+      "tensor": "0.weight",
+      "shape": [
+        64,
+        62
+      ],
+      "dtype": "torch.float32",
+      "parameters": 3968
+    },
+    {
+      "tensor": "0.bias",
+      "shape": [
+        64
+      ],
+      "dtype": "torch.float32",
+      "parameters": 64
+    },
+    {
+      "tensor": "2.weight",
+      "shape": [
+        32,
+        64
+      ],
+      "dtype": "torch.float32",
+      "parameters": 2048
+    },
+    {
+      "tensor": "2.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "torch.float32",
+      "parameters": 32
+    },
+    {
+      "tensor": "4.weight",
+      "shape": [
+        12,
+        32
+      ],
+      "dtype": "torch.float32",
+      "parameters": 384
+    },
+    {
+      "tensor": "4.bias",
+      "shape": [
+        12
+      ],
+      "dtype": "torch.float32",
+      "parameters": 12
+    }
+  ],
+  "checkpoint_sha256": "4145b416f9020422e389210af6eab6adc6d92d6c37af6033f60ffc712969bfde",
+  "checkpoint_bytes": 30493,
+  "selected_epoch": 28,
+  "recorded_losses": {
+    "epoch1": {
+      "epoch": 1,
+      "train_loss": 2.3995675531405847,
+      "calibration_loss": 2.284693479537964
+    },
+    "selected_epoch": {
+      "epoch": 28,
+      "train_loss": 0.8470269678865822,
+      "calibration_loss": 1.0702204704284668
+    },
+    "epoch40": {
+      "epoch": 40,
+      "train_loss": 0.7848440084642577,
+      "calibration_loss": 1.083287239074707
+    }
+  },
+  "selection": {
+    "metric": "strict_accuracy",
+    "winner": "T4_MLP_62_64_32_12_v1",
+    "accuracy": 0.6872964169381107,
+    "macroF1": 0.5255135386226435,
+    "no_weighted_score_or_new_threshold": true
+  },
+  "evidence_files": {
+    "reports/color-methods-20261101/METHOD_RESULTS.csv": "bd1499cb5223977472e1228d98e1951d3afb29a362b0f7952dfcd7cef22ddd30",
+    "reports/color-methods-20261101/PER_CLASS.csv": "f9264e1275797fda154eb67788dd92475763679ade1954a91714eeb2390b6a69",
+    "reports/color-methods-20261101/PER_CATEGORY.csv": "d44df83e416aec0bd975ea0bf38d6eb00056a714eb4479a7ed2d59b348149192",
+    "reports/color-methods-20261101/VALIDATION_PREDICTIONS.csv": "35d6b13149e23878b392cbb0a48c65a3e7636ff843c2ec766f606ab0951021f6",
+    "reports/color-methods-20261101/VERIFICATION.json": "89191b2062695a4a3aed87012aefe08663a0c7336d09372017604e298b5be414",
+    "configs/COLOR_METHOD_COMPARISON.json": "a5728bf47553ce2f4c9a3bf6ee77cc7cc9bff86d375844610c7eee86c9a25de6",
+    "configs/T4_COLOR_PILOT_PROTOCOL.json": "da15012fe31807f070ab26f1a43438d1a39bf0220fb155097a951fade14e3450",
+    "src/garment_color/learned.py": "a322b1022f6de18554a7d1a2a637d7949ff555e69c63261ba3ffa9e6f4de6975",
+    "src/garment_color/features.py": "356155e9b91d1ed42d13958ee53d469e8d17b1c796a256e38239f407f794d55a",
+    "src/garment_color/preprocessor.py": "913711b55bdb871ae869bb821685158af9795686c2faf037ed5a1e3a8d614926",
+    "scripts/run_t4_pilot.py": "c82ba164f3ee460910ab65068d13d4e2dfa3ee9c96921adf96d71f5fa93c2a78",
+    "reports/t4-pilot-20261101/MANIFEST.json": "4621028c3fd59d9e01e8dc28a07e924e17bd151ed6ce22aea1c027eb55f8fdcc",
+    "reports/t4-pilot-20261101/VERIFICATION.json": "272946adeeee4175800cd58ae11f13ef8d26179f5999765f8adba60632b3d3f9",
+    "reports/selected-color-method/TRAINING_HISTORY.csv": "6ea221436a7be4a5494009cf2aa98aa137f7d0d929b0c5bba534410f40d5660b",
+    "reports/selected-color-method/TRAINING_LOSS.svg": "b06debe9a239f16498a31392649445247d88168d5c472d0de54bc0ac8ad75963"
+  },
+  "external_training_history": {
+    "logical_path": "outputs/t4-pilot-20261101/TRAINING_HISTORY.json",
+    "sha256": "5a301f10f7dbefc74ce07495843af8bd536465c135461d175b1e363978ee5636"
+  },
+  "checks": [
+    "Complete same-population seven-method roster",
+    "Primary-accuracy leader independently selected from full-precision CSV",
+    "Checkpoint SHA equals accepted manifest",
+    "CPU metadata-only checkpoint inspection: tensors FP32, 6508 parameters",
+    "Best epoch is minimum recorded calibration CE, earliest tie",
+    "Native label order1..12 and feature dimensions62 verified"
+  ],
+  "new_training": false,
+  "new_model_forward_calls": 0,
+  "new_GPU_calls": 0,
+  "API_or_frozen_sources_changed": false,
+  "external_references": {
+    "AdamW": "https://arxiv.org/abs/1711.05101",
+    "MiniBatchKMeans": "https://scikit-learn.org/stable/modules/generated/sklearn.cluster.MiniBatchKMeans.html",
+    "CCIHP_citation_from_release_README": "https://doi.org/10.1109/ICIP42928.2021.9506509"
+  },
+  "documentation_checks": {
+    "local_links": 93,
+    "broken_links": 0,
+    "selected_model_per_class_rows_match": 12,
+    "source_and_canonical_metric_hashes_unchanged": true,
+    "full_test_suite_rerun": false
+  }
+}

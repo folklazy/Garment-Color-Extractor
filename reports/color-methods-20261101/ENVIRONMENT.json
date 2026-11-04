@@ -1,0 +1,17 @@
+{
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "executable": "/home/skyaidev/folk/Human-Body-Extraction/.venv/bin/python",
+  "packages": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "opencv-python-headless": "5.0.0.93",
+    "pillow": "12.3.0",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.7.0"
+  },
+  "threads": 2,
+  "device": "CPU new M1–M5 / reuse prior T4 MLP artifact",
+  "prediction_timing_ranking": "NOT_MEASURED",
+  "environment_modified": false
+}

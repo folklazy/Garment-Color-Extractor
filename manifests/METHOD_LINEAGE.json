@@ -1,0 +1,28 @@
+{
+  "source_root_logical": "Human-Body-Extraction",
+  "source_relative_path": "Clothing_Color_Extraction_Study/scripts/run_oracle_m1_to_m5_study.py",
+  "source_sha256": "97188b163003e4c033286a7b4034d99f440e40efba67438758d62bb8869d3122",
+  "source_ownership": "Existing first-party research code inspected locally; third-party APIs attributed by package versions, no external model/LUT copied",
+  "adapted_path": "src/garment_color/research_methods.py",
+  "changes": [
+    "No dynamic import/global CUDA or warnings mutation from legacy runner",
+    "M2 renamed fixed-anchor approximation, not published van de Weijer LUT",
+    "Uniform full-mask inputs/erosion match accepted pilot; no Color_ids-based pixel filtering and no merged-upper region substitution",
+    "Clothing only: remove hair estimator/features and unused global supervised head; M5 96D=84+11+1",
+    "Calibration thresholds use separate50Trainingimages, not first1500Trainingregions",
+    "M5 keeps actual HGB/ExtraTrees/prototype blend; classes_ alignment and distribution checks",
+    "HGB early_stoppingFalse fixed180iterations; ET parallelism capped2; no hyperparameter search",
+    "No legacy relaxed-match or copied historical accuracy",
+    "Keep legacy source/outputs unchanged"
+  ],
+  "historical_CCTV_aliases": "evaluate_cctv_color_m1_m5.py assigned M4=M3 and M5=M3; not used",
+  "YOLO_templates_read": [
+    "YOLO_Instance_Segmentation_MOTS20_Scaling_Study/MASTER_RESULTS.md",
+    "YOLO_Instance_Segmentation_MOTS20_Scaling_Study/STUDY_STANDARD.md",
+    "YOLO_Instance_Segmentation_MOTS20_Scaling_Study/DATA_SCHEMA.md",
+    "YOLO_Large_Seg_MOTS20_Benchmark/REPORT.md",
+    "YOLO_Large_Seg_MOTS20_Benchmark/EXPERIMENT_PROTOCOL.md",
+    "YOLO_Large_Seg_MOTS20_Benchmark/RESULTS_SUMMARY_TH.md",
+    "YOLO_Large_Seg_MOTS20_Benchmark/PRESENTATION_SUMMARY_TH.md"
+  ]
+}

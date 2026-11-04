@@ -1,0 +1,125 @@
+{
+  "decision_id": "COLOR_ACTIVE_CANDIDATES_20261104",
+  "status": "ACCEPTED_SCOPE_USER_DELEGATED_SELECTION",
+  "decided_utc": "2026-11-04T03:11:40+00:00",
+  "decided_Asia_Bangkok": "2026-11-04T10:11:40+07:00",
+  "authority": "User explicitly asks to remove candidates from future work, select3-4 truly relevant methods, and explain exclusion. Agent selects3.",
+  "active_count": 3,
+  "active_methods": [
+    "M1",
+    "M4",
+    "T4_MLP_62_64_32_12_v1"
+  ],
+  "excluded_count": 4,
+  "excluded_methods": [
+    "M2",
+    "M3",
+    "M5",
+    "prototype_rules_v2"
+  ],
+  "records": [
+    {
+      "method_id": "M1",
+      "status": "ACTIVE",
+      "reason_code": "INTERPRETABLE_RULE_BASELINE",
+      "reason_TH": "กฎ HSV เป็น baseline ที่อธิบายง่าย ไม่ต้องเรียนรู้จากชุดฝึก และใช้ตรวจว่าการเรียนรู้เพิ่มคุณค่าจากกฎพื้นฐานหรือไม่",
+      "historical_result": {
+        "correct_regions": 393,
+        "regions": 614,
+        "strict_accuracy": 0.6400651465798045,
+        "macroF1_fixed12": 0.5419032673749943
+      }
+    },
+    {
+      "method_id": "M4",
+      "status": "ACTIVE",
+      "reason_code": "CATEGORY_PROTOTYPE_COMPARATOR",
+      "reason_TH": "วิธี LAB prototypes ที่เรียนรู้แยก UPPER/LOWER ได้ macro F1 สูงสุดในผลเดิม มีบทบาทต่างจาก baseline และ MLP และรับ coarse Upper/Lower ได้ตรงกลุ่ม",
+      "historical_result": {
+        "correct_regions": 415,
+        "regions": 614,
+        "strict_accuracy": 0.6758957654723127,
+        "macroF1_fixed12": 0.5807482777848979
+      }
+    },
+    {
+      "method_id": "T4_MLP_62_64_32_12_v1",
+      "status": "ACTIVE",
+      "reason_code": "SELECTED_RESEARCH_CONFIGURATION",
+      "reason_TH": "วิธีที่เลือกไว้เดิม มี strict accuracy สูงสุดและ exported checkpoint จริง เก็บไว้ประเมินการเรียนรู้แบบ neural classifier เทียบกฎและ prototypes",
+      "historical_result": {
+        "correct_regions": 422,
+        "regions": 614,
+        "strict_accuracy": 0.6872964169381107,
+        "macroF1_fixed12": 0.5255135386226435
+      },
+      "readiness_gate": "Requires native garment category5/7/9/12. Sapiens Upper/Lower labels cannot silently supply Coat/Pants/Skirt subtype. Explicit validated category contract needed before new downstream evaluation; no heuristic split or weight change authorized here."
+    },
+    {
+      "method_id": "M2",
+      "status": "EXCLUDED_FROM_FUTURE_ROUNDS",
+      "reason_code": "LOW_PRIORITY_CUSTOM_PROJECTION",
+      "reason_TH": "fixed-anchor projection ที่ดัดแปลงเอง ไม่ใช่ published learned color-name LUT ต้อง fit projection/calibration เพิ่มแต่ไม่มีบทบาทจำเป็นในคำถามกฎเทียบต้นแบบเทียบ neural และผลเดิมต่ำทั้ง accuracy/macro F1 ไม่ตัดเพียงเพราะคะแนนต่ำอย่างเดียว",
+      "historical_result": {
+        "correct_regions": 339,
+        "regions": 614,
+        "strict_accuracy": 0.5521172638436482,
+        "macroF1_fixed12": 0.2905337077344366
+      }
+    },
+    {
+      "method_id": "M3",
+      "status": "EXCLUDED_FROM_FUTURE_ROUNDS",
+      "reason_code": "REDUNDANT_ACTIVE_PROTOTYPE_VARIANT",
+      "reason_TH": "เป็น global variant ของ prototype family เดียวกับ M4 คำถามรอบต่อไปเน้นเลือกวิธีใช้จริง ไม่ได้ทดสอบผล category-conditioning จึงไม่คงเป็น active หรือ automatic ablation candidate",
+      "historical_result": {
+        "correct_regions": 406,
+        "regions": 614,
+        "strict_accuracy": 0.6612377850162866,
+        "macroF1_fixed12": 0.5634612706004382
+      },
+      "retained_implementation_dependency": "M4 uses shared global/fallback helpers; removing the M3 candidate does not authorize deleting those helpers or changing M4."
+    },
+    {
+      "method_id": "M5",
+      "status": "EXCLUDED_FROM_FUTURE_ROUNDS",
+      "reason_code": "COMPLEX_HYBRID_OUTSIDE_FOCUSED_COMPARISON",
+      "reason_TH": "ต้องดูแล HGB/ExtraTrees และ prototype blend สอง garment heads เพิ่ม ขณะที่ M4 สูงกว่าทั้งสอง aggregate metrics เดิม จึงไม่จำเป็นต่อสามแนวทางที่เลือก ไม่อ้างว่าพิสูจน์ว่าช้าหรือด้อยทุก category",
+      "historical_result": {
+        "correct_regions": 407,
+        "regions": 614,
+        "strict_accuracy": 0.6628664495114006,
+        "macroF1_fixed12": 0.5622373555257657
+      },
+      "lost_coverage": "Historical Coat accuracy leader:107/139=76.98%; excluding M5 is a scope/maintenance trade-off, not per-category dominance."
+    },
+    {
+      "method_id": "prototype_rules_v2",
+      "status": "EXCLUDED_FROM_FUTURE_ROUNDS",
+      "reason_code": "DUPLICATE_BASELINE_ROLE",
+      "reason_TH": "เป็น fixed prototype/rules baseline อีกตัว โดย M1 ให้ baseline แบบ HSV ที่แยกจาก learned LAB ชัดกว่าและคะแนนเดิมสูงกว่า ทั้งสองไม่ได้ algorithm เหมือนกัน แต่ไม่จำเป็นต้องรักษา baseline สองตัวในรอบใหม่",
+      "historical_result": {
+        "correct_regions": 358,
+        "regions": 614,
+        "strict_accuracy": 0.5830618892508144,
+        "macroF1_fixed12": 0.47466272011463545
+      },
+      "compatibility": "Existing default API/rule implementation retained for consumers; not an active benchmark candidate."
+    }
+  ],
+  "historical_full_comparison": "configs/COLOR_METHOD_COMPARISON.json",
+  "historical_results": "reports/color-methods-20261101/METHOD_RESULTS.csv",
+  "historical_selected_method": "registry/SELECTED_METHOD.json",
+  "decision_basis": "Focused future application comparison: interpretable HSV baseline, learned LAB prototypes, learned MLP; scope choice made after observing prior results.",
+  "preregistered": false,
+  "selection_scores_used": "Existing614-region oracle-mask CCIHP selection results; not independent final confirmation.",
+  "excluded_are_reserves": false,
+  "automatic_return_or_exploratory_ablation": false,
+  "future_runners_must_use_active_registry": true,
+  "existing_seven_method_runner": "Historical reproduction only; no automatic new invocation or modification of frozen protocol.",
+  "new_training_inference_or_benchmark_authorized": false,
+  "default_API_changed": false,
+  "files_or_artifacts_deleted": false,
+  "launch_ready_claim": false,
+  "notes": "Dataset/checkpoints/results/history and legacy dependency code retained; exclusions concern future method-level work. Re-entry requires a recorded scope revision, not silent restoration."
+}
