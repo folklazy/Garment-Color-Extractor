@@ -6,6 +6,10 @@ Classify the **observed color of a garment region** using a compact neural netwo
 
 [Method paper / รายละเอียดภาษาไทย](reports/SELECTED_COLOR_METHOD_TH.md) · [Quick start](#quick-start) · [Model identity](registry/SELECTED_METHOD.json) · [Research and evaluation](#research-and-evaluation)
 
+## Active candidates for the next phase
+
+**Exactly three: M1 (HSV rules), M4 (category LAB prototypes), and T4 MLP.** M2, M3, M5 and `prototype_rules_v2` are excluded from future method-comparison rounds, not reserve candidates. The [active registry](registry/ACTIVE_CANDIDATES.json) is authoritative; [Thai keep/exclude rationale](reports/SELECTED_COLOR_METHOD_TH.md#ชุด-candidate-ปัจจุบัน-เหลือ-3-วิธีสำหรับงานต่อ) explains scope, trade-offs and category-input readiness. The completed seven-method results below remain historical evidence. Existing APIs/dependency helpers remain compatible. This scope decision launches no new experiment.
+
 ## Selected method
 
 ```mermaid

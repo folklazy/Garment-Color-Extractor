@@ -1,3 +1,5 @@
+> **Active roster update — 4 November2026:** Future work is limited to **M1/M4/T4 MLP**. M2/M3/M5/Rules v2 are excluded, not reserves. [Authoritative roster](registry/ACTIVE_CANDIDATES.json) / [Thai reasons and trade-offs](reports/SELECTED_COLOR_METHOD_TH.md#ชุด-candidate-ปัจจุบัน-เหลือ-3-วิธีสำหรับงานต่อ). The seven-method comparison below is the completed historical study; its scores, membership and selected winner are preserved.
+
 > **คำตัดสินหลังการเปรียบเทียบ:** ผู้ใช้มอบหมายให้เลือกหนึ่งวิธีหลักแล้ว เลือก **T4_MLP_62_64_32_12_v1** ตาม primary strict accuracy68.73%. อ่าน [method profile แบบบทความวิจัย](reports/SELECTED_COLOR_METHOD_TH.md) และ [selection decision](registry/SELECTED_METHOD.json). ข้อเสนอ shortlist ในเนื้อหาการเปรียบเทียบด้านล่างเป็นบันทึกก่อนคำตัดสินนี้; ผลและข้อได้เปรียบ macro F1 ของ M4 คงเดิม.
 
 # ผลเปรียบเทียบเทคนิคสีเสื้อผ้า 7 วิธี

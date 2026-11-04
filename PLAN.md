@@ -1,3 +1,9 @@
+# Current future scope — three active color candidates
+
+Authoritative active roster: [registry/ACTIVE_CANDIDATES.json](registry/ACTIVE_CANDIDATES.json). Retain M1/M4/T4_MLP_62_64_32_12_v1 only; M2/M3/M5/prototype_rules_v2 are excluded from future rounds with no automatic reserve/ablation status. See [full Thai rationale](reports/SELECTED_COLOR_METHOD_TH.md#ชุด-candidate-ปัจจุบัน-เหลือ-3-วิธีสำหรับงานต่อ). The selected research configuration remains MLP; category-contract readiness is required before downstream integration. A future executable evaluation must declare this active membership in a fresh scoped protocol; the frozen seven-method runner below is for historical reproduction only. No new fit/inference/benchmark is launched by this decision.
+
+## Historical completed plan and selection records
+
 # Observed garment color — current comparison plan
 
 Current authoritative protocol: [EXPERIMENT_PROTOCOL.md](EXPERIMENT_PROTOCOL.md) / [COLOR_METHOD_COMPARISON.json](configs/COLOR_METHOD_COMPARISON.json). Current state: [STUDY_STATE.json](STUDY_STATE.json). Start README → PLAN → protocol → current report.

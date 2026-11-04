@@ -1,5 +1,5 @@
 {
-  "updated_Bangkok": "2026-11-01T03:46:16.797469+07:00",
+  "updated_Bangkok": "2026-11-04T10:11:40+07:00",
   "status": "METHOD_SELECTED_FOR_NEXT_PHASE",
   "algorithm_id": "prototype_rules_v2",
   "package_version": "1.1.0",
@@ -9,7 +9,7 @@
   "historical_benchmark_status": "PRESERVED_NOT_PACKAGE_VALIDATION",
   "trained_M5_artifact_present": true,
   "CCTV_color_GT": "MIXED_OR_UNKNOWN_PROVENANCE_NOT_INDEPENDENTLY_VERIFIED",
-  "next_action": "Use selected T4 MLP in a separately scoped downstream integration/evaluation; preserve input/category contract. No automatic training, inference or API replacement.",
+  "next_action": "Future method-level work uses M1/M4/MLP only after an explicit evaluation scope and valid category-input contract. No automatic return of excluded methods; historical seven-method evidence and existing API remain compatible.",
   "new_user_authorization": "Bounded redesign/color learning and pilot evaluation on T4",
   "current_protocol": "configs/COLOR_METHOD_COMPARISON.json",
   "current_plan": "PLAN.md",
@@ -19,7 +19,7 @@
   "default_API_engine": "prototype_rules_v2",
   "pilot_validation_accuracy": 0.6872964169381107,
   "CCTV_accuracy": null,
-  "updated_utc": "2026-10-31T20:46:16.797244+00:00",
+  "updated_utc": "2026-11-04T03:11:40+00:00",
   "method_comparison": {
     "run_id": "color-methods-20261101",
     "protocol_id": "OBSERVED_GARMENT_COLOR_SEVEN_METHODS_V1",
@@ -45,5 +45,20 @@
   "selected_method": "T4_MLP_62_64_32_12_v1",
   "selection_decision": "registry/SELECTED_METHOD.json",
   "selected_method_report": "reports/SELECTED_COLOR_METHOD_TH.md",
-  "selection_scope": "Highest declared-primary strict accuracy on the completed oracle-region subset; not deployment acceptance"
+  "selection_scope": "Highest declared-primary strict accuracy on the completed oracle-region subset; not deployment acceptance",
+  "active_candidate_registry": "registry/ACTIVE_CANDIDATES.json",
+  "active_candidate_decision_id": "COLOR_ACTIVE_CANDIDATES_20261104",
+  "active_candidates": [
+    "M1",
+    "M4",
+    "T4_MLP_62_64_32_12_v1"
+  ],
+  "excluded_from_future_rounds": [
+    "M2",
+    "M3",
+    "M5",
+    "prototype_rules_v2"
+  ],
+  "future_active_candidate_count": 3,
+  "future_execution_authorized": false
 }
